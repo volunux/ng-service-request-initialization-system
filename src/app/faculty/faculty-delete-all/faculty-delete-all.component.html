@@ -1,0 +1,19 @@
+<div id ='entry-delete-all'>
+
+	<h2> {{title}} </h2>
+
+<app-faculty-get-started></app-faculty-get-started>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' ></app-resource-unavailable>
+
+	<div id ='entry-detail'>
+
+		<p> {{description}} </p>
+
+		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' (ngSubmit) ='deleteAllFaculty()'>
+
+			<button type ='submit' id ='form-btn-submit' class ='btn-submit'> Confirm </button>
+
+		</form>
+
+</div>

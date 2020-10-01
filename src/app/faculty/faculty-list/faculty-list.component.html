@@ -1,0 +1,185 @@
+<h2>{{title}}</h2>
+
+<app-faculty-get-started></app-faculty-get-started>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' ></app-resource-unavailable>
+
+	<p *ngIf ='notificationAvailable' [class] ='{"notification" : true , "fade-in" : fadeIn , "fade-out" : fadeOut}' >{{notificationMessage}}</p>
+
+	<div class ='entry-options'>
+
+		<h3> Entries Options </h3>
+
+		<p><b class ='bold'> Guidelines : </b>A member of the system can use the search input field to search for an entry or entries that exists in the available records. When the inputs becomes 
+
+			valid, the "Submit" button in color purple will be active.</p>
+
+		<p>More than one entry can be deleted or removed from the system or records when the cicle marker beside each entry far left is checked and highlighted, the button that labels for "Delete 
+
+			Many will only become active and enabled when there are more than one entry to delete so that the administrator or moderator or member with privilege can take action.</p>
+
+		<button *ngIf ='entriesSearched' class ='btn-submit' (click) ='clearSearch()' > Clear Search. </button>
+
+		<div class ='search-bar' *ngIf ='facultiesLength'>
+
+			<h4 class ='left'>Search {{systemType}} Reference</h4>
+
+			<form action ='' method ='GET'>
+
+				<select class ='form-control' id ='query' name ='queryType' #qt>
+
+					<option value =''> Search Criteria </option>
+
+					<option value ='num'> Unique Number </option>
+
+					<option value ='status'> Status </option>
+
+				</select>
+
+				<input type ='text' name ='query_value' value ='' #qv (keyup) = '0'>
+
+				<button type ='submit' class ='entry-option-small' [class] ='{"btn-search" : qv.value , "disabled" : !qv.value}' (click) ='searchEntry(qt.value , qv.value)' > Submit </button>
+
+				<button *ngIf ='entriesSearched' class ='btn-submit' (click) ='clearSearch()' > Clear Search. </button>
+
+				<p *ngIf ='entrySearching'> Searching for entry or entries in the records. <span class ='rolling'> ||| </span> </p>
+
+			</form>
+
+		<a class ='entry-option entry-option-small center' [class.hide] ='facultyDeleteList.length < 2' (click) ='deleteManyFaculty()'> Delete Many </a>
+
+</div>
+
+<div *ngIf ='facultiesLength > 0'>
+
+<table class ='entries'>
+
+	<caption class ='bold left'> Entries </caption>
+
+	<colgroup>
+
+		<col class ='index'>
+		<col class ='name'>
+		<col class ='createdAt'>
+		<col class ='shortCode'>
+		<col class ='sec-key'>
+		<col class ='num'>
+		<col class ='changes'>
+
+	</colgroup>
+
+	<thead>
+
+		<tr>
+			<th class ='bold center'> Index </th>
+			<th class ='bold left'> Name </th>
+			<th class ='bold left'> Created At </th> 
+			<th class ='bold center'> Short Code </th>
+			<th class ='bold center'> Secondary Key </th>
+			<th class ='bold center'> Number </th> 
+			<th class ='bold center'> Changes </th>
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<tr *ngFor ='let faculty of faculties , let i = index , trackBy : trackByNum'>
+
+			<td class ='center'> {{i + 1}}. </td>
+			
+			<td> {{faculty.name}} </td>
+			
+			<td class ='center'> {{faculty.createdAt | date : 'fullDate'}} </td>
+			
+			<td class ='center'> {{faculty.shortCode}} </td>
+			
+			<td class ='center'> {{faculty.secondaryKey}} </td>
+			
+			<td class ='center'> {{faculty.num}} </td>
+			
+			<td class =''>
+
+				<a class ='changes-option' href ='/faculty/entry/detail/{{faculty.num}}'>View</a>
+
+				<a class ='changes-option' href ='/faculty/entry/update/{{faculty.num}}'>Update</a>
+				
+				<a class ='changes-option'  href ='/faculty/entry/delete/{{faculty.num}}'>Delete</a>
+
+				<label class="changes-mark">
+
+					<ng-container *ngIf ='facultyDeleteList.length; else normalChecks' >
+
+					<ng-container *ngFor ='let facultyDelete of facultyDeleteList'>
+
+						<input [checked] ='facultyDelete == faculty.num' type="checkbox" #checked  (click) ='addFacultyToDeleteList(faculty.num , checked.checked , i)'>
+
+				  	<span class="checkmark"></span>
+
+					</ng-container>
+
+				</ng-container>
+
+				<ng-template #normalChecks>
+
+				  <input type="checkbox" #checked  (click) ='addFacultyToDeleteList(faculty.num , checked.checked , i)'>
+
+				  <span class="checkmark"></span>
+
+				 </ng-template>
+
+				</label>
+			
+			</td>
+
+		</tr>
+
+		</tbody>
+
+		<tfoot>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td colspan ='3'>
+
+					<ng-container *ngIf ='pageNumber && pageNumber > 1'>
+
+						<a class ='pagination prev center' [routerLink] ='["/faculty" , "entries"]' [queryParams] ='{"page" : pageNumber - 1}' > Prev Entries </a>
+
+					</ng-container>
+
+				</td>
+
+				<td colspan ='9'>
+
+					<ng-container *ngIf ='!(requestRef) && facultiesLength > 10; else entriesEnd'>
+
+						<a class ='pagination next center' [routerLink] ='["/faculty" , "entries"]' [queryParams] ='{"page" : pageNumber + 1}' > Next Entries </a>
+
+					</ng-container>
+
+					<ng-template #entriesEnd>
+
+						<button *ngIf ='facultiesLength > 1' class ='pagination-end float-right center' [disabled] ='true' [class.disabled] ='true' > End of Entries </button>
+
+					</ng-template>
+
+				</td>
+
+			</tr>
+
+		</tfoot>
+
+
+	</table>
+
+</div>
+
+<router-outlet></router-outlet>

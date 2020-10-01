@@ -1,0 +1,47 @@
+<div id ='entry-create'>
+
+	<h2> {{title}} </h2>
+
+	<app-faculty-get-started></app-faculty-get-started>
+
+	<div id ='entry-detail'>
+
+		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' [formGroup] ='facultyForm' (ngSubmit) ='onSubmitFaculty(facultyForm.value)'>
+
+			<div class ='form-group'>
+
+				<label for ='name' class ='form-label bold'> Name * : </label>
+
+				<input type ='text' id ='name' name ='name' placeholder ='Information and Communication Technology' required ='required' formControlName ='name' class ='form-control'>
+
+				<app-faculty-validator [name] ='name'></app-faculty-validator>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='shortCode' class ='form-label bold'> Short Code * : </label>
+
+				<input type ='text' id ='shortCode' name ='shortCode' placeholder ='xyzabds' required ='required' formControlName ='shortCode' class ='form-control'>
+
+				<app-faculty-validator [shortCode] ='shortCode'></app-faculty-validator>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='num' class ='form-label bold'> Number * : </label>
+
+				<input type ='text' id ='num' name ='num' placeholder ='1' required ='required' formControlName ='num' class ='form-control'>
+
+				<app-faculty-validator [num] ='num'></app-faculty-validator>
+
+			</div>
+
+			<button type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!facultyForm.valid'> Submit </button> 
+
+		</form>
+
+	</div>
+
+</div>
