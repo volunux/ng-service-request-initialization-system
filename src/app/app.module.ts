@@ -4,6 +4,8 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { QuillModule } from 'ngx-quill';
+
 import { Api_Token , Api_Config} from './configuration';
 import { ErrorInterceptorService } from './general/error-interceptor.service';
 import { TokenInterceptorService } from './authentication/token-interceptor.service';
@@ -33,6 +35,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    QuillModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
     GeneralModule,

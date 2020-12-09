@@ -1,0 +1,119 @@
+<ng-container *ngIf ='search'>
+
+<div *ngIf ='search.invalid && (search.touched || search.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='search.errors?.required || search.errors?.searchError'> Search parameter of {{systemType}} should be either of the followings
+
+				<ng-container *ngIf ='search.errors?.searchError?.searches'>  
+
+					<ng-container *ngFor ='let sv of search.errors.searchError.searches , let lss = last'>
+
+						{{sv}} <ng-container *ngIf ='lss else iAmNotLast'> . </ng-container>
+
+						<ng-template #iAmNotLast>
+
+							,
+
+						</ng-template>
+
+
+				</ng-container>
+
+				</ng-container>
+
+			</li>
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='payerName'>
+
+	<div *ngIf ='payerName.invalid && (payerName.touched || payerName.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='payerName.errors?.required'> Payer Name of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='payerName.errors?.required || payerName.errors?.minlength'> Payer Name of {{systemType}} cannot be less than 4 characters in length </li>
+			<li *ngIf ='payerName.errors?.required || payerName.errors?.maxlength'> Payer Name of {{systemType}} cannot be greater than 40 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='payerEmail'>
+
+	<div *ngIf ='payerEmail.invalid && (payerEmail.touched || payerEmail.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='payerEmail.errors?.required'> Payer Email Address of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='payerEmail.errors?.required || payerEmail.errors?.minlength'> Payer Email Address of {{systemType}} cannot be less than 4 characters in length </li>
+			<li *ngIf ='payerEmail.errors?.required || payerEmail.errors?.maxlength'> Payer Email Address of {{systemType}} cannot be greater than 40 characters in length </li>
+			<li *ngIf ='payerEmail.errors?.required || payerEmail.errors?.emailAddress'> Payer Email Address should be valid and should conform to standards for example david@gmail.com </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='payerPhone'>
+
+	<div *ngIf ='payerPhone.invalid && (payerPhone.touched || payerPhone.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='payerPhone.errors?.required'> Payer Phone Number of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='payerPhone.errors?.required || payerPhone.errors?.minlength'> Payer Phone Number of {{systemType}} cannot be less than 10 characters in length </li>
+			<li *ngIf ='payerPhone.errors?.required || payerPhone.errors?.maxlength'> Payer Phone Number of {{systemType}} cannot be greater than 14 characters in length </li>
+			<li *ngIf ='payerPhone.errors?.required || payerPhone.errors?.payerPhoneIntl'> Payer Phone Number of {{systemType}} if starting with +234 before the last 10 digits should not be greater than 13 characters in length </li>
+			<li *ngIf ='payerPhone.errors?.required || payerPhone.errors?.payerPhone'> Payer Phone Number of {{systemType}} if not starting with +234 before the last 10 digits should not be greater than 11 characters in length </li>
+		
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='description'>
+
+	<div *ngIf ='description.invalid && (description.touched || description.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='description.errors?.required'> Description of Payment should be provided and cannot be empty </li>			
+			<li *ngIf ='description.errors?.required || description.errors?.minlength'> Description of Payment cannot be less than 4 characters in length </li>
+			<li *ngIf ='description.errors?.required || description.errors?.maxlength'> Description of Payment cannot be greater than 100 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='amt'>
+
+	<div *ngIf ='amt.invalid && (amt.touched || amt.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='amt.errors?.required'> Amount of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='amt.errors?.required || amt.errors?.minlength'> Amount of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='amt.errors?.required || amt.errors?.maxlength'> Amount of {{systemType}} cannot be greater than 8 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+

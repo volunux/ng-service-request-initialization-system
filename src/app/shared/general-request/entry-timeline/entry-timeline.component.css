@@ -1,0 +1,59 @@
+.comment {
+
+	border-bottom : 1px solid lightblue;
+	padding : 10px;
+}
+
+.comment:hover {
+
+	background-color : #fdfdfd;
+}
+
+.comment p {
+
+	line-height : 2.0em !important;
+}
+
+.comment .timestamp {
+
+	font-style : italic;
+	margin-left : 2em;
+	font-size : 10px;
+}
+
+.comment b {
+
+	font-size : 11px;
+	margin-right : 10px;
+}
+
+.comment p.text {
+
+	font-size : 12px;
+}
+
+.comment a.reply-add {
+
+	font-size : 11px;
+	background-color : #290140;
+	color : #a0a7a0;
+	padding : 5px 15px;
+	border-radius : 6px;
+	border : 1.5px solid #ac4bd8;
+}
+
+.comment a.reply-add:hover {
+
+	color : #fff;
+	background-color : #210140;
+}
+
+.replies {
+
+	margin-left : 30px;
+}
+
+.reply {
+
+	margin-top : 20px;
+}

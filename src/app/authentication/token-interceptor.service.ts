@@ -14,9 +14,11 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req : HttpRequest<any> , next : HttpHandler) {
 
-  	let secureReq = req.clone({ 'setHeaders' : {'Authorization' : `Bearer ${this.getToken}` } });
+  	if (req.url.startsWith('https://s3.')) { return next.handle(req); }
+  	
+  	else { let secureReq = req.clone({ 'setHeaders' : {'Authorization' : `Bearer ${this.getToken}` } });
 
-  	return next.handle(secureReq);
+  			return next.handle(secureReq);	}
   }
 
   get getToken() : string {

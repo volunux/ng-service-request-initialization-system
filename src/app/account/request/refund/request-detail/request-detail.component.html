@@ -1,0 +1,45 @@
+<ng-container *ngIf ='entry'>
+
+	<h2> Request Details </h2>
+
+	<ng-container *ngIf ='entry?.applicationNumber'>
+
+		<p> <b class ='bold'> Application Number : </b> {{entry?.applicationNumber}} </p>
+
+	</ng-container>
+
+	<ng-container *ngIf ='entry?.status'>
+
+		<p> <b class ='bold'> Status : </b> {{entry?.status}} </p>
+
+	</ng-container>
+
+	<ng-container *ngIf ='entry?.createdAt'>
+
+		<p> <b class ='bold'> Created At : </b> {{entry?.createdAt | date : 'fullDate'}} </p>
+
+	</ng-container>
+
+		<ng-container *ngIf ='entry?.updatedAt'>
+
+		<p> <b class ='bold'> Updated At : </b> {{entry?.updatedAt | date : 'fullDate'}} </p>
+
+	</ng-container>
+
+	<ng-container *ngIf ='entry?.stage; else noStage'>
+
+		<ng-container *ngIf ='entry?.stage?._id'>
+
+			<p> <b class ='bold'> Stage </b> : {{entry?.stage?._id}} </p>
+
+		</ng-container>
+
+	</ng-container>
+
+	<ng-template #noStage>
+
+			<p> <b class ='bold'> Stage </b> : "Not yet in Stage" </p>
+
+	</ng-template> 
+
+</ng-container>

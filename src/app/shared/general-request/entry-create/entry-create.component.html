@@ -1,0 +1,54 @@
+<div id ='entry-create'>
+
+	<h2> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error'> </app-resource-unavailable>
+
+<ng-container *ngIf ='entryForm'>
+
+<div id ='guidelines'>
+
+	<app-guidelines [system-guideline] ='systemGuideline' > </app-guidelines>
+
+</div>
+
+	<div id ='request-form-max'>
+
+		<form action ='' method ='post' name ='{{view}}-entry-form' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' 
+
+		(ngSubmit) ='createEntry(entryForm.value)'>
+
+			<div class ='form-group'>
+
+				<label for ='message' class ='form-label bold'> Message * : </label>
+
+				<textarea id ='message' name ='message' placeholder ='I am Me' required ='required' autocomplete ='new-message' formControlName ='message' class ='form-control form-textarea'></textarea>
+
+				<app-general-request-validators *ngIf ='message' [system-type] ='systemType' [message] ='message'> </app-general-request-validators>
+
+			</div>
+
+			<ng-container *ngIf ='$controls'>
+
+		<app-attachment-upload [theControl] ='props.key' [theForm] ='entryForm' [submission] = 'submission' [myProps] ='props' [myNumber] ='i + 1'
+
+		(myFile) ='pushFile($event)' *ngFor ='let props of $controls; let i =index;' #attachments> </app-attachment-upload>
+
+	</ng-container>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+		</form>
+
+	</div>
+
+</ng-container>
+
+</div>
+

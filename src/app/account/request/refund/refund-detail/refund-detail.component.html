@@ -1,0 +1,237 @@
+<div id ='entry-view'>
+
+	<h2> {{systemType}} Entry </h2> 
+
+<app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<div *ngIf ='entry' id ='request-entry-detail'>
+
+	<app-request-detail *ngIf ='entry' [entry] ='entry'> </app-request-detail>
+
+	<app-student-detail *ngIf ='entry' [entry] ='entry' > </app-student-detail>
+
+	<ng-container *ngIf ='entry'>
+
+		<ng-container *ngIf ='entry?.signature && entry?.signature.length'>
+
+			<app-signature [entry] ='entry'> </app-signature>
+
+		</ng-container>
+
+	</ng-container>
+
+	<app-refund-entry-options *ngIf ='entry' [view-description] ='view' [link] ='link' [entry] ='entry' [entry-on-review] ='setEntryOnReview' [can-update-entry] ='canUpdateEntry' 
+
+	 [system-type] ='systemType' [view-word] ='viewWord' (onReviewEntry) ='$confirmEntryOnReview($event)'> </app-refund-entry-options>
+
+		<app-file-attachments-two *ngIf ='entry' [entry] ='entry'> </app-file-attachments-two>
+
+
+
+
+<ng-container *ngIf ='entry?.stage'>
+
+	<ng-container *ngIf ="(entry?.stage._id == '1' || entry?.stage._id == 1) && (entry?.status != 'Rejected' && entry?.status != 'Fulfilled')">
+
+	<ng-container *ngIf ='canUpdateEntry'>
+
+		<div id ='entry-detail-form'>
+
+			<h3> Request Options </h3>
+
+			<form action ='/request/refund/entry/{{entry?.slug}}' method ='post' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+					<app-stage-one-two-five *ngIf ='entry' [entry] ='entry' [entry-form] ='entryForm' [status] ='status' [text] ='text' 
+
+					[stage] ='stage' [current-stage] ='currentStage' [system-type] ='systemType'> </app-stage-one-two-five>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+			</form>
+
+		</div>
+
+	</ng-container>
+
+	</ng-container>
+
+</ng-container>
+
+
+<ng-container *ngIf ='entry?.stage'>
+
+	<ng-container *ngIf ="(entry?.stage._id == '2' || entry?.stage._id == 2) && (entry?.status != 'Rejected' && entry?.status != 'Fulfilled')">
+
+	<ng-container *ngIf ='canUpdateEntry2'>
+
+		<div id ='entry-detail-form'>
+
+			<h3> Request Options </h3>
+
+			<form action ='/request/refund/entry/{{entry?.slug}}' method ='post' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+					<app-stage-one-two-five *ngIf ='entry' [entry] ='entry' [entry-form] ='entryForm' [status] ='status' [text] ='text' 
+
+					[stage] ='stage' [current-stage] ='currentStage' [system-type] ='systemType'> </app-stage-one-two-five>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+			</form>
+
+		</div>
+
+	</ng-container>
+
+	</ng-container>
+
+</ng-container>	
+
+
+
+<ng-container *ngIf ='entry?.stage'>
+
+	<ng-container *ngIf ="(entry?.stage._id == '3' || entry?.stage._id == 3)">
+
+	<ng-container *ngIf ='canUpdateEntry3'>
+
+		<div id ='entry-detail-form'>
+
+			<h3> Request Options </h3>
+
+			<form action ='/request/refund/entry/{{entry?.slug}}' method ='post' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+					<app-stage-three *ngIf ='entry' [entry] ='entry' [entry-form] ='entryForm' [status] ='status' [text] ='text' [main-body] ='mainBody'
+
+					[stage] ='stage' [current-stage] ='currentStage' [system-type] ='systemType'> </app-stage-three>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+			</form>
+
+		</div>
+
+	</ng-container>
+
+	</ng-container>
+
+</ng-container>	
+
+
+<ng-container *ngIf ='entry?.stage'>
+
+	<ng-container *ngIf ='canUpdateEntry4'>
+
+		<ng-container *ngIf ='entry?.signature && entry?.signature.length; else noSignature'>
+
+			<ng-container *ngIf ='entry?.signature.length < 2'>
+
+			<ng-container *ngFor ='let signature of entry?.signature'>
+
+				<ng-container *ngIf ='signature._id != userId'>
+
+		<div id ='entry-detail-form'>
+
+			<h3> Request Options </h3>
+
+			<form action ='/request/refund/entry/{{entry?.slug}}' method ='post' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+					<app-stage-four *ngIf ='entry' [entry] ='entry' [entry-form] ='entryForm' [status] ='status' [text] ='text' 
+
+					[stage] ='stage' [current-stage] ='currentStage' [system-type] ='systemType'> </app-stage-four>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Sign </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+			</form>
+
+		</div>
+
+	</ng-container>
+
+	</ng-container>
+
+</ng-container>
+
+	</ng-container>
+
+
+	<ng-template #noSignature>
+
+				<div id ='entry-detail-form'>
+
+			<h3> Request Options </h3>
+
+			<form action ='/request/refund/entry/{{entry?.slug}}' method ='post' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+					<app-stage-four *ngIf ='entry' [entry] ='entry' [entry-form] ='entryForm' [status] ='status' [text] ='text' 
+
+					[stage] ='stage' [current-stage] ='currentStage' [system-type] ='systemType'> </app-stage-four>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Sign </button> 
+
+			<p *ngIf ='formSubmitted'>Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+			</form>
+
+		</div>
+
+	</ng-template>
+
+
+	</ng-container>
+
+</ng-container>	
+
+
+
+
+<ng-container *ngIf ='entry?.stage'>
+
+	<ng-container *ngIf ="(entry?.stage._id == '5' || entry?.stage._id == 5) && (entry?.status != 'Rejected' && entry?.status != 'Fulfilled')">
+
+	<ng-container *ngIf ='canUpdateEntry5'>
+
+		<div id ='entry-detail-form'>
+
+			<h3> Request Options </h3>
+
+			<form action ='/request/refund/entry/{{entry?.slug}}' method ='post' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+					<app-stage-one-two-five *ngIf ='entry' [entry] ='entry' [entry-form] ='entryForm' [status] ='status' [text] ='text' 
+
+					[stage] ='stage' [current-stage] ='currentStage' [system-type] ='systemType'> </app-stage-one-two-five>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'>Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+			</form>
+
+		</div>
+
+	</ng-container>
+
+	</ng-container>
+
+</ng-container>
+
+
+
+
+
+
+
+	</div>
+
+</div>

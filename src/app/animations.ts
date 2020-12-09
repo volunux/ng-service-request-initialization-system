@@ -8,7 +8,7 @@ export const slideInAnimation =
   
   trigger('routeAnimation', [
   
-    transition('faculty <=> faculty-entries' , [
+    transition('dashboard <=> create' , [
   
       style({ position: 'relative' }),
   

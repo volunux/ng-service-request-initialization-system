@@ -1,0 +1,29 @@
+<div id ='entry-create'>
+
+<h2 *ngIf ='title'> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+	<div *ngIf ='entryForm' id ='entry-detail'>
+
+		<form action ='' method ='post' name ='{{view}}-form' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='addEntry(entryForm.value)'>
+
+
+		<app-general-internal-form-input *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [short-code] ='shortCode' [name] ='name' [description] ='description'
+
+		[num] ='num' [status] ='status' [entry] ='null' [general-others] ='generalOthers' [faculty] ='faculty' [no-edit] ='noEdit' > </app-general-internal-form-input>
+
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+		</form>
+
+	</div>
+
+</div>

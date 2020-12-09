@@ -1,0 +1,61 @@
+<ng-container *ngIf ='$view'>
+
+	<ng-container *ngIf ='entry'>
+
+		<div id ='entry-detail-options'>
+
+		<ng-container *ngIf ="entry?.status == 'Review' || entry?.status == 'Update' || entry?.status == 'Fulfilled' || entry?.status == 'Rejected'">
+
+			<a [routerLink] =" ['/request' , link , 'entry' , entry?.slug , 'timeline'] " class ='center'> Timeline </a>
+
+		</ng-container>
+
+		<ng-container *ngIf ="entry?.status == 'Pending'">
+
+			<ng-container *ngIf ="canUpdateEntry">
+
+	<a class ='center' (click) ='setEntryOnReview($event)'> Set Application on Review </a>
+
+<!-- 	<a [routerLink] =" ['/request' , link , 'entry' , entry?.slug , 'review'] " class ='center' (click) ='setEntryOnReview($event)' [disabled] ='p$review'> Set Application on Review </a> -->
+
+			<ng-container *ngIf ='p$review'>
+
+				<p> Your request is being processed. Please kindly be patient and wait while it completes. </p>
+
+			</ng-container>
+
+			</ng-container>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.letter'>
+
+			<a [routerLink] =" ['/request' , 'refund' , 'entry' , entry?.slug , 'letter'] " class ='center'> View Application Letter </a>
+
+		</ng-container>
+
+		<ng-container *ngIf = "entry?.status == 'Review' || entry?.status == 'Update' || entry?.status == 'Transferred'">
+
+			<ng-container *ngIf ="canUpdateEntry">
+
+				<ng-container *ngIf ="$view != 'rf'">
+
+			<a [routerLink] =" ['/request' , link , 'entry' , entry?.slug , 'transfer'] " class ='center'> Transfer or Move Request </a>
+
+				</ng-container>
+
+			</ng-container>
+
+		</ng-container>
+
+		<ng-container *ngIf ="entry?.status == 'Update' || entry?.status == 'Transferred' || $view == 'rf'">
+
+			<a [routerLink] =" ['/request' , link , 'entry' , entry?.slug , 'comment' , 'add'] " class ='center'> Add a Comment </a>				
+
+		</ng-container>
+
+	</div>
+
+	</ng-container>
+
+ </ng-container>

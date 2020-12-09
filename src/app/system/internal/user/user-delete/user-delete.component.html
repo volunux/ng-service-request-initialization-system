@@ -1,0 +1,151 @@
+<h2> {{title}} </h2>
+
+<app-user-get-started></app-user-get-started>
+
+<app-view-description [view-description] ='view'></app-view-description>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'></app-notification-screen>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' ></app-resource-unavailable>
+
+<div *ngIf ='user' id ='entry-delete'>
+
+	<div id ='entry-detail'>
+
+		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='userForm' (ngSubmit) ='deleteUser(userForm.value)'>
+
+			<ng-container *ngIf ='user.firstName'>
+
+			<div class ='form-group'>
+
+				<label for ='firstName' class ='form-label bold'> First Name * : </label>
+
+				<input type ='text' id ='firstName' name ='firstName' placeholder ='Yusuf' required ='required' autocomplete ='new-firstName' formControlName ='firstName' class ='form-control'
+
+				readonly ='readonly'>
+
+				<app-user-validator *ngIf ='firstName' [firstName] ='firstName'></app-user-validator>
+
+			</div>
+
+			</ng-container>
+
+			<ng-container *ngIf ='user.lastName'>
+
+			<div class ='form-group'>
+
+				<label for ='lastName' class ='form-label bold'> Last Name * : </label>
+
+				<input type ='text' id ='lastName' name ='lastName' placeholder ='Musa' required ='required' autocomplete ='new-lastName' formControlName ='lastName' class ='form-control' 
+
+				readonly ='readonly'>
+
+				<app-user-validator *ngIf ='lastName' [lastName] ='lastName'></app-user-validator>
+
+			</div>
+
+			</ng-container>
+
+			<ng-container *ngIf ='user.emailAddress'>
+
+			<div class ='form-group'>
+
+				<label for ='emailAddress' class ='form-label bold'> Email Address * : </label>
+
+				<input type ='text' id ='emailAddress' name ='emailAddress' placeholder ='david@example.com' required ='required' autocomplete ='new-emailAddress' formControlName ='emailAddress' 
+
+				class ='form-control' readonly ='readonly'>
+
+				<app-user-validator *ngIf ='emailAddress' [emailAddress] ='emailAddress'></app-user-validator>
+
+			</div>
+
+			</ng-container>	
+
+			<ng-container *ngIf ='user.country'>
+
+			<div class ='form-group'>
+
+				<label for ='country' class ='form-label bold'> Country * : </label>
+
+				<input type ='text' id ='country' name ='country' placeholder ='Nigeria' required ='required' autocomplete ='new-country' formControlName ='country' class ='form-control'
+
+				readonly ='readonly'>
+
+				<app-user-validator *ngIf ='country' [country] ='country'></app-user-validator>
+
+			</div>
+
+			</ng-container>	
+
+			<ng-container *ngIf ='user.department'>
+
+			<div class ='form-group'>
+
+				<label for ='department' class ='form-label bold'> Department * : </label>
+
+				<input type ='text' id ='department' name ='department' placeholder ='Information and Media Technology' required ='required' autocomplete ='new-department' 
+
+				formControlName ='department' class ='form-control' readonly ='readonly'>
+
+				<app-user-validator *ngIf ='department' [department] ='department'></app-user-validator>
+
+			</div>
+
+
+			</ng-container>	
+
+			<ng-container *ngIf ='user.identityNumber'>
+
+			<div class ='form-group'>
+
+				<label for ='identityNumber' class ='form-label bold'> Identity Number : </label>
+
+				<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' required ='required' autocomplete ='new-identityNumber' formControlName ='identityNumber'
+
+				class ='form-control' readonly ='readonly'>
+
+				<app-user-validator *ngIf ='identityNumber' [identityNumber] ='identityNumber'></app-user-validator>
+
+			</div>
+
+
+			</ng-container>	
+
+			<ng-container *ngIf ='user.role'>
+
+			<div class ='form-group'>
+
+				<label for ='role' class ='form-label bold'> Role * : </label>
+
+				<input type ='text' id ='role' name ='role' placeholder ='Student' required ='required' autocomplete ='new-role' formControlName ='role' class ='form-control' readonly ='readonly'>
+
+				<app-user-validator *ngIf ='role' [role] ='role'></app-user-validator>
+
+			</div>
+
+			</ng-container>	
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!userForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'>Your form is being processed. Please kindly be patient and wait while it completes.</p>
+
+		</form>
+
+			<div class ='entry-options'>
+
+				<h3> Entry Options </h3>
+
+			<a [routerLink] ='["../../../" , "user" , "entry" , "update" , user._id]' class ='entry-option center'> User Update </a>
+
+			<a [routerLink] ='["../../../" , "user" , "entry" , "delete" , user._id]' class ='entry-option center'> User Delete </a>
+
+			<a *ngIf ='user.status == "deactivated"' [routerLink] ='["../../../" , "user" , "entry" , "detail" , user._id , "reactivate"]' class ='entry-option center'> User Reactivate </a>
+
+			<a *ngIf ='user.status == "active"' [routerLink] ='["../../../" , "user" , "entry" , "detail" , user._id , "deactivate"]' class ='entry-option center'> User Deactivate </a>
+
+		</div>
+
+</div>
+
+</div>

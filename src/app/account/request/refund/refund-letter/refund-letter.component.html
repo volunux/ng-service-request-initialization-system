@@ -1,0 +1,27 @@
+<div id ='entry-view'>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' ></app-resource-unavailable>
+
+<div id ='rf-entry'>
+
+	<div id ='letter-content'>
+
+		<ng-container *ngIf ='entry'>
+
+			<ng-container *ngIf ='entry?.letter'>
+
+				<ng-container *ngIf ='entry?.letter.main_body'>
+
+					<div [outerHTML] ='entry?.letter.main_body | replaceTabs'></div>
+
+				</ng-container>
+
+			</ng-container>
+
+		</ng-container>
+
+	</div>
+
+</div>
+
+</div>

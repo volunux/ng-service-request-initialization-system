@@ -1,0 +1,31 @@
+	<div class ='form-group' [formGroup] ='theForm'>
+
+	<label for ='photo-{{myNumber}}' class ='form-label-file bold'> {{myProps.label}} </label>
+
+	<input [style.display] ='"none"' [type] ='myProps.controlType' [name] ='myProps.key' [accept] ='myProps.accepts' id ='photo-{{myNumber}}' (change) ='uploadFile($event , fileImage)' #fileImage>
+
+	<button class ='btn-upload' (click) ='chooseFile($event , fileImage)' #selectFileButton> Choose a File </button>
+
+</div>
+
+<div class ='form-group' id ='file-upload-{{myNumber}}'>
+
+	<button class ='btn btn-add btn-options' id ='btn-add-file-{{myNumber}}' (click) ='addFile($event , fileImage)' #btnAddFile1> add </button>
+
+	<button class ='btn btn-options' id ='btn-del-file-{{myNumber}}' #btnDelFile1 (click) ='deleteUpload($event)' > delete </button>
+
+	<button class ='btn btn-options' id ='btn-can-file-{{myNumber}}' #btnCanFile1 (click) ='cancelUpload($event)' > cancel </button>
+
+	<p class ='' id ='file-upload-progress-{{myNumber}}' #fileUploadProgress1> </p>
+
+	<p class ='' id ='file-upload-error-{{myNumber}}' #fileUploadError1> </p>
+
+	<p class ='' id ='file-upload-error-{{myNumber}}{{myNumber}}' #fileUploadError11> </p>
+
+	<p class ='' id ='file-upload-text-{{myNumber}}' #fileUploadText1> </p>
+
+	<p id ='file-upload-message-{{myNumber}}' #fileUploadMessage1> </p>
+
+	<p id ='file-percent-{{myNumber}}' #filePercent1> </p>
+
+	</div>

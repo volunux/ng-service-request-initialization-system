@@ -1,0 +1,208 @@
+<h2>{{title}}</h2>
+
+<app-user-get-started></app-user-get-started>
+
+<app-view-description [view-description] ='view'></app-view-description>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'></app-notification-screen>
+
+<app-list-entry-options></app-list-entry-options>
+
+		<div class ='search-bar' *ngIf ='usersLength > 0'>
+
+			<h4 class ='left'> Search {{systemType}} Reference </h4>
+
+			<form action ='' method ='GET' autocomplete ='off'>
+
+				<select class ='form-control' id ='query' name ='queryType' [formControl] ='searchCtrl' #qt>
+
+					<option value =''> Search Criteria </option>
+
+					<option value ='role'> Role </option>
+
+					<option value ='level'> Level </option>
+
+					<option value ='emailAddress'> Email Address </option>
+
+					<option value ='identityNumber'> Identity Number </option>
+
+					<option value ='status'> Status </option>
+
+				</select>
+
+				<app-user-validator *ngIf ='search' [search] ='search' (keyup) ='0' ></app-user-validator>
+
+				<input type ='text' name ='queryValue' value =''  autocomplete ='new-queryValue' (keyup) = '0' #qv>
+
+				<button type ='submit' class ='entry-option-small' [class] ='{"btn-search" : qv.value && !validSearch(qt.value) , "disabled" : !qv.value || validSearch(qt.value)}'
+
+				(click) ='searchEntry(qt.value , qv.value)'> Submit </button>
+
+				<button *ngIf ='entriesSearched' class ='btn-submit' (click) ='clearSearch(); qv.value =""; qt.value = ""; '> Clear Search. </button>
+
+				<p *ngIf ='entrySearching'> Searching for entry or entries in the records. <span class ='rolling'> ||| </span> </p>
+
+				<p *ngIf ='refreshing'> Refreshing list of entries in the records. <span class ='rolling'> ||| </span> </p>
+
+			</form>
+
+		<a class ='entry-option entry-option-small center' [class.hide] ='udl.length < 2' (click) ='deleteManyUser()'> Delete Many </a>
+
+</div>
+
+<div *ngIf ='usersLength > 0'>
+
+<table class ='entries'>
+
+	<caption class ='bold left'> Entries </caption>
+
+	<colgroup>
+
+		<col class ='index'>
+		<col class ='full-name'>
+		<col class ='emailAddress'>
+		<col class ='department'>
+		<col class ='level'>
+		<col class ='identity-number'>		
+		<col class ='role'>
+		<col class ='status'>
+		<col class ='changes'>
+
+	</colgroup>
+
+	<thead>
+
+		<tr>
+			<th class ='bold center'> Index </th>
+			<th class ='bold center'> Full Name </th>
+			<th class ='bold center'> Email Address </th>
+			<th class ='bold center'> Department </th>
+			<th class ='bold center'> Level </th>
+			<th class ='bold center'> Identity No. </th>
+			<th class ='bold center'> Role </th>
+			<th class ='bold center'> Status </th>
+			<th class ='bold center'> Changes </th>
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<tr *ngFor ='let user of users , let i = index , trackBy : trackByName'>
+
+			<td class ='center'> {{i + 1}}. </td>
+
+			<ng-template #nilValue>
+
+				<td class ='center'> Nil </td>
+
+			</ng-template>
+			
+			<td class ='center' *ngIf ='user?.firstName; else nilValue'> {{user?.firstName}} {{user?.lastName}} </td>
+
+			<td class ='center' *ngIf ='user.emailAddress; else nilValue'> {{user?.emailAddress}} </td>
+
+			<td class ='center' *ngIf ='user?.department; else nilValue'> {{user?.department | acronym}} </td>
+
+			<td class ='center' *ngIf ='user?.level; else nilValue'> {{user?.level}} </td>
+
+			<td class ='center' *ngIf ='user?.identityNumber; else nilValue'> {{user?.identityNumber}} </td>
+
+			<td class ='center' *ngIf ='user?.role; else nilValue'> {{user?.role}} </td>
+
+			<td class ='center' *ngIf ='user?.status; else nilValue'> {{user?.status}} </td>
+						
+			<td class =''>
+
+				<a class ='changes-option' [routerLink] ='["../" , "entry" , "detail" , user._id]'>View</a>
+
+				<a class ='changes-option' [routerLink] ='["../" , "entry" , "update" , user._id]'>Update</a>
+				
+				<a class ='changes-option'  [routerLink] ='["../" , "entry" , "delete" , user._id]'>Delete</a>
+
+				<label class="changes-mark">
+
+					<ng-container *ngIf ='udl.length; else normalChecks' >
+
+					<ng-container *ngFor ='let userDelete of udl'>
+
+						<input [checked] ='userDelete == user.num' type="checkbox" #checked  (click) ='addUserToDeleteList(user.num , checked.checked , i)'>
+
+				  	<span class="checkmark"></span>
+
+					</ng-container>
+
+				</ng-container>
+
+				<ng-template #normalChecks>
+
+				  <input type="checkbox" #checked  (click) ='addUserToDeleteList(user.num , checked.checked , i)'>
+
+				  <span class="checkmark"></span>
+
+				 </ng-template>
+
+				</label>
+			
+			</td>
+
+		</tr>
+
+		</tbody>
+
+		<tfoot>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+
+				<td colspan ='3'>
+
+					<ng-container *ngIf ='pageNumber && pageNumber > 1'>
+
+						<a class ='pagination prev center' [routerLink] ='["./"]' [queryParams] ='{"page" : pageNumber - 1 == 1 ? null : pageNumber - 1}' > Prev Entries </a>
+
+					</ng-container>
+
+					<ng-template #entriesBegin>
+
+						<a class ='pagination prev center' [routerLink] ='["./"]' > Prev Entries </a>
+
+					</ng-template>
+
+				</td>
+
+				<td colspan ='9'>
+
+					<ng-container *ngIf ='!(requestRef) && usersLength > 10; else entriesEnd'>
+
+						<a class ='pagination next center' [routerLink] ='["./"]' [queryParams] ='{"page" : pageNumber + 1}' > Next Entries </a>
+
+					</ng-container>
+
+					<ng-template #entriesEnd>
+
+						<button *ngIf ='usersLength >= 1' class ='pagination-end float-right center' [disabled] ='true' [class.disabled] ='true' > End of Entries </button>
+
+					</ng-template>
+
+				</td>
+
+			</tr>
+
+		</tfoot>
+
+	</table>
+
+</div>
+
+<app-resource-unavailable id ='error' *ngIf ='error' [error] ='error' ></app-resource-unavailable>
+
+<router-outlet></router-outlet>
+

@@ -1,0 +1,41 @@
+<div *ngIf ='view' id ='guidelines'>
+
+	<h3> Form filling guidelines </h3>
+
+	<p> It is important to the read the list of following guidelines to be able to successfully fill in and submit the form. </p>
+
+	<ul *ngIf ='systemGuideline == "payment"'>
+
+		<li> A Student is only allowed to enter a valid email address </li>
+
+		<li> The payment will be only valid if the student have the amount required to fulfill the request </li>
+
+		<li> Any attempt to circumvent the process or distort or modify pre-defined values which are read-only will not be allowed </li>
+
+	</ul>
+
+	<ul *ngIf ='systemGuideline == "request"'>
+
+		<li> Only Images are allowed to be uploaded in the form input fields. </li>
+
+		<li> Images that are to be uploaded must not exceed 500 kilobyte in size. </li>
+
+		<li> Other Form inputs not requested by this form will be deemed invalid. </li>
+
+		<li> Multiple Image upload for each field are not allowed. </li> 
+
+	</ul>
+
+	<ul *ngIf ='systemGuideline == "file"'>
+
+		<li> Only Images are allowed to be uploaded in the form input fields. </li>
+
+		<li> Images that are to be uploaded must not exceed 500 kilobyte in size. </li>
+
+		<li> Other Form inputs not requested by this form will be deemed invalid. </li>
+
+		<li> Multiple Image upload for each field are not allowed. </li> 
+
+	</ul>
+
+</div>

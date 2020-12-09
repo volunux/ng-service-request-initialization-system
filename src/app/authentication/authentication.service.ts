@@ -18,7 +18,7 @@ import { map , tap } from 'rxjs/operators';
 
 @Injectable({
 
-  providedIn: 'root'
+  'providedIn' : 'root'
 
 })
 
@@ -70,6 +70,46 @@ export class AuthenticationService {
     const { status } = JSON.parse(atob(token.split('.')[1]));
 
     return status;
+
+  }
+
+  get userRole() : string {
+
+    const token : string = this.getToken();
+
+    const { role } = JSON.parse(atob(token.split('.')[1]));
+
+    return role;
+
+  }
+
+  get userDepartment() : string {
+
+    const token : string = this.getToken();
+
+    const { department } = JSON.parse(atob(token.split('.')[1]));
+
+    return department;
+
+  }
+
+  get userFaculty() : string {
+
+    const token : string = this.getToken();
+
+    const { faculty } = JSON.parse(atob(token.split('.')[1]));
+
+    return faculty;
+
+  }
+
+  get userId() : string {
+
+    const token : string = this.getToken();
+
+    const { _id } = JSON.parse(atob(token.split('.')[1]));
+
+    return _id;
 
   }
 

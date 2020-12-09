@@ -4,17 +4,19 @@ import { RouterOutlet } from '@angular/router';
 
 import { slideInAnimation } from './animations';
 
+import { FormControl } from '@angular/forms';
+
 import { AuthenticationService } from './authentication/authentication.service';
 
 @Component({
 
-  selector: 'app-root',
+  'selector' : 'app-root',
   
-  templateUrl: './app.component.html',
+  'templateUrl' : './app.component.html',
   
-  styleUrls: ['./app.component.css'] ,
+  'styleUrls' : ['./app.component.css'] ,
 
-  animations : [slideInAnimation]
+  'animations' : [slideInAnimation] ,
 
 })
 
@@ -27,16 +29,14 @@ export class AppComponent implements OnInit {
 
   }
 
+  
   public token : string;
 
   public myDetails : any;
 
   public ngOnInit() : void {
 
-    this.token = this.authService.getToken();
-
-    this.myDetails = JSON.stringify(this.authService.getCurrentUser());
-  }
+    }
 
    getAnimationData(outlet: RouterOutlet) {
 

@@ -1,0 +1,65 @@
+<div id ='entry-view'>
+
+	<h2> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+	<div *ngIf ='entry' id ='request-entry-detail'>
+
+		<app-request-entry-detail *ngIf ='entry' [entry] ='entry' > </app-request-entry-detail>
+
+		<app-entry-options *ngIf ='entry' [view-description] ='view' [entry] ='entry' [link] ='link' [entry-on-review] ='setEntryOnReview' [can-update-entry] ='canUpdateEntry' 
+
+		(onReviewEntry) ='$confirmEntryOnReview($event)'> </app-entry-options>
+
+		<app-file-attachments-two *ngIf ='entry' [entry] ='entry'> </app-file-attachments-two>
+
+		<ng-container *ngIf ="entry && entry?.status != 'Pending' && entry?.status != 'Fulfilled' && entry?.status != 'Rejected'">
+
+				<ng-container *ngIf ="canUpdateEntry"> 
+
+					<div id ='entry-detail-form'>
+
+						<h3 class ='center' > Update Entry  </h3>
+
+						<form action ='' method ='post' name ='{{view}}-entry-detail' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+							<ng-container *ngIf ='generateCred; else default'>
+
+							<app-request-entry-update-fields *ngIf ='entry' [generate-cred] ='generateCred' [entry] ='entry' [entry-form] ='entryForm' 
+
+								[status] ='status' [text] ='text' [request-username] ='requestUsername' [request-password] ='requestPassword' [system-type] ='systemType'>
+
+							</app-request-entry-update-fields>
+
+							</ng-container>
+
+							<ng-template #default>
+
+							<app-request-entry-update-fields *ngIf ='entry' [entry] ='entry' [entry-form] ='entryForm' 
+
+								[status] ='status' [text] ='text' [system-type] ='systemType'>
+
+							</app-request-entry-update-fields>
+
+						</ng-template>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+						</form>
+
+					</div>
+
+			</ng-container>
+
+	</ng-container>
+
+</div>
+
+</div>

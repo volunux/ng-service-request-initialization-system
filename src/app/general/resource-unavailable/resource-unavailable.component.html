@@ -4,34 +4,56 @@
 
 <p> Resource : {{error.resource}} </p>
 
-<ng-container *ngIf ='error?.error?.message'>
+<ng-container *ngIf ='error?.error?.message; else fieldErr'>
 
 <p [style.color] ='"red"'> Message : {{error.error.message}}</p>
 
-<p> Status : {{error.status}} </p>
-
-<p> Status Text : {{error.statusText}} </p>
-
 </ng-container>
 
-<ng-container *ngIf ='error?.errors && error?.errors?.length'>
+<ng-template #fieldErr>
 
-	<ng-container *ngFor ='let fieldError of error.errors'>
+<ng-container *ngIf ='error?.error?.field; else otherErr'>
 
-<p> Status : {{error.status}} </p>
+<p [style.color] ='"red"'> Message : {{error.error.field.message}}</p>
 
-<p> Status Text : {{error.statusText}} </p>
+	</ng-container>
+
+</ng-template>
+
+<ng-template #otherErr>
+
+<ng-container *ngIf ='error?.error && error.status && errorKeys?.length'>
 
 <h4>List of Errors : </h4>
 
+	<ng-container *ngFor ='let fieldError of errorKeys'>
+
 	<ul class ='validation-errors'>
 
-		<li>{{fieldError.message}}</li>
+		<li>{{error.error[fieldError]?.message}} </li>
 
 	</ul>
 
 	</ng-container>
 
 </ng-container>
+
+</ng-template>
+
+<p *ngIf ='error.status; else noStatusCode'> Status Code : {{error.status}} </p>
+
+<ng-template #noStatusCode>
+
+	<p> Status Code : 00000 </p>
+
+	</ng-template>
+
+<p *ngIf ='error.statusText != "Unknown Error"; else noStatusText'> Status Text : {{error.statusText}} </p>
+
+<ng-template #noStatusText>
+
+	<p> Status Text : This is probably a network error or internal server error. Please check your internet connection or restart your browser and try again or refresh the page.</p>
+
+</ng-template>
 
 </ng-container>

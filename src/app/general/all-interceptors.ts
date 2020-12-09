@@ -13,10 +13,10 @@ import { ErrorHandlerService } from './error-handler.service';
 
 export const appInterceptors : Interceptor[] = [
 
-	{'provide' : ErrorHandler , 'useClass' : ErrorHandlerService } ,
+/*	{'provide' : ErrorHandler , 'useClass' : ErrorHandlerService } ,*/
 
 	{'provide' : HTTP_INTERCEPTORS , 'useClass' : TokenInterceptorService , 'multi' : true} ,
 
-	{'provide' : HTTP_INTERCEPTORS , 'useClass' : ErrorInterceptorService , 'multi' : true }
+/*	{'provide' : HTTP_INTERCEPTORS , 'useClass' : ErrorInterceptorService , 'multi' : true }*/
 
 ];

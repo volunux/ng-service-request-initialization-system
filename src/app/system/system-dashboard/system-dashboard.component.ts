@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
 
-  selector: 'app-system-dashboard',
+  'selector' : 'app-system-dashboard',
 
-  templateUrl: './system-dashboard.component.html',
+  'templateUrl' : './system-dashboard.component.html',
 
-  styleUrls: ['./system-dashboard.component.css']
+  'styleUrls' : ['./system-dashboard.component.css']
 
 })
 
@@ -21,5 +21,7 @@ export class SystemDashboardComponent implements OnInit {
   }
 
   public title : string = 'System Dashboard';
+
+  public view : string = 'upr';
 
 }

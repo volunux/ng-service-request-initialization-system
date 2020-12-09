@@ -18,7 +18,11 @@ const routes: Routes = [
 
 	{'path' : 'system' , 'loadChildren' : () => import('./system/system.module').then(m => m.SystemModule) } ,
 
-	{'path' : 'faculty' , 'loadChildren' : () => import('./faculty/faculty.module').then(m => m.FacultyModule) } ,
+/*	{'path' : 'account/profile' , 'loadChildren' : () => import('./account/profile/profile.module').then(m => m.ProfileModule) } ,
+
+	{'path' : 'request' , 'loadChildren' : () => import('./account/request/request.module').then(m => m.RequestModule) } ,
+
+	{'path' : 'payment' , 'loadChildren' : () => import('./account/payment/payment.module').then(m => m.PaymentModule) } ,*/
 
 	{'path' : 'unauthorized' , 'component' : UnauthorizedComponent , 'canActivate' : [UnauthorizedGuard] } ,
 
@@ -34,4 +38,6 @@ const routes: Routes = [
 
 })
 
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+
+}

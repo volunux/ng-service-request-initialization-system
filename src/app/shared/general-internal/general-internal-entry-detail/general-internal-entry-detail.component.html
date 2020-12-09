@@ -1,0 +1,160 @@
+<h2 *ngIf ='title' > {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<div *ngIf ='entry' id ='entry-view'>
+
+	<div id ='entry-detail'>
+
+	<table>
+
+		<colgroup>
+
+			<col class ='parameter'>
+			<col class ='data'>
+
+		</colgroup>
+
+		<tbody>
+
+			<ng-container *ngIf ='entry?.name'>
+
+			<tr>
+
+				<th class ='bold left'> Name : </th>
+				<td> {{entry?.name}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.createdAt'>
+
+			<tr>
+
+				<th class ='bold left'> Created At : </th>
+				<td> {{entry?.createdAt | date : 'fullDate'}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.updatedAt'>
+
+			<tr>
+
+				<th class ='bold left'> Updated At : </th>
+				<td> {{entry?.updatedAt | date : 'fullDate'}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.secondaryKey'>
+
+			<tr>
+
+				<th class ='bold left'> Secondary Key : </th>
+				<td> {{entry?.secondaryKey}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.shortCode;'>
+
+			<tr>
+
+				<th class ='bold left'> Short Code : </th>
+				<td> {{entry?.shortCode}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.num'>
+
+			<tr>
+
+				<th class ='bold left'> Number : </th>
+				<td> {{entry?.num}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.description'>
+
+			<tr>
+
+				<th class ='bold left'> Description : </th>
+				<td> {{entry?.description}} </td>
+
+			</tr>
+
+		</ng-container>
+
+
+			<ng-container *ngIf ='entry?.requestUsername'>
+
+			<tr>
+
+				<th class ='bold left'> Request Credential Username : </th>
+				<td> {{entry?.requestUsername}} </td>
+
+			</tr>
+
+		</ng-container>
+
+				<ng-container *ngIf ='entry?.requestPassword'>
+
+			<tr>
+
+				<th class ='bold left'> Request Credential Password : </th>
+				<td> {{entry?.requestPassword}} </td>
+
+			</tr>
+
+		</ng-container>
+
+				<ng-container *ngIf ='entry?.faculty'>
+
+			<tr>
+
+				<th class ='bold left'> Faculty : </th>
+				<td> {{entry?.faculty}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.status'>
+
+			<tr>
+
+				<th class ='bold left'> Status : </th>
+				<td> {{entry?.status}} </td>
+
+			</tr>
+
+		</ng-container>
+
+		</tbody>
+
+	</table>
+
+			<div class ='entry-options'>
+
+				<h3> Entry Options </h3>
+
+			<a [routerLink] ='["../../../" , "entry" , "update" , entry?.num]' class ='entry-option center'> {{systemType}} Update </a>
+
+			<a [routerLink] ='["../../../" , "entry" , "delete" , entry?.num]' class ='entry-option center'> {{systemType}} Delete </a>
+
+		</div>
+
+</div>
+
+</div>

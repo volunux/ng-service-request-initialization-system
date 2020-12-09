@@ -1,0 +1,226 @@
+<div id ='general-payment'>
+
+<h2> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+
+<div id ='general-payment-details' *ngIf ='entry'>
+
+	<table>
+
+		<colgroup>
+
+			<col class ='payment-parameters' />
+			<col/>
+
+		</colgroup>
+
+		<tbody>
+
+			<ng-container *ngIf ='entry?.paymentReference'>
+
+				<tr>
+
+					<th class ='left bold' > Student Payment Reference Number : </th>
+
+					<td> <b class ='bold'> {{entry?.paymentReference}} </b> </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.author && entry?.author?.matriculationNumber'>
+
+				<tr>
+
+					<th class ='left bold' > Student Matriculation Number : </th>
+
+					<td> {{entry?.author?.matriculationNumber}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.author && entry?.author?.identityNumber'>
+
+				<tr>
+
+					<th class ='left bold' > Student Identification Number : </th>
+
+					<td> {{entry?.author?.identityNumber}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.amount'>
+
+				<tr>
+
+					<th class ='left bold' > Student Payment Amount </th>
+
+					<td> N = {{entry?.amount}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.fullName'>
+
+				<tr>
+
+					<th class ='left bold' > Payer Name </th>
+
+					<td> {{entry?.fullName}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.emailAddress'>
+
+				<tr>
+
+					<th class ='left bold' > Payer Email Address </th>
+
+					<td> {{entry?.emailAddress}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.phoneNumber'>
+
+				<tr>
+
+					<th class ='left bold' > Payer Phone Number </th>
+
+					<td> {{entry?.phoneNumber}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.department'>
+
+				<tr>
+
+					<th class ='left bold' > Student Department Name </th>
+
+					<td> {{entry?.department}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.faculty'>
+
+				<tr>
+
+					<th class ='left bold' > Student Faculty Name </th>
+
+					<td> {{entry?.faculty}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.description'>
+
+				<tr>
+
+						<th class ='left bold' > Student Payment Description </th>
+
+						<td> {{entry?.description}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.author'>
+
+				<tr>
+
+					<th class ='left bold' > Student Full Name : </th>
+
+					<td> {{entry?.author?.firstName}} {{entry?.author?.lastName}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.status'>
+
+				<tr>
+
+					<th class ='left bold' > Payment Status : </th>
+
+					<td> {{entry?.status | titlecase }} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.refunded'>
+
+				<tr>
+
+					<th class ='left bold' > Refunded </th>
+
+					<td> {{entry?.refunded}} </td>
+
+				</tr>
+
+			</ng-container>
+
+			<ng-container *ngIf ='true'>
+
+				<td colspan ='2'>
+
+					<button href ='#' class ='entry-option center' onclick ='print()'> Print </button>
+
+				</td>
+
+			</ng-container>
+
+		</tbody>
+
+			<ng-container *ngIf ='canRefundDepartmentPayment && entry.paymentType == "department" && !entry.refunded && userDepartment == entry?.department'>
+
+				<tfoot class ='refund option'>
+
+					<td colspan ='2'>
+
+							<button class ='entry-option center' (click) ='refundEntry()' > Refund </button>
+
+					</td>
+
+				</tfoot>
+
+			</ng-container>
+
+			<ng-container *ngIf ='canRefundFacultyPayment && entry.paymentType == "faculty" && !entry.refunded && userFaculty == entry?.faculty'>
+
+				<tfoot class ='refund option'>
+
+					<td colspan ='2'>
+
+							<button class ='entry-option center' (click) ='refundEntry()'> Refund </button>
+
+					</td>
+
+				</tfoot>
+
+			</ng-container>
+
+	</table>
+
+
+</div>
+
+</div>

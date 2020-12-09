@@ -1,0 +1,23 @@
+<ng-container *ngIf ='entry'>
+
+	<ng-container *ngIf ='entry?.documents && entry?.documents?.length'>
+
+		<div id ='entry-details-attachment'>
+
+			<h3> File Attachments </h3>
+
+			<ul>
+
+				<li *ngFor ='let doc of entry?.documents; let i = index'>
+
+					<a href ='{{doc?.location}}' class ='entry-attachment'> File Attachment {{ i + 1 }} </a>
+
+				</li>
+
+			</ul>
+
+		</div>
+
+	</ng-container>
+
+</ng-container>

@@ -1,0 +1,47 @@
+<ng-container *ngIf ='entry'>
+
+<div [formGroup] ='entryForm'>
+
+<div class ='form-group' *ngIf ='stage'>
+
+	<input type ='hidden' name ='stage' formControlName ='stage'>
+
+	<app-general-request-validators *ngIf ='stage' [system-type] ='systemType' [stage] ='stage'> </app-general-request-validators>
+
+</div>
+
+	<div class ='form-group' *ngIf ='text'>
+
+		<input type ='hidden' name ='text' id ='text' formControlName ='text'>
+
+	<app-general-request-validators *ngIf ='text' [system-type] ='systemType' [text] ='text'> </app-general-request-validators>
+
+	</div>
+
+<ng-container>
+
+<div id ='letter-writing' class ='form-group' *ngIf ='main_body'>
+
+		<label for ='text' class ='form-label bold'> Letter </label>
+
+<quill-editor formControlName ='main_body'></quill-editor>
+
+	<app-general-request-validators *ngIf ='main_body' [system-type] ='systemType' [main-body] ='main_body'></app-general-request-validators>
+
+</div>
+
+</ng-container>
+
+		<div class ='form-group'>
+
+			<p> <b class ='bold'> By clicking on the "Submit" button , the request will be forwarded to the HOD and Dean for endorsement on whether the fees paid will be reverted to the student 
+
+				account. 
+
+			</b> </p>
+
+		</div>
+
+		</div>
+
+	</ng-container>

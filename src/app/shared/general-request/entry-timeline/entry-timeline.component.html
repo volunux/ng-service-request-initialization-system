@@ -1,0 +1,200 @@
+<div id ='general-timeline'>
+
+	<div id ='general-entry-details'>
+
+		<h2> Request Details </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' ></app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' ></app-resource-unavailable>
+
+		<ng-container *ngIf ='entry'>
+
+			<ng-container *ngIf ='entry?.message'>
+
+				<p> <b class ='bold'> Message : </b> {{entry?.message}} </p>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.status'>
+
+				<p> <b class ='bold'> Request Status : </b> {{entry?.status}} </p>
+
+			</ng-container>
+
+			<ng-container *ngIf ='entry?.stage'>
+
+				<ng-container *ngIf ='entry?.stage == "4"'>
+
+					<div id ='entry-detail-options'>
+
+						<p> <a [routerLink] ="['/request' , 'refund' , 'entry' , entry?.slug , 'letter']"> View Letter </a> </p>
+
+					</div>
+
+				</ng-container>
+
+			</ng-container>
+
+		</ng-container>
+
+	<ng-container *ngIf ='comments && comments?.length != 0; else noComments'>
+
+		<div class ='comments'>
+
+			<h3> Timeline </h3>
+
+			<ng-container *ngFor ='let comment of comments; let i =index'>
+
+				<div class ='comment'>
+
+					<p> <b class ='bold'> {{i + 1}} </b> <small class ='timestamp'> {{comment?.updatedAt | date : 'longDate'}} </small> </p>
+
+					<ng-container *ngIf ='comment?.author; else anonymousTemplate'>
+
+						<p class ='author'> <small> <b class ='bold'> {{comment?.author.firstName}} {{comment?.author.lastName}} </b> </small> </p>
+
+					</ng-container>
+
+					<ng-template #anonymousTemplate>
+
+						<p class ='author'> <b class ='bold'> Anonymous </b> </p>
+
+					</ng-template>
+
+					<ng-container *ngIf ='comment?.entryHandler'>
+
+						<p class ='author'> <small> <b class ='bold'> Request Handler : </b>{{comment?.entryHandler.firstName}} {{comment?.entryHandler.lastName}} </small> </p>
+
+					</ng-container>
+
+					<ng-container *ngIf ='comment?.text'>
+
+						<p class ='text'> <b class ='bold'> Message : </b> {{comment?.text}} </p>
+
+					</ng-container>
+
+					<ng-container *ngIf ="comment?.status == 'Update' && entry?.status == 'Update' && entry?.status != 'Fulfilled' && entry?.status != 'Rejected' && comment?.status != 'Review' ">
+
+						<ng-container *ngIf ='comment?.replies == 0'>
+
+							<a id ='{{comment?.slug}}' class ='reply-add' [routerLink] ="['/request' , link , 'entry' , entry?.slug , 'comment' , comment?.slug , 'reply' , 'add']"> Reply </a>
+
+						</ng-container>
+
+					</ng-container>
+
+					<ng-container *ngIf ="comment?.status == 'Review' && entry?.status != 'Fulfilled' && entry?.status != 'Rejected' && view == 'rf'">
+
+						<ng-container *ngIf ='comment?.replies == 0 && i != 0'>
+
+							<a id ='{{comment?.slug}}' class ='reply-add' [routerLink] ="['/request' , link , 'entry' , entry?.slug , 'comment' , comment?.slug , 'reply' , 'add']"> Reply </a>
+
+						</ng-container> 						
+
+					</ng-container>
+
+					<ng-container *ngIf ='comment?.replies && comment?.replies?.length != 0'>
+
+						<div class ='replies'>
+
+							<ng-container *ngFor ='let reply of comment?.replies; let j =index'>
+
+								<div class ='reply'>
+
+									<ng-container *ngIf ='comment.updatedAt'>
+
+									<p> <b class ='bold'> {{j + 1}} </b> <small class ='timestamp'> {{comment?.updatedAt | date : 'longDate'}} </small> </p>
+
+								</ng-container>
+
+									<ng-container *ngIf ='reply?.author; else anonymousTemplate1'>
+
+										<p class ='author'> <small> <b class ='bold'> Author : {{reply?.author.firstName}} {{reply?.author.lastName}} </b> </small> </p>
+
+									</ng-container>
+
+									<ng-template #anonymousTemplate1>
+
+										<p class ='author'> <small> <b class ='bold'> Anonymous </b> </small> </p>
+
+									</ng-template>
+
+									<ng-container *ngIf ='reply?.entryHandler'>
+
+										<p class ='author'> <small> <b class ='bold'> Request Handler : </b>{{reply?.entryHandler.firstName}} {{reply?.entryHandler.lastName}} </small> </p>
+
+									</ng-container>
+
+									<ng-container *ngIf ='reply?.text'>
+
+										<p class ='text'> <b class ='bold'> Message : </b>{{(reply?.commentAuthorName ? '@' + reply?.commentAuthorName : '')}}  {{reply?.text | replaceLineBreak}} </p>
+
+									</ng-container>
+
+								</div>
+
+							</ng-container>
+
+						</div>
+
+					</ng-container>
+
+				</div>
+
+			</ng-container>
+
+		</div>
+
+	</ng-container>
+
+	<ng-template #noComments>
+
+		<div class ='comments'>
+
+			<p> Comments entries not available for this entry. </p>
+
+		</div>
+
+	</ng-template>
+
+</div>
+
+		<div id ='entry-detail-options' *ngIf ='entry'>
+
+			<ng-container *ngIf ="entry?.status == 'Review' || entry?.status == 'Update' || entry?.status == 'Fulfilled' || entry?.status == 'Rejected'">
+
+				<a [routerLink] ="['/request' , link , 'entry' , entry?.slug , 'timeline']" class ='center'> Timeline </a>
+
+			</ng-container>
+
+			<ng-container *ngIf ="entry?.status == 'Review' || entry?.status == 'Update'">
+
+				<ng-container *ngIf ='canUpdateEntry'>
+
+					<ng-container *ngIf ='view != "rf"'>
+
+						<a [routerLink] ="['/request' , link , 'entry' , entry?.slug , 'transfer']" class ='center'> Transfer or Move Request </a>
+
+					</ng-container>
+
+				</ng-container>
+
+			</ng-container>
+
+			<ng-container *ngIf ="entry?.status == 'Update'">
+
+				<a [routerLink] ="['/request' , link , 'entry' , entry?.slug , 'comment' , 'add']" class ='center'> Add a Comment </a>
+
+			</ng-container>
+
+			<ng-container *ngIf ='view'>
+
+					<a [routerLink] ="['/request' , link , 'entry' , 'detail' , entry?.slug ]" class ='center'> Entry Detail </a>
+
+			</ng-container>
+
+		</div>
+
+</div>
+

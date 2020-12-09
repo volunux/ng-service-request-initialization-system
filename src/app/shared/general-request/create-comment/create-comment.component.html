@@ -1,0 +1,37 @@
+<div id ='general-entry'>
+
+	<h2> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error'> </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<app-request-status *ngIf ='entry' [entry] ='entry' [system-type] ='systemType'> </app-request-status>
+
+	<div id ='comment-form' *ngIf ='entry'>
+
+			<form action ='' method ='post' name ='{{view}}-comment-form' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='commentForm' 
+
+			(ngSubmit) ='addCommentToEntry(commentForm.value)'>
+
+				<div class ='form-group'>
+
+				<label for ='text' class ='form-label bold'> Message </label>
+
+				<textarea name ='text' id ='text' required ='required' autocomplete ='new-text' formControlName ='text'> </textarea>
+
+				<app-general-request-validators *ngIf ='text' [text] ='text'></app-general-request-validators>
+
+						</div>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!commentForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+				</form>
+
+			</div>
+
+</div>

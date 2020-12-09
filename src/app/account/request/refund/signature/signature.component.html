@@ -1,0 +1,11 @@
+	<ng-container *ngIf ='entry && entry?.signature && entry?.signature.length'>
+
+		<h2> List of Signatures </h2>
+
+		<ng-container *ngFor ='let signature of entry?.signature'>
+
+			<li> Name {{signature.firstName}} {{signature.lastName}} </li>
+
+		</ng-container>
+
+	</ng-container>

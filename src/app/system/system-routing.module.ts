@@ -29,7 +29,7 @@ const routes: Routes = [
 
 					{'path' : '' , 'component' : SystemDashboardComponent } ,
 
-					{'path' : 'department' , 'loadChildren' : () => import('./department/department.module').then(m => m.DepartmentModule) } 
+					{'path' : 'internal' , 'loadChildren' : () => import('./internal/internal.module').then(m => m.InternalModule) } ,
 
 				]
 

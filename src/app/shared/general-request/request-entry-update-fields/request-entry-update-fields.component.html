@@ -1,0 +1,65 @@
+<ng-container *ngIf ='entry'>
+
+<div [formGroup] ='entryForm'>
+
+<div class ='form-group'>
+
+	<label for ='status' class ='form-label bold' > Entry Status </label>
+
+	<select name ='status' id ='status' class ='form-control' formControlName ='status'>
+
+		<option value =''> </option>
+
+		<ng-container *ngIf ='entry'>
+
+			<ng-container *ngIf ='entry?.status'>
+
+				<option *ngIf ='entry?.status != "Update"' value ='Update'> Update </option>
+				<option value ='Rejected'> Reject </option>
+				<option value ='Fulfilled'> Approve </option>
+
+			</ng-container>
+
+		</ng-container>
+
+	</select>
+
+	<app-general-request-validators *ngIf ='status' [system-type] ='systemType' [status] ='status' class ='status'></app-general-request-validators>
+
+</div>
+
+	<div class ='form-group'>
+
+		<label for ='text' class ='form-label bold'> Message </label>
+
+		<textarea name ='text' id ='text' formControlName ='text'> </textarea>
+
+	<app-general-request-validators *ngIf ='text' [system-type] ='systemType' [text] ='text' class ='entry-text'></app-general-request-validators>
+
+	</div>
+
+
+
+	<ng-container *ngIf ='generateCred == "csif" && status.value == "Fulfilled"'>
+
+		<app-generate-username-password *ngIf ='entry' [request-username] ='requestUsername' [request-password] ='requestPassword' [system-type] ='systemType' 
+
+		[entry] ='entry' [entry-form] ='entryForm' [generate-cred] ='generateCred' [status] ='status'> 
+
+		</app-generate-username-password>
+
+	</ng-container>
+
+		<ng-container *ngIf ='generateCred == "passwords" && status.value == "Fulfilled"'>
+
+		<app-generate-password *ngIf ='entry' [request-password] ='requestPassword' [system-type] ='systemType' [entry] ='entry' [entry-form] ='entryForm' 
+
+		 [generate-cred] ='generateCred' [status] ='status'> 
+
+		</app-generate-password>
+
+	</ng-container>
+
+		</div>
+
+	</ng-container>

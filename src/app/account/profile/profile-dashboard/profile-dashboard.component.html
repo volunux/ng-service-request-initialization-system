@@ -1,0 +1,59 @@
+<h2 *ngIf ='title'> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
+
+<div *ngIf ='systemType' id ='dashboard'>
+
+<ul>
+
+	<li>
+
+		<a [routerLink] ='["../detail"]' class ='center'> {{systemType}} Detail </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["../update"]' class ='center'> {{systemType}} Update </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["../deactivate"]' class ='center'> {{systemType}} Deactivate </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["../reactivate"]' class ='center'> {{systemType}} Reactivate </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='[ "../" , "change-password"]' class ='center'> Change Password </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["../change-display"]' class ='center'> Update Display & Signature </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["request"]' class ='center'> Manage Request </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["payment"]' class ='center'> Manage Payment </a>
+
+	</li>
+
+</ul>
+
+</div>

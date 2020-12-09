@@ -1,0 +1,70 @@
+<div id ='entry-view'>
+
+	<h2> {{systemType}} Entry </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+	<div *ngIf ='entry' id ='request-entry-detail'>
+
+		<app-request-entry-detail *ngIf ='entry' [entry] ='entry'></app-request-entry-detail>
+
+		<ng-container *ngIf ="entry && entry?.status != 'Pending' && entry?.status != 'Fulfilled' && entry?.status != 'Rejected'">
+
+				<ng-container *ngIf ="canUpdateEntry"> 
+
+					<div id ='transfer-form'>
+
+						<h3 class ='center'> Request Options </h3>
+
+						<form action ='' method ='post' name ='{{view}}-entry-detail' [formGroup] ='transferForm' (ngSubmit) ='updateEntry(transferForm.value)'>
+
+							<ng-container *ngIf ='entryOthers && entryOthers?.units && entryOthers?.units?.length'>
+
+							<div class ='form-group'>
+
+								<label for ='unit' class ='form-label bold'> Set Request new Unit or Office * : </label>
+
+								<select name ='unit' id ='unit' class ='form-control' required ='required' formControlName ='unit'>
+
+									<option value =''> </option> 
+
+									<option *ngFor ='let unit of entryOthers.units' [value] ='unit._id'> {{unit._id}} </option> 
+
+								</select>
+
+								<app-general-request-validators [unit] ='unit'> </app-general-request-validators>
+
+							</div>
+
+						</ng-container>
+
+							<div class ='form-group'>
+
+								<label for ='text' class ='form-label bold'> Message </label>
+
+								<textarea name ='text' id ='text' formControlName ='text'> </textarea>
+
+								<app-general-request-validators [text] ='text'> </app-general-request-validators>
+
+							</div>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!transferForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'>Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+						</form>
+
+					</div>
+
+			</ng-container>
+
+	</ng-container>
+
+
+</div>
+
+</div>

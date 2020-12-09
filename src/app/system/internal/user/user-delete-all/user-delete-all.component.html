@@ -1,0 +1,27 @@
+<div id ='entry-delete-all'>
+
+	<h2> {{title}} </h2>
+
+<app-user-get-started></app-user-get-started>
+
+<app-view-description [view-description] ='view'></app-view-description>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'></app-notification-screen>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error'></app-resource-unavailable>
+
+	<div id ='entry-detail'>
+
+		<app-delete-all-entry *ngIf ='entryType' [type] ='entryType' ></app-delete-all-entry>
+
+		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' (ngSubmit) ='deleteAllUser()'>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' class ='btn-submit'> Confirm </button>
+
+			<p *ngIf ='formSubmitted'>Your form is being processed. Please kindly be patient and wait while it completes.</p>
+
+		</form>
+
+</div>
+
+</div>

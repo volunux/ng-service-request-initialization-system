@@ -95,7 +95,7 @@ export class SignUpComponent implements OnInit {
 
     'identityNumber' : ['' , [Validators.maxLength(30)] ] , 'matriculationNumber' : ['' , [Validators.maxLength(30)] ] ,
 
-    'about' : ['' , [Validators.maxLength(4) , Validators.maxLength(300)] ] ,
+    'about' : ['' , [Validators.minLength(10) , Validators.maxLength(300)] ] ,
 
   } , {'validators' : firstLastNames() });
   
@@ -113,7 +113,11 @@ export class SignUpComponent implements OnInit {
 
           this.router.navigate(['/']);  } ,
 
-          (error) => { this.error = {...error , 'resource' : error.resource };  });
+          (error) => { this.error = {...error , 'resource' : error.resource };  
+
+          return window.scrollTo(0 , 0);
+
+          });
 
   }
 

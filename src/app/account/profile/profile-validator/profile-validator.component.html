@@ -1,0 +1,158 @@
+<ng-container *ngIf ='firstName'>
+
+	<div *ngIf ='firstName.invalid && (firstName.touched || firstName.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='firstName.errors?.required'> First Name of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='firstName.errors?.required || firstName.errors?.minlength'> First Name of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='firstName.errors?.required || firstName.errors?.maxlength'> First Name of {{systemType}} cannot be greater than 20 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='lastName'>
+
+	<div *ngIf ='lastName.invalid && (lastName.touched || lastName.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='lastName.errors?.required'> Last Name of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='lastName.errors?.required || lastName.errors?.minlength'> Last Name of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='lastName.errors?.required || lastName.errors?.maxlength'> Last Name of {{systemType}} cannot be greater than 20 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='emailAddress'>
+
+	<div *ngIf ='emailAddress.invalid && (emailAddress.touched || emailAddress.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='emailAddress.errors?.required'> Email Address of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.minlength'> Email Address of {{systemType}} cannot be less than 7 characters in length </li>
+			<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.maxlength'> Email Address of {{systemType}} cannot be greater than 50 characters in length </li>
+			<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.emailAddress'> Email Address must be valid and should conform to standards for example david@gmail.com </li>
+			<li *ngIf ='emailAddress.errors?.emailAddressService'> Email Address cannot be used at the moment because it is already taken by another user. Please input another email address </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='level'>
+
+	<div *ngIf ='level.invalid && (level.touched || level.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='level.errors?.required'> Level of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='level.errors?.required || level.errors?.minlength'> Level of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='level.errors?.required || level.errors?.maxlength'> Level of {{systemType}} cannot be greater than 50 characters in length </li>
+			<li *ngIf ='level.errors?.Level'> Level of {{systemType}} should be available from existing record before it can be considered valid </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='country'>
+
+	<div *ngIf ='country.invalid && (country.touched || country.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='country.errors?.required'> Country of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='country.errors?.required || country.errors?.minlength'> Country of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='country.errors?.required || country.errors?.maxlength'> Country of {{systemType}} cannot be greater than 150 characters in length </li>
+			<li *ngIf ='country.errors?.Country'> Country of {{systemType}} should be available from existing record before it can be considered valid </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='identityNumber'>
+
+	<div *ngIf ='identityNumber.invalid && (identityNumber.touched || identityNumber.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='identityNumber.errors?.required'> Identity Number of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='identityNumber.errors?.required || identityNumber.errors?.minlength'> Identity Number of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='identityNumber.errors?.required || identityNumber.errors?.maxlength'> Identity Number of {{systemType}} cannot be greater than 30 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='password'>
+
+	<div *ngIf ='password.invalid && (password.touched || password.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='password.errors?.required'> Password of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='password.errors?.required || password.errors?.minlength'> Password of {{systemType}} cannot be less than 7 characters in length </li>
+			<li *ngIf ='password.errors?.required || password.errors?.maxlength'> Password of {{systemType}} cannot be greater than 35 characters in length </li>
+			<li *ngIf ='password.errors?.simplePassword'> Password of {{systemType}} is too simple and will not be allowed in this system. Please input another type of password </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='newPassword'>
+
+	<div *ngIf ='newPassword.invalid && (newPassword.touched || newPassword.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='newPassword.errors?.required'> New Password of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='newPassword.errors?.required || newPassword.errors?.minlength'> New Password of {{systemType}} cannot be less than 7 characters in length </li>
+			<li *ngIf ='newPassword.errors?.required || newPassword.errors?.maxlength'> New Password of {{systemType}} cannot be greater than 35 characters in length </li>
+			<li *ngIf ='newPassword.errors?.simplePassword'> New Password of {{systemType}} is too simple and will not be allowed in this system. Please input another type of newPassword </li>
+			<li *ngIf ='newPassword.errors?.currentAndNew'> New Password of {{systemType}} should not be equal to initial password </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='confirmPassword'>
+
+	<div *ngIf ='confirmPassword.invalid && (confirmPassword.touched || confirmPassword.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='confirmPassword.errors?.required'> Confirmation Password of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='confirmPassword.errors?.required || confirmPassword.errors?.minlength'> Confirmation Password of {{systemType}} cannot be less than 7 characters in length </li>
+			<li *ngIf ='confirmPassword.errors?.required || confirmPassword.errors?.maxlength'> Confirmation Password of {{systemType}} cannot be greater than 35 characters in length </li>
+			<li *ngIf ='confirmPassword.errors?.simplePassword'> Confirmation Password of {{systemType}} is too simple and will not be allowed in this system. Please input another type of confirmPassword </li>
+			<li *ngIf ='confirmPassword.errors?.confirmPassword'> Confirmation Password of {{systemType}} should be equal to New password of {{systemType}} </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>

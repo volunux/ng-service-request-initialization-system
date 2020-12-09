@@ -1,0 +1,37 @@
+<h2 *ngIf ='title'> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<div *ngIf ='entry' id ='entry-delete'>
+
+	<div id ='entry-detail'>
+
+		<form action ='' method ='post' name ='{{view}}-form' enctype ='application/x-www-form-urlencoded' [formGroup] ='entryForm' (ngSubmit) ='deleteEntry(entryForm.value)'>
+
+		<app-general-internal-form-input *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [short-code] ='shortCode' [name] ='name' [description] ='description'
+
+		[num] ='num' [status] ='status' [entry] ='null' [no-edit] ='noEdit' > </app-general-internal-form-input>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+		</form>
+
+			<div class ='entry-options'>
+
+				<h3> Entry Options </h3>
+
+			<a [routerLink] ='["../../../" , "entry" , "detail" , entry?.num]' class ='entry-option center'> {{systemType}} Detail </a>
+
+			<a [routerLink] ='["../../../" , "entry" , "update" , entry?.num]' class ='entry-option center'> {{systemType}} Update </a>
+
+		</div>
+
+</div>
+
+</div>

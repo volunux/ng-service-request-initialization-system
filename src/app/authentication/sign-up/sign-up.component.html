@@ -122,7 +122,7 @@
 
 			</div>
 
-			<ng-container *ngIf ='userOthers'>
+			<ng-container *ngIf ='userOthers && userOthers.departments'>
 
 			<div class ='form-group'>
 
@@ -154,7 +154,7 @@
 
 		</ng-container>
 
-			<ng-container *ngIf ='userOthers'>
+			<ng-container *ngIf ='userOthers && userOthers.faculties'>
 
 			<div class ='form-group'>
 
@@ -186,7 +186,7 @@
 
 		</ng-container>
 
-			<ng-container *ngIf ='userOthers'>
+			<ng-container *ngIf ='userOthers && userOthers.levels'>
 
 			<div class ='form-group'>
 
@@ -218,7 +218,7 @@
 
 		</ng-container>
 
-			<ng-container *ngIf ='userOthers'>
+			<ng-container *ngIf ='userOthers && userOthers.countries'>
 
 			<div class ='form-group'>
 
@@ -328,7 +328,7 @@
 						<p>
 
 						<li *ngIf ='about.errors?.required'> About should be provided and cannot be empty </li>
-						<li *ngIf ='about.errors?.required || about.errors?.minlength'> About cannot be less than 4 characters in length </li>
+						<li *ngIf ='about.errors?.required || about.errors?.minlength'> About cannot be less than 10 characters in length </li>
 						<li *ngIf ='about.errors?.required || about.errors?.maxlength'> About cannot be greater than 300 characters in length </li>
 
 					</ul>

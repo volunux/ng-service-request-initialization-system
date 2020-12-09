@@ -1,0 +1,85 @@
+<div id ='general-payment'>
+
+<h2> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-guidelines *ngIf ='systemGuideline' [view] ='view' [system-guideline] ='systemGuideline'> </app-guidelines>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<ng-container *ngIf ='entryForm'>
+
+	<div id ='general-payment-form' >
+
+		<form method ='post' action ='' name ='{{link}}-payment-form' autocomplete ='off' enctype ='application/x-www-form-urlencoded' 
+
+			[formGroup] ='entryForm' (ngSubmit) ='createEntry(entryForm.value)'>
+
+			<h3> Payment Form </h3>
+
+			<div class ='form-group'>
+
+				<label for ='payer-name' class ='form-label bold' > Student Full Name * : </label>
+
+				<input type ='text' id ='payer-name' name ='payerName' placeholder ='David Muller' class ='form-control' formControlName ='payerName' autocomplete ='new-payerName'/>
+
+				<app-general-payment-form-validators *ngIf ='payerName' [system-type] ='systemType' [payer-name] ='payerName'> </app-general-payment-form-validators>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='payer-email' class ='form-label bold' > Student Email Address * : </label>
+
+				<input type ='text' id ='payer-email' name ='payerEmail' placeholder ='david@example.com' class ='form-control' formControlName ='payerEmail' autocomplete ='new-payerEmail'/>
+
+				<app-general-payment-form-validators *ngIf ='payerEmail' [system-type] ='systemType' [payer-email] ='payerEmail'> </app-general-payment-form-validators>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='payer-phone' class ='form-label bold' > Student Phone Number * : </label>
+
+				<input type ='text' id ='payer-phone' name ='payerPhone' placeholder ='09022035587 or +2349022035587' class ='form-control' formControlName ='payerPhone' autocomplete ='new-payerPhone'/>
+
+				<app-general-payment-form-validators *ngIf ='payerPhone' [system-type] ='systemType' [payer-phone] ='payerPhone'> </app-general-payment-form-validators>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='description' class ='form-label bold' > Description of Payment * : </label>
+
+				<input type ='text' id ='description' name ='description' class ='form-control' readonly ='readonly' value ='Departmental Fee Payment' 
+
+				formControlName ='description' autocomplete ='new-description'/>
+
+				<app-general-payment-form-validators *ngIf ='description' [system-type] ='systemType' [description] ='description'> </app-general-payment-form-validators>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='amt' class ='form-label bold' > Amount to be paid * : </label>
+
+				<input type ='text' id ='amt' name ='amt' class ='form-control' readonly ='readonly' value ='1000' formControlName ='amt' autocomplete ='new-amt'/>
+
+				<app-general-payment-form-validators *ngIf ='amt' [system-type] ='systemType' [amt] ='amt'> </app-general-payment-form-validators>
+
+			</div>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+		</form>
+
+		</div>
+
+	</ng-container>
+
+</div>

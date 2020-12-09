@@ -1,0 +1,144 @@
+<h2 *ngIf ='title' > {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<div *ngIf ='entry' id ='entry-update'>
+
+<p *ngIf ='!formModified'> <b class ='bold'> Form Message : </b> {{formMessage}} </p>
+
+	<div id ='entry-detail'>
+
+		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+			<div class ='form-group'>
+
+				<label for ='firstName' class ='form-label bold'> First Name * : </label>
+
+				<input type ='text' id ='firstName' name ='firstName' placeholder ='Yusuf' required ='required' autocomplete ='new-firstName' formControlName ='firstName' class ='form-control' 
+
+				appCapitalize ='appCapitalize'>
+
+				<app-profile-validator *ngIf ='firstName' [system-type] ='systemType' [firstName] ='firstName'> </app-profile-validator>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='lastName' class ='form-label bold'> Last Name * : </label>
+
+				<input type ='text' id ='lastName' name ='lastName' placeholder ='Musa' required ='required' autocomplete ='new-lastName' formControlName ='lastName' class ='form-control'
+
+				appCapitalize ='appCapitalize'>
+
+				<app-profile-validator *ngIf ='lastName' [system-type] ='systemType' [lastName] ='lastName'> </app-profile-validator>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='about' class ='form-label bold'> About * : </label>
+
+				<textarea id ='about' name ='about' placeholder ='I am me' required ='required' formControlName ='about' class ='form-control form-textarea'> </textarea>
+
+				<app-profile-validator *ngIf ='about' [system-type] ='systemType' [about] ='about'> </app-profile-validator>
+
+			</div>
+		
+			<ng-container *ngIf ='entryOthers && entryOthers?.levels && entryOthers?.levels?.length'>
+
+			<div class ='form-group'>
+
+				<label for ='level' class ='form-label bold'> Level * : </label>
+
+				<select name ='level' id ='level' class ='form-control' required ='required' formControlName ='level'>
+
+					<option [value] =''> </option> 
+
+					<option *ngFor ='let level of entryOthers.levels' [value] ='level._id'> {{level._id}} </option> 
+
+				</select>
+
+				<app-profile-validator *ngIf ='level' [system-type] ='systemType' [level] ='level'> </app-profile-validator>
+
+			</div>
+
+		</ng-container>
+
+		
+			<ng-container *ngIf ='entryOthers && entryOthers?.countries && entryOthers?.countries?.length'>
+
+			<div class ='form-group'>
+
+				<label for ='country' class ='form-label bold'> Country * : </label>
+
+				<select name ='country' id ='country' class ='form-control' required ='required' formControlName ='country'>
+
+					<option [value] =''> </option> 
+
+					<option *ngFor ='let country of entryOthers.countries' [value] ='country._id'> {{country._id}} </option> 
+
+				</select>
+
+				<app-profile-validator *ngIf ='country' [system-type] ='systemType' [country] ='country'> </app-profile-validator>
+
+			</div>
+
+		</ng-container>
+
+
+			<div class ='form-group'>
+
+				<label for ='matriculationNumber' class ='form-label bold'> Matriculation Number : </label>
+
+				<input type ='text' id ='matriculationNumber' name ='matriculationNumber' placeholder ='2015/1/57261CI' autocomplete ='new-matriculationNumber' formControlName ='matriculationNumber' 
+
+				class ='form-control'>
+
+				<app-profile-validator *ngIf ='matriculationNumber' [system-type] ='systemType' [matriculationNumber] ='matriculationNumber'> </app-profile-validator>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='jambRegistrationNumber' class ='form-label bold'> Jamb Registration Number : </label>
+
+				<input type ='text' id ='jambRegistrationNumber' name ='jambRegistrationNumber' placeholder ='56223645DH' autocomplete ='new-jambRegistrationNumber'
+
+				formControlName ='jambRegistrationNumber' class ='form-control'>
+
+				<app-profile-validator *ngIf ='jambRegistrationNumber' [system-type] ='systemType' [jambRegistrationNumber] ='jambRegistrationNumber'> </app-profile-validator>
+
+			</div>
+
+			<div class ='form-group'>
+
+				<label for ='identityNumber' class ='form-label bold'> Identity Number : </label>
+
+				<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' autocomplete ='new-identityNumber' formControlName ='identityNumber' class ='form-control'>
+
+				<app-profile-validator *ngIf ='identityNumber' [system-type] ='systemType' [identityNumber] ='identityNumber'> </app-profile-validator>
+
+			</div>
+
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+		</form>
+
+		<div class ='entry-options'>
+
+			<h3> Entry Options </h3>
+
+			<a [routerLink] ='["../../../" , "account" , "profile" , "detail"]' class ='entry-option center'> User Detail </a>
+
+		</div>
+
+</div>
+
+</div>

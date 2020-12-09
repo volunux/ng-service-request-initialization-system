@@ -1,0 +1,136 @@
+<ng-container *ngIf ='entryForm'>
+
+<div class ='generate-username-password-form' [formGroup] ='entryForm'>
+
+			<ng-container *ngIf ='name'>
+
+			<div class ='form-group'>
+
+				<label for ='name' class ='form-label bold'> Name * : </label>
+
+				<input type ='text' id ='name' required ='required' name ='name' placeholder ='United Kingdom' formControlName ='name' class ='form-control' [readOnly] ='noEdit'>
+
+				<app-general-internal-form-validators *ngIf ='name' [system-type] ='systemType' [name] ='name'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='description'>
+
+			<div class ='form-group'>
+
+				<label for ='description' class ='form-label bold'> Description * : </label>
+
+				<input type ='text' id ='description' required ='required' name ='description' placeholder ='Course Registration Resolution' formControlName ='description' class ='form-control'
+
+				[readOnly] ='noEdit' >
+
+				<app-general-internal-form-validators *ngIf ='description' [system-type] = 'systemType' [description] ='description'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='faculty && generalOthers && generalOthers.faculty'>
+
+			<div class ='form-group'>
+
+				<label for ='faculty' class ='form-label bold'> Faculty * : </label>
+
+				<select name ='faculty' id ='faculty' required ='required' class ='form-control' formControlName ='faculty' [readOnly] ='noEdit' >
+
+					<option [value] =''> </option> 
+
+					<option *ngFor ='let faculty of generalOthers.faculty' [value] ='faculty._id'> {{faculty._id}} </option> 
+
+				</select>
+
+				<app-general-internal-form-validators *ngIf ='faculty' [system-type] = 'systemType' [faculty] ='faculty'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='shortCode'>
+
+			<div class ='form-group'>
+
+				<label for ='shortCode' class ='form-label bold'> Short Code * : </label>
+
+				<input type ='text' id ='shortCode' required ='required' name ='shortCode' placeholder ='GBR' formControlName ='shortCode' class ='form-control' [readOnly] ='noEdit'>
+
+				<app-general-internal-form-validators *ngIf ='shortCode' [system-type] = 'systemType' [shortCode] ='shortCode'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+		<ng-container *ngIf ='num'>
+
+			<div class ='form-group'>
+
+				<label for ='num' class ='form-label bold'> Number * : </label>
+
+				<input type ='text' id ='num' required ='required' name ='num' placeholder ='879' formControlName ='num' class ='form-control' [readOnly] ='noEdit' >
+
+				<app-general-internal-form-validators *ngIf ='num' [system-type] = 'systemType' [num] ='num'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='status'>
+
+			<div class ='form-group'>
+
+				<label for ='status' class ='form-label bold'> Status * : </label>
+
+				<select name ='status' id ='status' required ='required' formControlName ='status' class ='form-control' [readOnly] ='noEdit' >
+
+				<option [value] =''> </option> 
+
+				<option [value] ='"Active"'> Active </option> 
+				
+				<option [value] ='"Hidden"'> Hidden </option> 
+
+			</select>
+
+				<app-general-internal-form-validators *ngIf ='status' [system-type] ='systemType' [status] ='status'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+		<ng-container *ngIf ='requestUsername'>
+
+			<div class ='form-group'>
+
+				<label for ='username' class ='form-label bold'> Username * : </label>
+
+				<input type ='text' id ='username' required ='required' name ='requestUsername' placeholder ='davidmark' formControlName ='requestUsername' class ='form-control' [readOnly] ='noEdit' >
+
+				<app-general-internal-form-validators *ngIf ='systemType' [system-type] ='systemType' [username] ='requestUsername'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+		<ng-container *ngIf ='requestPassword'>
+
+			<div class ='form-group'>
+
+				<label for ='password' class ='form-label bold'> Password * : </label>
+
+				<input type ='text' id ='password' required ='required' name ='requestPassword' placeholder ='123$9218#201*' formControlName ='requestPassword' class ='form-control' [readOnly] ='noEdit'>
+
+				<app-general-internal-form-validators *ngIf ='systemType' [system-type] ='systemType' [password] ='requestPassword'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
+
+		</div>
+
+	</ng-container>

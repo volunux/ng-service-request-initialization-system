@@ -1,0 +1,160 @@
+<div id ='entry-main'>
+
+<h2 *ngIf ='title' > {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+		<div class ='search-bar'>
+
+			<h4 class ='left'> Search {{systemType}} Entry </h4>
+
+				<select class ='form-control' id ='query' name ='queryType' [formControl] ='search' #qt>
+
+					<option value =''> Search Criteria </option>
+
+					<ng-container *ngFor ='let opt of searchFilters | keyvalue'>
+
+						<option value ='{{opt.key}}'> {{opt.value}} </option>
+
+					</ng-container>
+
+				</select>
+
+				<app-general-payment-form-validators *ngIf ='search' [search] ='search' [system-type] ='systemType' (keyup) ='0' > </app-general-payment-form-validators>
+
+				<input type ='text' name ='queryValue' value ='' autocomplete ='new-queryValue' (keyup) = '0' #qv>
+
+				<button type ='submit' class ='entry-option-small' [class] ='{"btn-search" : qv.value && !validSearch(qt.value) , "disabled" : !qv.value || validSearch(qt.value)}'
+
+				(click) ='searchEntry(qt.value , qv.value)'> Submit </button>
+
+				<button *ngIf ='entriesSearched' class ='btn-submit' (click) ='clearSearch(); qv.value =""; qt.value = ""; '> Clear Search </button>
+
+				<p *ngIf ='entrySearching'> Searching for entry or entries from the records. <span class ='rolling'> ||| </span> </p>
+
+				<p *ngIf ='refreshing'> Refreshing list of entries from the records. <span class ='rolling'> ||| </span> </p>
+
+		<a class ='entry-option entry-option-small center' [class.hide] ='esdl.length < 2' (click) ='deleteManyEntry()'> Delete Many </a>
+
+</div>
+
+<div *ngIf ='$entriesLength > 0'>
+
+<table class ='entries'>
+
+	<caption class ='bold left'> Entries </caption>
+
+	<colgroup>
+
+		<col class ='index'>
+		<col class ='payment-reference'>
+		<col class ='full-name'>
+		<col class ='amount'>
+		<col class ='fee-department'>
+		<col class ='paid-on'>		
+		<col class ='status'>
+		<col class ='changes'>
+
+	</colgroup>
+
+	<thead>
+
+		<tr>
+			<th class ='bold center'> Index </th>
+			<th class ='bold center'> Payment Reference No. </th>
+			<th class ='bold center'> Full Name </th>
+			<th class ='bold center'> Amount </th>
+			<th class ='bold center'> Department </th>
+			<th class ='bold center'> Paid On </th>
+			<th class ='bold center'> Status </th>
+			<th class ='bold center'> Changes </th>
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<tr *ngFor ='let entry of entries , let i = index , trackBy : trackByReference'>
+
+			<td class ='center'> {{i + 1}}. </td>
+
+			<ng-template #nilValue>
+
+				<td class ='center'> Nil </td>
+
+			</ng-template>
+			
+			<td class ='center bold payment-reference' *ngIf ='entry?.paymentReference; else nilValue'> {{entry?.paymentReference}} </td>
+
+			<td class ='center full-name' *ngIf ='entry?.fullName; else nilValue'> {{entry?.fullName}} </td>
+
+			<td class ='center amount' *ngIf ='entry?.amount; else nilValue'> {{entry?.amount}} </td>
+
+			<td class ='center fee-department' *ngIf ='entry?.department; else nilValue'> {{entry?.department}} </td>
+
+			<td class ='center paid-on' *ngIf ='entry?.paidOn; else nilValue'> {{entry?.paidOn | date : 'longDate'}} </td>
+
+			<td class ='center' *ngIf ='entry?.status; else nilValue'> {{entry?.status}} </td>
+						
+			<td class =''>
+
+				<a class ='center changes-option changes-option-full' [routerLink] ='["../" , "entry" , "detail" , entry?._id]'> View </a>
+
+				<label *ngIf ='canUpdateEntry' class='changes-mark'>
+
+					<ng-container *ngIf ='esdl.length; else normalChecks' >
+
+					<ng-container *ngFor ='let $ed of esdl'>
+
+						<input [checked] ='$ed == entry?.num' type ='checkbox' #checked (click) ='addEntryToDeleteList(entry?.num , checked.checked , i)'>
+
+				  	<span class='checkmark'> </span>
+
+					</ng-container>
+
+				</ng-container>
+
+				<ng-template #normalChecks>
+
+				  <input type ='checkbox' #checked  (click) ='addEntryToDeleteList(entry?.num , checked.checked , i)'>
+
+				  <span class ='checkmark'> </span>
+
+				 </ng-template>
+
+				</label>
+			
+			</td>
+
+		</tr>
+
+		</tbody>
+
+		<tfoot>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+
+			<app-pagination *ngIf ='pageNumber' [entries-length] ='$entriesLength' [entry-ref] ='$entryRef' [page-number] ='pageNumber'> </app-pagination>
+
+			</tr>
+
+		</tfoot>
+
+	</table>
+
+</div>
+
+<app-resource-unavailable id ='error' *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+
+</div>

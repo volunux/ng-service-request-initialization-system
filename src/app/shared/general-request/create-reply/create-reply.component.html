@@ -1,0 +1,51 @@
+<div id ='general-entry'>
+
+	<h2> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+	<div id ='reply-comment-entry' *ngIf ='entry'>
+
+		<app-request-comment-detail *ngIf ='comment' [system-type] ='systemType' [comment] ='comment'> </app-request-comment-detail>
+
+</div>
+
+	<div id ='reply-form' *ngIf ='entry'>
+
+		<h3 class ='center' > Request Options </h3>
+
+			<form action ='' method ='post' name ='{{view}}-reply-form' enctype ='application/x-www-form-urlencoded' [formGroup] ='replyForm' (ngSubmit) ='addReplyToEntry(replyForm.value)' >
+
+				<div class ='form-group'>
+
+				<label for ='text' class ='form-label bold'> Message </label>
+
+				<textarea name ='text' id ='text' required ='required' autocomplete ='new-text' formControlName ='text'> </textarea>
+
+				<app-general-request-validators *ngIf ='text' [text] ='text'></app-general-request-validators>
+
+						</div>
+
+				<div class ='form-group'>
+
+				<input type ='hidden' name ='commentAuthorName' id ='commentauthorname' placeholder ='Yusuf Yusuf Musa' required ='required' autocomplete ='new-commentAuthorName' 
+
+				class ='form-control' formControlName ='commentAuthorName'>
+
+				<app-general-request-validators *ngIf ='commentAuthorName' [commentAuthorName] ='commentAuthorName'></app-general-request-validators>
+
+						</div>
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!replyForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+				</form>
+
+			</div>
+
+</div>

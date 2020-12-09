@@ -1,0 +1,35 @@
+<ng-container *ngIf ='pageNumber'>
+
+<td colspan ='3'>
+
+<ng-container *ngIf ='pageNumber && pageNumber > 1'>
+
+<a class ='pagination prev center' [routerLink] ='["./"]' [queryParams] ='{"page" : pageNumber - 1 == 1 ? null : pageNumber - 1}' > Prev Entries </a>
+
+</ng-container>
+
+<ng-template #entriesBegin>
+
+<a class ='pagination prev center' [routerLink] ='["./"]' > Prev Entries </a>
+
+</ng-template>
+
+</td>
+
+<td colspan ='9'>
+
+<ng-container *ngIf ='!($entryRef) && $entriesLength > 10; else entriesEnd'>
+
+<a class ='pagination next center' [routerLink] ='["./"]' [queryParams] ='{"page" : pageNumber + 1}' > Next Entries </a>
+
+</ng-container>
+
+<ng-template #entriesEnd>
+
+<button *ngIf ='$entriesLength >= 1' class ='pagination-end float-right center' [disabled] ='true' [class.disabled] ='true' > End of Entries </button>
+
+</ng-template>
+
+</td>
+
+</ng-container>

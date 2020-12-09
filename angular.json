@@ -21,10 +21,13 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/quill.core.css",
+              "src/assets/css/quill.bubble.css",
+              "src/assets/css/quill.snow.css",
             ],
             "scripts": []
           },

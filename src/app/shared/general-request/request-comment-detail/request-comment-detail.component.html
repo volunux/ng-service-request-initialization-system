@@ -1,0 +1,25 @@
+<ng-container *ngIf ='comment'>
+
+<h2> Comment Details : {{systemType}} </h2>
+
+	<ng-container *ngIf ='comment'>
+
+	<ng-container *ngIf ='comment?.author'>
+
+		<p> <b class ='bold'> Comment Author Name : </b> {{comment?.author?.firstName}} {{comment?.author?.lastName}} </p>
+
+	</ng-container>
+
+	<ng-container *ngIf ='comment?.text'>
+
+		<div class ='comment'>   
+
+			<p> <b class ='bold'> Comment Text : </b> {{comment?.text}} </p>
+
+			 </div>
+
+	</ng-container>
+
+</ng-container>
+
+</ng-container>

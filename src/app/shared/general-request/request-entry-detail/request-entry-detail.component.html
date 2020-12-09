@@ -1,0 +1,94 @@
+<ng-container *ngIf ='entry'>
+
+		<h2> Entry Details </h2>
+
+		<ng-container *ngIf ='entry?.message'>
+
+			<p> <b class ='bold'> Message : </b> {{entry?.message}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.applicationNumber'>
+
+			<p> <b class ='bold'> Application Unique Identification Number : </b> {{entry?.applicationNumber}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.createdAt'>
+
+			<p> <b class ='bold'> Entry created on : </b> {{entry?.createdAt | date : 'longDate'}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.updatedAt'>
+
+			<p> <b class ='bold'> Entry updated on : </b> {{entry?.updatedAt | date : 'longDate'}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.author'>
+
+			<ng-container *ngIf ='entry?.author?.firstName || entry?.author?.lastName'>
+
+				<p> <b class ='bold'> Student Name : </b> {{entry?.author?.firstName}} {{entry?.author?.lastName}} </p>
+
+			</ng-container>
+
+		<ng-container *ngIf ='entry?.author?.faculty'>
+
+			<p> <b class ='bold'> Student Faculty : </b> {{entry?.author?.faculty}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.author?.department'>
+
+			<p> <b class ='bold'> Student Department : </b> {{entry?.author?.department}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.author?.level'>
+
+			<p> <b class ='bold'> Student Level : </b> {{entry?.author?.level}} </p>
+
+		</ng-container>
+
+	</ng-container>
+
+		<ng-container *ngIf ='entry?.unit'>
+
+			<p> <b class ='bold'> Request Unit : </b> {{entry?.unit}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.status'>
+
+			<p> <b class ='bold'> Request Status : </b> {{entry?.status}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.entryHandler'>
+
+			<p> <b class ='bold'> Request Handler : </b> {{entry?.entryHandler?.firstName}} {{entry?.entryHandler?.lastName}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.requestUsername || entry?.requestPassword'>
+
+		<h3> Request Credential </h3>
+
+		<ng-container *ngIf ='entry?.requestUsername'>
+
+			<p> <b class ='bold'> Request Username : </b> {{entry?.requestUsername}} </p>
+
+		</ng-container>
+
+		<ng-container *ngIf ='entry?.requestPassword'>
+
+			<p> <b class ='bold'> Request Password : </b> {{entry?.requestPassword}} </p>
+
+		</ng-container>
+
+
+	</ng-container>
+
+</ng-container>

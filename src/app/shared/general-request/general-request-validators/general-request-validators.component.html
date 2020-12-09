@@ -1,0 +1,199 @@
+<ng-container *ngIf ='message'>
+
+	<div *ngIf ='message.invalid && (message.touched || message.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='message.errors?.required'> Message of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='message.errors?.required || message.errors?.minlength'> Message of {{systemType}} cannot be less than 9 characters in length </li>
+			<li *ngIf ='message.errors?.required || message.errors?.maxlength'> Message of {{systemType}} cannot be greater than 500 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='text'>
+
+	<div *ngIf ='text.invalid && (text.touched || text.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='text.errors?.required'> Body of Comment or Reply should be provided and cannot be empty </li>			
+			<li *ngIf ='text.errors?.required || text.errors?.minlength'> Body of Comment or Reply cannot be less than 9 characters in length </li>
+			<li *ngIf ='text.errors?.required || text.errors?.maxlength'> Body of Comment or Reply cannot be greater than 500 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='main_body'>
+
+	<div *ngIf ='main_body.invalid && (main_body.touched || main_body.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='main_body.errors?.required'> Body of Letter should be provided and cannot be empty </li>			
+			<li *ngIf ='main_body.errors?.required || main_body.errors?.minlength'> Body of Letter cannot be less than 1 characters in length </li>
+			<li *ngIf ='main_body.errors?.required || main_body.errors?.maxlength'> Body of Letter cannot be greater than 8000 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='commentAuthorName'>
+
+	<div *ngIf ='commentAuthorName.invalid && (commentAuthorName.touched || commentAuthorName.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='commentAuthorName.errors?.required'> Comment Author Name of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='commentAuthorName.errors?.required || commentAuthorName.errors?.maxlength'> Comment Author Name of {{systemType}} cannot be greater than 150 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='status'>
+
+<div *ngIf ='status.invalid && (status.touched || status.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='status.errors?.required'> Status of {{systemType}} should be provided and cannot be empty </li>
+		<li *ngIf ='status.errors?.required || status.errors?.minlength'> Status of {{systemType}} cannot be less than 2 characters in length </li>
+		<li *ngIf ='status.errors?.required || status.errors?.maxlength'> Status of {{systemType}} cannot be greater than 30 characters in length </li>
+		<li *ngIf ='status.errors?.statusError'> Status of {{systemType}} should be either of the following 
+
+				<ng-container *ngIf ='status.errors?.statusError?.statuses'>  
+
+					<ng-container *ngFor ='let status of status.errors.statusError.statuses , let lss = last'>
+
+						{{status}} <ng-container *ngIf ='!lss else iAmLast'> or </ng-container> 
+
+						<ng-template #iAmLast> . </ng-template>
+
+				</ng-container>
+
+				</ng-container>
+
+				</li>
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='unit'>
+
+	<div *ngIf ='unit.invalid && (unit.touched || unit.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='unit.errors?.required'> Unit of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='unit.errors?.required || unit.errors?.minlength'> Unit of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='unit.errors?.required || unit.errors?.maxlength'> Unit of {{systemType}} cannot be greater than 150 characters in length </li>
+			<li *ngIf ='unit.errors?.Unit'> Unit of {{systemType}} should be available from existing record before it can be considered valid </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='search'>
+
+<div *ngIf ='search.invalid && (search.touched || search.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='search.errors?.required || search.errors?.searchError'> Search value of {{systemType}} should be either of the followings
+
+				<ng-container *ngIf ='search.errors?.searchError?.searches'>  
+
+					<ng-container *ngFor ='let sv of search.errors.searchError.searches , let lss = last'>
+
+						{{sv}} <ng-container *ngIf ='lss else iAmNotLast'> . </ng-container>
+
+						<ng-template #iAmNotLast>
+
+							,
+
+						</ng-template>
+
+
+				</ng-container>
+
+				</ng-container>
+
+			</li>
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='requestUsername'>
+
+	<div *ngIf ='requestUsername.invalid && (requestUsername.touched || requestUsername.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='requestUsername.errors?.required'> Request Username of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='requestUsername.errors?.required || requestUsername.errors?.minlength'> Request Username of {{systemType}} cannot be less than 5 characters in length </li>
+			<li *ngIf ='requestUsername.errors?.required || requestUsername.errors?.maxlength'> Request Username of {{systemType}} cannot be greater than 100 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='requestPassword'>
+
+	<div *ngIf ='requestPassword.invalid && (requestPassword.touched || requestPassword.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='requestPassword.errors?.required'> Request Password of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='requestPassword.errors?.required || requestPassword.errors?.minlength'> Request Password of {{systemType}} cannot be less than 5 characters in length </li>
+			<li *ngIf ='requestPassword.errors?.required || requestPassword.errors?.maxlength'> Request Password of {{systemType}} cannot be greater than 100 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='stage'>
+
+	<div *ngIf ='stage.invalid && (stage.touched || stage.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='stage.errors?.required'> Stage of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='stage.errors?.required || stage.errors?.minlength'> Stage of {{systemType}} cannot be less than 1 characters in length </li>
+			<li *ngIf ='stage.errors?.required || stage.errors?.maxlength'> Stage of {{systemType}} cannot be greater than 30 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>

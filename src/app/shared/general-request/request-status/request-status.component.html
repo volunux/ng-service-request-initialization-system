@@ -1,0 +1,17 @@
+	<div id ='general-entry-details' *ngIf ='entry'>
+
+	<h2> Request Details : {{systemType}} </h2>
+
+	<ng-container *ngIf ='entry?.message'>
+
+		<p> <b class ='bold'> Message : </b> {{entry?.message}} </p>
+
+	</ng-container>
+
+	<ng-container *ngIf ='entry?.status'>
+
+		<p> <b class ='bold'> Request Status : </b> {{entry?.status}} </p>
+
+	</ng-container>
+
+</div>
