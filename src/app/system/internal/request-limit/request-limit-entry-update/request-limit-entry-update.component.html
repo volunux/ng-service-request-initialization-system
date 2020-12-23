@@ -1,0 +1,92 @@
+<div id ='entry-create'>
+
+<h2 *ngIf ='title'> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<p *ngIf ='!formModified'> <b class ='bold'> Form Message : </b> {{formMessage}} </p>
+
+	<div *ngIf ='entryForm' id ='entry-update'>
+
+		<div id ='entry-detail'>
+
+		<form action ='' method ='post' name ='{{view}}-form' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
+
+			<ng-container *ngIf ='author'>
+
+			<div class ='form-group'>
+
+				<label for ='author' class ='form-label bold'> Author Identity * : </label>
+
+		<input type ='text' id ='author' required ='required' name ='author' [placeholder] ='placeholder?.author' formControlName ='author' class ='form-control'
+
+				[readOnly] ='true' >
+
+		<app-request-limit-form-validators *ngIf ='author' [system-type] = 'systemType' [author] ='author'> </app-request-limit-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='numberRemaining'>
+
+			<div class ='form-group'>
+
+				<label for ='numberRemaining' class ='form-label bold'> Number Remaining * : </label>
+
+		<input type ='text' id ='numberRemaining' required ='required' name ='numberRemaining' [placeholder] ='placeholder?.numberRemaining' formControlName ='numberRemaining' class ='form-control'
+
+				[readOnly] ='noEdit' >
+
+		<app-request-limit-form-validators *ngIf ='numberRemaining' [system-type] = 'systemType' [numberRemaining] ='numberRemaining'> </app-request-limit-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='status'>
+
+			<div class ='form-group'>
+
+				<label for ='status' class ='form-label bold'> Status * : </label>
+
+				<select name ='status' id ='status' required ='required' formControlName ='status' class ='form-control' [readOnly] ='noEdit' >
+
+				<option [value] =''> </option> 
+
+				<option [value] ='"Active"'> Active </option> 
+				
+				<option [value] ='"Hidden"'> Hidden </option> 
+
+			</select>
+
+				<app-request-limit-form-validators *ngIf ='status' [system-type] ='systemType' [status] ='status'> </app-request-limit-form-validators>
+
+			</div>
+
+		</ng-container>
+
+
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
+
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
+
+		</form>
+
+		<div *ngIf ='systemType' class ='entry-options'>
+
+			<h3> Entry Options </h3>
+
+			<a [routerLink] ='["../../../" , "entry" , "detail" , entry.num]' class ='entry-option center'> {{systemType}} Detail </a>
+
+		</div>
+
+	</div>
+
+	</div>
+
+</div>

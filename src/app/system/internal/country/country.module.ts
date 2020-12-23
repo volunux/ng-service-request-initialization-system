@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CountryRoutingModule } from './country-routing.module';
-
 import { InternalAllModule } from '../internal-all/internal-all.module';
 
 @NgModule({
@@ -14,13 +13,6 @@ import { InternalAllModule } from '../internal-all/internal-all.module';
     InternalAllModule,
     CountryRoutingModule,
   ],
-
-  providers : [
-
-  ],
-
-  exports : [
-  ]
 
 })
 

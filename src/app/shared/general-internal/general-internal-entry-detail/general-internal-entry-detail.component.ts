@@ -18,7 +18,9 @@ import { ErrorMessagesService } from '../../services/error-messages.service';
 
   'templateUrl' : './general-internal-entry-detail.component.html',
 
-  'styleUrls' : ['./general-internal-entry-detail.component.css']
+  'styleUrls' : ['./general-internal-entry-detail.component.css'] ,
+
+  'providers' : [ErrorMessagesService]
 
 })
 

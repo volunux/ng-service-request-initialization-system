@@ -51,7 +51,9 @@ export class GeneralInternalFormService {
 
   	let form : FormGroup = this.fb.group({
 
-      'name' : ['' , {'validators' : [Validators.required , Validators.minLength(1) , Validators.maxLength(40)] } ] ,
+      '_id' : ['' , {'validators' : [Validators.required , Validators.minLength(1) , Validators.maxLength(150)] } ] ,
+
+      'name' : ['' , {'validators' : [Validators.required , Validators.minLength(1) , Validators.maxLength(150)] } ] ,
 
       'num' : ['' , {'validators' : [Validators.required , Validators.minLength(20)]}] ,
 

@@ -6,27 +6,19 @@
 
 <ul>
 
-	<li>
+	<ng-container *ngIf ='entries'>
 
-		<a [routerLink] ='["../entries"]' class ='center'> Manage {{systemType}} </a>
+		<li *ngFor ='let entry of entries | keyvalue'> 
 
-	</li>
+		<a [routerLink] ='["./" , entry.key]' class ='center'> {{entry.value}} </a>
 
-	<li>
+		</li>
 
-		<a [routerLink] ='["../create"]' class ='center'> Create {{systemType}} </a>
-
-	</li>
+	</ng-container>
 
 	<li>
 
-		<a [routerLink] ='["../../request"]' class ='center'> Other Requests </a>
-
-	</li>
-
-	<li>
-
-		<a [routerLink] ='["../../../account/profile"]' class ='center'> Profile </a>
+		<a [routerLink] ='["/account/" , "profile"]' class ='center'> Profile </a>
 
 	</li>
 

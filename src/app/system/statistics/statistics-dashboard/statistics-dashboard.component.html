@@ -1,0 +1,28 @@
+<h2 *ngIf ='title'> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
+
+<div *ngIf ='systemType' id ='dashboard'>	
+
+<ul>
+
+	<ng-container *ngIf ='entries'>
+
+		<li *ngFor ='let entry of entries | keyvalue'> 
+
+		<a [routerLink] ='["./" , "entries" , entry.key]' class ='center'> {{entry.value}} </a>
+
+		</li>
+
+	</ng-container>
+
+	<li>
+
+		<a [routerLink] ='["/account/profile"]' class ='center'> Profile </a>
+
+	</li>
+
+
+</ul>
+
+</div>

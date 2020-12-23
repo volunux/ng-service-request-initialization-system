@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { ResourceUnavailableComponent } from './resource-unavailable/resource-unavailable.component';
 import { NotificationScreenComponent } from './notification-screen/notification-screen.component';
@@ -12,10 +10,8 @@ import { CapitalizeDirective } from './capitalize.directive';
 import { LowercaseDirective } from './lowercase.directive';
 import { ViewDescriptionComponent } from './view-description/view-description.component';
 
-import { FileAttachmentsComponent } from './file-attachments/file-attachments.component';
-import { ReplaceLineBreakPipe } from './replace-line-break.pipe';
-import { ProposedCredentialPipe } from './proposed-credential.pipe';
-import { ReplaceTabsPipe } from './replace-tabs.pipe';
+import { GeneralServicesModule } from '../shared/services/general-services.module';
+
 
 @NgModule({
 
@@ -28,15 +24,11 @@ import { ReplaceTabsPipe } from './replace-tabs.pipe';
       CapitalizeDirective,
       LowercaseDirective,
       ViewDescriptionComponent,
-      FileAttachmentsComponent,
-      ReplaceLineBreakPipe,
-      ProposedCredentialPipe,
-      ReplaceTabsPipe,
 		],
 
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    GeneralServicesModule,
     RouterModule.forChild([])
   ],
 
@@ -48,12 +40,11 @@ import { ReplaceTabsPipe } from './replace-tabs.pipe';
     CapitalizeDirective,
     LowercaseDirective,
     ViewDescriptionComponent,
-    FileAttachmentsComponent,
-    ReplaceLineBreakPipe,
-    ProposedCredentialPipe,
-    ReplaceTabsPipe,
+
   ]
 
 })
 
-export class GeneralModule { }
+export class GeneralModule { 
+
+}

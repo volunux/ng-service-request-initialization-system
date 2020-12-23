@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { GeneralModule } from '../../general/general.module';
 import { SimplesModule } from '../simples/simples.module';
+import { GeneralServicesModule } from '../services/general-services.module';
 
 import { GeneralRequestService } from './general-request.service';
 import { GeneralRequestFormService } from './general-request-form.service';
 import { GenerateUsernamePasswordService } from './generate-username-password.service';
 
 import { EntryOptionsComponent } from './entry-options/entry-options.component';
-import { EntryUpdateComponent } from './entry-update/entry-update.component';
 import { GeneralRequestValidatorsComponent } from './general-request-validators/general-request-validators.component';
 import { RequestEntryDetailComponent } from './request-entry-detail/request-entry-detail.component';
 import { RequestEntryUpdateFieldsComponent } from './request-entry-update-fields/request-entry-update-fields.component';
@@ -21,7 +22,6 @@ import { CreateReplyComponent } from './create-reply/create-reply.component';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 import { EntryCreateComponent } from './entry-create/entry-create.component';
 
-/*import { AttachmentUploadComponent } from './attachment-upload/attachment-upload.component';*/
 import { EntryTimelineComponent } from './entry-timeline/entry-timeline.component';
 import { EntryTransferComponent } from './entry-transfer/entry-transfer.component';
 import { EntryDetailComponent } from './entry-detail/entry-detail.component';
@@ -32,7 +32,6 @@ import { GeneratePasswordComponent } from './generate-password/generate-password
 
   declarations: [
   	EntryOptionsComponent,
-  	EntryUpdateComponent,
   	GeneralRequestValidatorsComponent,
   	RequestEntryDetailComponent,
   	RequestEntryUpdateFieldsComponent,
@@ -51,10 +50,11 @@ import { GeneratePasswordComponent } from './generate-password/generate-password
   
   imports: [
     CommonModule,
-    GeneralModule,
-    SimplesModule,
     ReactiveFormsModule,
     RouterModule.forChild([]),
+    GeneralModule,
+    SimplesModule,
+    GeneralServicesModule,
   ],
 
   providers : [
@@ -65,7 +65,6 @@ import { GeneratePasswordComponent } from './generate-password/generate-password
 
   exports : [
   	EntryOptionsComponent,
-  	EntryUpdateComponent,
   	GeneralRequestValidatorsComponent,
   	RequestEntryDetailComponent,
   	RequestEntryUpdateFieldsComponent,

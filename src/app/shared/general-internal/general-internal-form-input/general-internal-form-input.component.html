@@ -1,6 +1,21 @@
 <ng-container *ngIf ='entryForm'>
 
-<div class ='generate-username-password-form' [formGroup] ='entryForm'>
+<div class ='' [formGroup] ='entryForm'>
+
+			<ng-container *ngIf ='_id'>
+
+			<div class ='form-group'>
+
+				<label for ='_id' class ='form-label bold'> Unique Identity * : </label>
+
+				<input type ='text' id ='_id' required ='required' name ='_id' [placeholder] ='placeholder?._id' formControlName ='_id' class ='form-control' [readOnly] ='noEdit'>
+
+				<app-general-internal-form-validators *ngIf ='_id' [system-type] ='systemType' [_id] ='_id'> </app-general-internal-form-validators>
+
+			</div>
+
+		</ng-container>
+
 
 			<ng-container *ngIf ='name'>
 
@@ -8,7 +23,7 @@
 
 				<label for ='name' class ='form-label bold'> Name * : </label>
 
-				<input type ='text' id ='name' required ='required' name ='name' placeholder ='United Kingdom' formControlName ='name' class ='form-control' [readOnly] ='noEdit'>
+				<input type ='text' id ='name' required ='required' name ='name' [placeholder] ='placeholder?.name' formControlName ='name' class ='form-control' [readOnly] ='noEdit'>
 
 				<app-general-internal-form-validators *ngIf ='name' [system-type] ='systemType' [name] ='name'> </app-general-internal-form-validators>
 
@@ -22,7 +37,7 @@
 
 				<label for ='description' class ='form-label bold'> Description * : </label>
 
-				<input type ='text' id ='description' required ='required' name ='description' placeholder ='Course Registration Resolution' formControlName ='description' class ='form-control'
+				<input type ='text' id ='description' required ='required' name ='description' [placeholder] ='placeholder?.description' formControlName ='description' class ='form-control'
 
 				[readOnly] ='noEdit' >
 
@@ -58,7 +73,7 @@
 
 				<label for ='shortCode' class ='form-label bold'> Short Code * : </label>
 
-				<input type ='text' id ='shortCode' required ='required' name ='shortCode' placeholder ='GBR' formControlName ='shortCode' class ='form-control' [readOnly] ='noEdit'>
+				<input type ='text' id ='shortCode' required ='required' name ='shortCode' [placeholder] ='placeholder?.shortCode' formControlName ='shortCode' class ='form-control' [readOnly] ='noEdit'>
 
 				<app-general-internal-form-validators *ngIf ='shortCode' [system-type] = 'systemType' [shortCode] ='shortCode'> </app-general-internal-form-validators>
 
@@ -72,7 +87,7 @@
 
 				<label for ='num' class ='form-label bold'> Number * : </label>
 
-				<input type ='text' id ='num' required ='required' name ='num' placeholder ='879' formControlName ='num' class ='form-control' [readOnly] ='noEdit' >
+				<input type ='text' id ='num' required ='required' name ='num' placeholder ='879281921' formControlName ='num' class ='form-control' [readOnly] ='noEdit' >
 
 				<app-general-internal-form-validators *ngIf ='num' [system-type] = 'systemType' [num] ='num'> </app-general-internal-form-validators>
 

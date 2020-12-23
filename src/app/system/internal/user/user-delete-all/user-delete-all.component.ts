@@ -1,14 +1,9 @@
 import { Component , OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { General } from '../general';
 
-import { UserService } from '../user.service';
-
-import { ErrorMessagesService } from '../../../../general/error-messages.service';
-
-import { NotificationService } from '../../../../general/notification.service';
 
 @Component({
 
@@ -18,90 +13,42 @@ import { NotificationService } from '../../../../general/notification.service';
 
   'styleUrls' : ['./user-delete-all.component.css'] ,
 
-  'providers' : [NotificationService]
-
 })
 
 export class UserDeleteAllComponent implements OnInit {
 
-  constructor(private router : Router , private us : UserService , 
-
-              private ems : ErrorMessagesService , private ns : NotificationService) { 
+  constructor(private route : ActivatedRoute) { 
 
   }
+
+  public systemType : string;
+
+  public viewWord : string;
+
+  public title : string;
+
+  public view : string;
+
+  public link : string;
+
+  public $link : string;
 
   ngOnInit() : void {
 
-  }
+    let data = this.route.snapshot.data;
 
-  public title : string = 'User : Delete All Entries';
+    this.systemType = data.deleteAll.systemType;
 
-  public entryType : string = 'user';
+    this.viewWord = data.deleteAll.viewWord;
 
-  public error : General | null | boolean = false;
+    this.title = data.deleteAll.title;
 
-  public formSubmitted : boolean = false;
+    this.view = data.deleteAll.view;
 
-  public view : string = 'uadp';
+    this.link = data.deleteAll.link;
 
-  public fip : string = 'block';
-
-  public deleteAllUser() : any {
-
-    this.formSubmitted = true;
-
-    this.error = null;
-
-    this.fip = 'none';
-
-    this.us.$deleteAllUser()
-      
-      .subscribe((user : General) => { 
-
-        if (!(user && user.length)) { this.formSubmitted = false;
-
-          this.fip = 'block';
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification('Operation is unsuccessful and all user is not deleted.');
-
-          return this.error = Object.assign({'resource' : 'User Entry'} , this.ems.message);  }
-
-         else { this.formSubmitted = false;
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification('Operation is successful and all user is deleted.');
-
-        return this.$entryChanges({});  } } ,
-
-      )
+    this.$link = data.deleteAll.$link;
 
   }
-
-  public $entryChanges(data) {
-
-    return setTimeout(() => {
-
-      return this.router.navigate(['system' , 'internal' , 'user']);  } , 5000) 
-  }
-
-
-  get notificationAvailable() : boolean {
-
-    return this.ns.notificationStatus();
-  }
-
-  get notificationMessage() : string {
-
-    return this.ns.getNotificationMessage();
-  }
-
-   public removeNotification() {
-
-     this.ns.removeNotification();
-   }
-
 
 }

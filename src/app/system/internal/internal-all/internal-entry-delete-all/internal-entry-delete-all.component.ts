@@ -30,7 +30,6 @@ export class InternalEntryDeleteAllComponent implements OnInit {
 
   public $link : string;
 
-
   ngOnInit() : void {
 
   	let data = this.route.snapshot.data;

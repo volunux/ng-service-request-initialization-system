@@ -2,6 +2,13 @@ import { NgModule } from '@angular/core';
 
 import { Routes , RouterModule } from '@angular/router';
 
+import { AuthenticationGuard } from '../../../authentication/authentication.guard';
+
+import { IsStudentGuard } from '../../../shared/guards/is-student.guard';
+
+import { EntryDeleteAllGuard } from '../../../shared/guards/entry-delete-all.guard';
+
+
 import { RefundDetailComponent } from './refund-detail/refund-detail.component';
 
 import { RefundEntriesComponent } from './refund-entries/refund-entries.component';
@@ -9,17 +16,26 @@ import { RefundEntriesComponent } from './refund-entries/refund-entries.componen
 import { RefundLetterComponent } from './refund-letter/refund-letter.component';
 
 
-import { RequestComponent } from '../request/request.component';
+import { RequestAllEntryComponent } from '../request-all/request-all-entry/request-all-entry.component';
 
-import { RequestDashboardComponent } from '../request-dashboard/request-dashboard.component';
+import { RequestAllDashboardComponent } from '../request-all/request-all-dashboard/request-all-dashboard.component';
 
-import { RequestEntryCreateComponent } from '../request-entry-create/request-entry-create.component';
+import { RequestEntryCreateComponent } from '../request-all/request-entry-create/request-entry-create.component';
 
-import { RequestEntryCommentComponent } from '../request-entry-comment/request-entry-comment.component';
+import { RequestEntryCommentComponent } from '../request-all/request-entry-comment/request-entry-comment.component';
 
-import { RequestEntryTimelineComponent } from '../request-entry-timeline/request-entry-timeline.component';
+import { RequestEntryDetailComponent } from '../request-all/request-entry-detail/request-entry-detail.component';
 
-import { RequestEntryReplyComponent } from '../request-entry-reply/request-entry-reply.component';
+import { RequestEntryTimelineComponent } from '../request-all/request-entry-timeline/request-entry-timeline.component';
+
+import { RequestEntryTransferComponent } from '../request-all/request-entry-transfer/request-entry-transfer.component';
+
+import { RequestEntriesComponent } from '../request-all/request-entries/request-entries.component';
+
+import { RequestEntryReplyComponent } from '../request-all/request-entry-reply/request-entry-reply.component';
+
+import { RequestAllDeleteAllComponent } from '../request-all/request-all-delete-all/request-all-delete-all.component';
+
 
 import { RFData } from './refund-route-data';
 
@@ -27,33 +43,33 @@ const routes : Routes = [
 
 	{'path' : '' ,
 
-		'component' : RequestComponent , 
+		'component' : RequestAllEntryComponent , 
+
+		'canActivate' : [AuthenticationGuard] ,
+
+		'canLoad' : [AuthenticationGuard] ,
+
+		'canActivateChild' : [AuthenticationGuard] ,
 
 		'children' : [
 
-	{'path' : '' , 'component' : RequestDashboardComponent , 
+				{'path' : '' , 'component' : RequestAllDashboardComponent , 'data' : {'dashboard' : RFData.dashboard } } ,
 
-						'data' : {'dashboard' : RFData.dashboard } } ,
+				{'path' : 'create' , 'component' : RequestEntryCreateComponent , 'data' : {'create' : RFData.create } , 'canActivate' : [IsStudentGuard] } ,
 
-	{'path' : 'create' , 'component' : RequestEntryCreateComponent ,
+				{'path' : 'entry/:entry/comment/add' , 'component' : RequestEntryCommentComponent , 'data' : {'comment' : RFData.comment } } ,
 
-						'data' : {'create' : RFData.create } } ,
+				{'path' : 'entry/detail/:entry' , 'component' : RefundDetailComponent , 'data' : {'detail' : RFData.detail } } ,
 
-	{'path' : 'entry/:entry/comment/add' , 'component' : RequestEntryCommentComponent ,
+				{'path' : 'entry/:entry/timeline' , 'component' : RequestEntryTimelineComponent } ,
 
-						'data' : {'comment' : RFData.comment } } ,
+				{'path' : 'entry/:entry/letter' , 'component' : RefundLetterComponent } ,
 
-	{'path' : 'entry/detail/:entry' , 'component' : RefundDetailComponent } ,
+				{'path' : 'entries' , 'component' : RefundEntriesComponent , 'data' : {'entries' : RFData.entries } } ,
 
-	{'path' : 'entry/:entry/timeline' , 'component' : RequestEntryTimelineComponent } ,
+				{'path' : 'entry/:entry/comment/:comment/reply/add' , 'component' : RequestEntryReplyComponent , 'data' : {'reply' : RFData.reply } } ,
 
-	{'path' : 'entry/:entry/letter' , 'component' : RefundLetterComponent } ,
-
-	{'path' : 'entries' , 'component' : RefundEntriesComponent } ,
-
-	{'path' : 'entry/:entry/comment/:comment/reply/add' , 'component' : RequestEntryReplyComponent ,
-
-						'data' : {'reply' : RFData.reply }}	
+				{'path' : 'entries/delete/all' , 'component' : RequestAllDeleteAllComponent , 'canActivate' : [EntryDeleteAllGuard] , 'data' : {'deleteAll' : RFData.deleteAll } } ,
 
 	]	}
 

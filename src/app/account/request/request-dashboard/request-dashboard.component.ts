@@ -1,12 +1,8 @@
 import { Component , OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
-
-import { General } from '../general';
-
 @Component({
 
-  'selector' : 'app-request.dashboard',
+  'selector' : 'app-request-dashboard',
 
   'templateUrl' : './request-dashboard.component.html',
 
@@ -16,25 +12,32 @@ import { General } from '../general';
 
 export class RequestDashboardComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute) { 
+  constructor() { 
 
   }
 
-  public systemType : string;
+  public systemType : string = 'Request';
 
-  public title : string;
+  public title : string = 'User Request';
   
-  public view : string;
+  public view : string = 'gen-internal';
+
+  public entries : { [key : string] : string } = 
+
+    { 'course-registration' : 'Course Registration' , 
+
+    'school-result' : 'School Result' , 
+
+    'email-password' : 'Email Password' , 
+
+    'internet-credential' : 'Internet Credential' , 
+
+    'internet-password' : 'Internet Password' , 
+
+    'refund' : 'Refund' };
 
   ngOnInit() : void {
-
-    let data = this.route.snapshot.data;
-
-        this.systemType = data.dashboard.systemType;
-
-        this.title = data.dashboard.title;
-
-        this.view = data.dashboard.view;
+  
   }
 
 }

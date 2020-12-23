@@ -23,8 +23,6 @@ export class UserFormInputComponent implements OnInit {
   }
 
   ngOnInit() : void {
-
-    console.log(this.generalOthers);
   
   }
 
@@ -66,10 +64,14 @@ export class UserFormInputComponent implements OnInit {
 
   @Input() public status : FormControl;
 
+  @Input() public statuses : General;
+
   @Input('matriculation-number') public matriculationNumber : FormControl;
 
   @Input('jamb-registration-number') public jambRegistrationNumber : FormControl;
 
   @Input('identity-number') public identityNumber : FormControl; 
+
+  @Input('no-edit') public noEdit : boolean;
 
 }

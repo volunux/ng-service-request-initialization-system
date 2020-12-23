@@ -123,6 +123,7 @@ ul {
 
 #footer {
 
+	clear : both;
 	margin-top : 20px;
 }
 
@@ -266,19 +267,19 @@ td , th {
 	width : 240px;
 }
 
-a.changes-option-full {
+.changes-option-full {
 
 	width : 180px !important;
 	margin-left : 20px !important;
 }
 
-a.changes-option-full-2 {
+.changes-option-full-2 {
 
 	width : 140px !important;
 	margin-left : 20px !important;
 }
 
-a.changes-option {
+.changes-option {
 
 	border : 2px solid #ac4bd8;
 	border-radius : 10px;
@@ -290,7 +291,7 @@ a.changes-option {
 	line-height : 2.5em;
 }
 
-a.changes-option-half {
+.changes-option-half {
 
 	margin-left : 40px;
 }
@@ -403,6 +404,17 @@ a.changes-option-half {
 	width : 95%;
 	padding : 10px;
 	margin : 10px 0px 10px 10px;
+}
+
+#entry-update textarea {
+
+    height: 120px;
+    resize: none;
+    width: 100%;
+    border: 2px solid #3d0398;
+    padding: 5px;
+    color: #290140;
+    border-radius: 4px;	
 }
 
 .notification {
@@ -786,6 +798,18 @@ tfoot {
 	border-radius : 6px;
 }
 
+td.profilePhoto img {
+
+	width : 200px;
+	height : 200px;
+}
+
+td.signature img {
+
+	width : 70px;
+	height : 70px;
+}
+
 /** General Entry Styles and Styling **/
 
 
@@ -844,7 +868,7 @@ tfoot {
 
 @media print {
 
-	.changes , a.changes-option , *.entry-option {
+	.changes , .changes-option , *.entry-option {
 
 		display : none;
 	}

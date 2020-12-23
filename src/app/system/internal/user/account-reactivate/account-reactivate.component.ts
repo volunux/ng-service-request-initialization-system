@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 
 import { ActivatedRoute , Router } from '@angular/router';
 
@@ -8,9 +8,9 @@ import { General } from '../general';
 
 import { UserService } from '../user.service';
 
-import { ErrorMessagesService } from '../../../../general/error-messages.service';
+import { ErrorMessagesService } from '../../../../shared/services/error-messages.service';
 
-import { NotificationService } from '../../../../general/notification.service';
+import { NotificationService } from '../../../../shared/services/notification.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ import { NotificationService } from '../../../../general/notification.service';
 
   'styleUrls' : ['./account-reactivate.component.css'] ,
 
-  'providers' : [NotificationService]
+  'providers' : [NotificationService , ErrorMessagesService]
 
 })
 
@@ -33,13 +33,27 @@ export class AccountReactivateComponent implements OnInit {
 
   }
 
-	public title : string = 'User Account Reactivate';
+  public systemType : string;
 
-	public user : User;
+  public title : string;
+
+  public view : string;
+
+  public viewWord : string;
+
+  public link : string;
+
+  public link2 : boolean;
+
+  public $link : string;
+
+  public controlFilters : string[];
+
+  public noEdit : boolean;
+
+	public entry : User;
 
 	private entryIdx : string = '';
-
-  public entryType : string = 'user';
 
 	public formSubmitted : boolean = false;
 
@@ -47,22 +61,46 @@ export class AccountReactivateComponent implements OnInit {
 
 	public error : General | null | boolean = false;
 
-	ngOnInit(): void {
+	ngOnInit() : void {
 
-		this.route.paramMap.subscribe((params) => {
+    let data = this.route.snapshot.data;
 
-			this.us.reactivateUser(params.get('entry'))
+    this.systemType = data.changes.systemType;
 
-				.subscribe((user : User) => { 
+    this.title = data.changes.title;
 
-					if (!user) { return this.error = Object.assign({'resource' : 'User Entry'} , this.ems.message);  }
+    this.view = data.changes.view;
 
-					this.entryIdx = user._id;
+    this.viewWord = data.changes.viewWord;
 
-					this.user = user;	})   });
+    this.link = data.changes.link;
+
+    this.link2 = data.link2;
+
+    this.$link = data.changes.$link;
+
+    this.controlFilters = data.changes.controlFilters;
+
+    this.noEdit = data.changes.noEdit;
+
+		this.route.paramMap.subscribe((params) => { let $e = params.get('entry');
+
+			this.us.reactivateUser($e , this.link2)
+
+				.subscribe(($entry : User) => { 
+
+					if (!$entry) { return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);  }
+
+					this.entryIdx = $entry._id;
+
+					this.entry = $entry;	})   });
 	}
 
-  public reactivateUser() : any {
+  public reactivateEntry() : any {
+
+    let confirmation = confirm('Are you sure you want to proceed with this action?');
+
+    if (!confirmation) return false;
 
     this.formSubmitted = true;
 
@@ -70,29 +108,27 @@ export class AccountReactivateComponent implements OnInit {
 
     this.fip = 'none';
 
-    this.us.$reactivateUser(this.user._id , this.user)
+    this.us.$reactivateUser(this.entry._id , this.entry , this.link2)
       
-      .subscribe((user : General) => { 
+      .subscribe(($entry : General) => {
 
-        if (!user) { this.formSubmitted = false;
+        if (!$entry) { this.formSubmitted = false;
 
           this.fip = 'block';
 
           this.ns.setNotificationStatus(true);
 
-          this.ns.addNotification('Operation is unsuccessful and user account is not reactivated.');
+          this.ns.addNotification(`Operation is unsuccessful and ${this.systemType} is not updated.`);
 
-          return this.error = Object.assign({'resource' : 'User Entry'} , this.ems.message);  }
+          return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);  }
 
-         else { this.formSubmitted = false;
+        if ($entry && $entry.updated) { this.formSubmitted = false;
 
           this.ns.setNotificationStatus(true);
 
-          this.ns.addNotification('Operation is successful and user account is reactivated.');
+          this.ns.addNotification(`Operation is successful and ${this.systemType} is updated.`);
 
-        return this.$entryChanges({});  } } ,
-
-      )
+          return this.$entryChanges($entry.$data);  }  });
 
   }
 
@@ -100,7 +136,7 @@ export class AccountReactivateComponent implements OnInit {
 
     return setTimeout(() => {
 
-      return this.router.navigate(['system' , 'internal' , 'user' , 'entries']);  } , 5000) 
+      return this.router.navigate(['system' , 'internal' , this.link , 'entries']);  } , 5000) 
   }
 
   get notificationAvailable() : boolean {

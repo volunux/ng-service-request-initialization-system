@@ -40,6 +40,8 @@ export class UserDetailComponent implements OnInit {
 
   public link : string;
 
+  public link2 : boolean;
+
   public $link : string;
 
   public entry : User;
@@ -60,6 +62,8 @@ export class UserDetailComponent implements OnInit {
 
     this.link = data.detail.link;
 
+    this.link2 = data.link2;
+
     this.$link = data.detail.$link;
 
     this.us.$systemType = this.systemType;
@@ -71,7 +75,7 @@ export class UserDetailComponent implements OnInit {
       pipe(
             switchMap((params : ParamMap) => { let $e = params.get('entry');
 
-                return this.us.getUser($e);  })
+                return this.us.getUser($e , this.link2);  })
         )
           .subscribe(($entry : User) => {
 

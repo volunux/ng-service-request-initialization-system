@@ -122,7 +122,7 @@
 
 					<option [value] =''> </option> 
 
-					<option *ngFor ='let faculty of generalOthers.faculty' [value] ='faculty._id'> {{faculty._id}} </option> 
+					<option *ngFor ='let faculty of generalOthers?.faculty' [value] ='faculty._id'> {{faculty._id}} </option> 
 
 				</select>
 
@@ -143,7 +143,7 @@
 
 					<option [value] =''> </option> 
 
-					<option *ngFor ='let department of generalOthers.department' [value] ='department._id'> {{department._id}} </option> 
+					<option *ngFor ='let department of generalOthers?.department' [value] ='department._id'> {{department._id}} </option> 
 
 				</select>
 
@@ -164,7 +164,7 @@
 
 					<option [value] =''> </option> 
 
-					<option *ngFor ='let level of generalOthers.level' [value] ='level._id'> {{level._id}} </option> 
+					<option *ngFor ='let level of generalOthers?.level' [value] ='level._id'> {{level._id}} </option> 
 
 				</select>
 
@@ -185,7 +185,7 @@
 
 					<option [value] =''> </option> 
 
-					<option *ngFor ='let country of generalOthers.country' [value] ='country._id'> {{country._id}} </option> 
+					<option *ngFor ='let country of generalOthers?.country' [value] ='country._id'> {{country._id}} </option> 
 
 				</select>
 
@@ -196,7 +196,7 @@
 		</ng-container>
 
 		
-			<ng-container *ngIf ='generalOthers && generalOthers?.unit && generalOthers?.unit?.length'>
+			<ng-container *ngIf ='unit && generalOthers && generalOthers?.unit && generalOthers?.unit?.length'>
 
 			<div class ='form-group'>
 
@@ -206,7 +206,7 @@
 
 					<option [value] =''> </option> 
 
-					<option *ngFor ='let unit of generalOthers.unit' [value] ='unit._id'> {{unit._id}} </option> 
+					<option *ngFor ='let unit of generalOthers?.unit' [value] ='unit._id'> {{unit._id}} </option> 
 
 				</select>
 

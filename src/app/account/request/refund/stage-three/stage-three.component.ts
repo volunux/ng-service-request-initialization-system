@@ -36,7 +36,7 @@ export class StageThreeComponent implements OnInit {
 
   @Input() public entry : GeneralRequest;
 
-  ngOnInit(): void {
+  ngOnInit() : void {
   
   }
 

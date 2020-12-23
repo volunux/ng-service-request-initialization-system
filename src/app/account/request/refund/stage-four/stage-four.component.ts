@@ -30,12 +30,12 @@ export class StageFourComponent implements OnInit {
 
   @Input('entry-form') public entryForm : FormGroup;
 
+  @Input('current-stage') public currentStage : string | number;
+
   @Input() public status : FormControl;
 
   @Input() public text : FormControl;
 
   @Input() public stage : FormControl;
-
-  @Input('current-stage') public currentStage : string | number;
 
 }

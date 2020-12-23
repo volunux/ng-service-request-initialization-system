@@ -1,6 +1,6 @@
 import { Component , OnInit , Inject } from '@angular/core';
 
-import { ActivatedRoute , Router } from '@angular/router';
+import { ActivatedRoute , ParamMap , Router } from '@angular/router';
 
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 
@@ -20,13 +20,9 @@ import { UserOther } from '../user-other';
 
 import { UserFormService } from '../user-form.service';
 
-import { ErrorMessagesService } from '../../../../general/error-messages.service';
+import { ErrorMessagesService } from '../../../../shared/services/error-messages.service';
 
-import { NotificationService } from '../../../../general/notification.service';
-
-import { Role , roles } from '../roles';
-
-import { Status , statuses } from '../status';
+import { NotificationService } from '../../../../shared/services/notification.service';
 
 @Component({
 
@@ -36,7 +32,7 @@ import { Status , statuses } from '../status';
   
   'styleUrls' : ['./user-delete.component.css'] ,
 
-  'providers' : [NotificationService]
+  'providers' : [ErrorMessagesService , NotificationService]
 
 })
 
@@ -48,43 +44,93 @@ export class UserDeleteComponent extends UserFormService implements OnInit {
 
               public http : HttpClient , @Inject(Api_Token) public apiConfig : Api) {  super(aS , fb , http , apiConfig);  }
 
-  private entryIdx : string = '';
+  public systemType : string;
 
-  public title : string = 'User Delete';
+  public viewWord : string;
+
+  public systemGuideline : string;
+
+  public title : string;
+
+  public view : string;
+
+  public link : string;
+
+  public $link : string;
+
+  public controlFilters : string[];
+
+  public asyncValidators : string[];
+
+  public noEdit : boolean;
+
+  private entryIdx : string = '';
 
   public error : General | null | boolean = false;
 
   public formSubmitted : boolean = false;
 
-  public user : User$;
-
-  public view : string = '';
+  public entry : User$;
 
   public fip : string = 'block';
 
-  ngOnInit(): void { let controls = ['faculty' , 'level' , 'about' , 'status' , 'unit' , 'username' , 'matriculationNumber' , 'jambRegistrationNumber' , 'password' , 'confirmPassword' , 'num'];
+  public submission : boolean = false;
 
-  this.removeControls(controls);
+  ngOnInit(): void {
 
-  this.removeAsyncValidators(['emailAddress' , 'username']);
+    let data = this.route.snapshot.data;
 
-    this.route.paramMap.subscribe((params) => {
+    this.systemType = data.delete.systemType;
 
-      this.us.deleteUser(params.get('entry'))
+    this.viewWord = data.delete.viewWord;
 
-        .subscribe((user : User) => { 
+    this.systemGuideline = data.delete.systemGuideline;
 
-          if (!user) { return this.error = Object.assign({'resource' : 'User Entry'} , this.ems.message);  }
+    this.title = data.delete.title;
 
-          this.entryIdx = user._id;
+    this.view = data.delete.view;
 
-          this.user = user;  
+    this.link = data.delete.link;
 
-          this.entryForm.patchValue(user);  })   }); 
+    this.$link = data.delete.$link;
+
+    this.controlFilters = data.delete.controlFilters;
+
+    this.noEdit = data.delete.noEdit;
+
+    this.asyncValidators = data.delete.asyncValidators;
+
+    this.us.$systemType = this.systemType;
+
+    this.us.$sa = this.$link;
+
+  this.removeControls(this.controlFilters);
+
+  this.removeAsyncValidators(this.asyncValidators);
+
+    this.route.paramMap.subscribe((params : ParamMap) => { let $e = params.get('entry');
+
+      this.us.deleteUser($e)
+
+        .subscribe(($entry : User) => { 
+
+          if (!$entry) { return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);  }
+
+          this.entryIdx = $entry._id;
+
+          this.entry = $entry;  
+
+          this.entryForm.patchValue(this.entry);  })   }); 
 
   }
 
-  public deleteUser(user : User) : any {
+  public deleteEntry(entry : User) : any {
+
+    let confirmation = confirm('Are you sure you want to proceed with this action?');
+
+    if (!confirmation) return false;
+
+   this.submission = true;
 
     this.formSubmitted = true;
 
@@ -94,32 +140,30 @@ export class UserDeleteComponent extends UserFormService implements OnInit {
 
     this.us.$deleteUser(this.entryIdx)
 
-      .subscribe((data : General ) => {
+      .subscribe(($entry : General) => {
 
-        if (!data) { this.formSubmitted = false;
+        if (!$entry) { this.formSubmitted = false;
 
           this.fip = 'block';
 
           this.ns.setNotificationStatus(true);
 
-          this.ns.addNotification('Operation is unsuccessful and user is not deleted.');
+          this.ns.addNotification(`Operation is unsuccessful and ${this.systemType} is not deleted.`);  }
 
-          return this.error = Object.assign({'resource' : 'User Entry'} , this.ems.message);  }
-
-       else if (data && data.deleted) { this.formSubmitted = false;
+       else if ($entry && $entry.deleted) { this.formSubmitted = false;
 
           this.ns.setNotificationStatus(true);
 
-          this.ns.addNotification('Operation is successful and user is deleted.');
+          this.ns.addNotification(`Operation is successful and ${this.systemType} is deleted.`);
 
-           return this.$entryChanges(data); }  });
+          return this.$entryChanges($entry);  }   });
   }
 
   public $entryChanges(data) {
 
     return setTimeout(() => {
 
-      return this.router.navigate(['system', 'internal' , 'user' , 'entries']);  } , 5000) 
+      return this.router.navigate(['system', 'internal' , this.link , 'entries']);  } , 5000) 
   }
 
 

@@ -18,10 +18,12 @@ export class StudentDetailComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  @Input() public entry : GeneralRequest;
+
+  ngOnInit() : void {
   
   }
 
-  @Input() public entry : GeneralRequest;
+
 
 }

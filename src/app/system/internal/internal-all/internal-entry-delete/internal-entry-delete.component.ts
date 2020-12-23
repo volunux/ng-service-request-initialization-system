@@ -40,6 +40,8 @@ export class InternalEntryDeleteComponent implements OnInit {
 
   public noEdit : boolean;
 
+  public placeholder : { [key : string] : string };
+
   ngOnInit() : void {
 
   	let data = this.route.snapshot.data;
@@ -63,6 +65,8 @@ export class InternalEntryDeleteComponent implements OnInit {
     this.controlsDisabled = data.delete.controlsDisabled;
 
   	this.noEdit = data.delete.noEdit;
+
+    this.placeholder = data.delete.placeholder;
   
   }
 

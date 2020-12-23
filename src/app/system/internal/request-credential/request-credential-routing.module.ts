@@ -6,9 +6,7 @@ import { ResolverService } from '../../../resolver.service';
 
 import { RequestCredentialListComponent } from './request-credential-list/request-credential-list.component';
 
-import { InternalEntryDeleteAllGuard } from '../internal-all/internal-entry-delete-all/internal-entry-delete-all.guard';
-
-import { InternalEntryUpdateGuard } from '../internal-all/internal-entry-update/internal-entry-update.guard';
+import { EntryDeleteAllGuard } from '../../../shared/guards/entry-delete-all.guard';
 
 import { InternalEntryComponent } from '../internal-all/internal-entry/internal-entry.component';
 
@@ -18,13 +16,7 @@ import { InternalEntriesComponent } from '../internal-all/internal-entries/inter
 
 import { InternalEntryDeleteAllComponent } from '../internal-all/internal-entry-delete-all/internal-entry-delete-all.component';
 
-import { InternalEntryCreateComponent } from '../internal-all/internal-entry-create/internal-entry-create.component';
 
-import { InternalEntryDetailComponent } from '../internal-all/internal-entry-detail/internal-entry-detail.component';
-
-import { InternalEntryUpdateComponent } from '../internal-all/internal-entry-update/internal-entry-update.component';
-
-import { InternalEntryDeleteComponent } from '../internal-all/internal-entry-delete/internal-entry-delete.component';
 
 import { RCData } from './request-credential-route-data';
 
@@ -34,33 +26,11 @@ const route : Routes = [
 
 		'children' : [
 
-				{'path' : '' , 'component' : InternalEntryDashboardComponent ,
+				{'path' : '' , 'component' : InternalEntryDashboardComponent , 'data' : {'dashboard' : RCData.dashboard } } ,
 
-									'data' : {'dashboard' : RCData.dashboard } } ,
+				{'path' : 'entries' , 'component' : RequestCredentialListComponent , 'data' : {'entries' : RCData.entries } } ,
 
-				{'path' : 'entries' , 'component' : RequestCredentialListComponent ,
-
-									'data' : {'entries' : RCData.entries } } ,
-
-				{'path' : 'entries/delete/all' , 'component' : InternalEntryDeleteAllComponent , 'canActivate' : [InternalEntryDeleteAllGuard] ,
-
-									'data' : {'deleteAll' : RCData.deleteAll } } ,
-
-				{'path' : 'create' , 'component' : InternalEntryCreateComponent  ,
-
-									'data' : {'create' : RCData.create }} ,
-
-				{'path' : 'entry/detail/:entry' , 'component' : InternalEntryDetailComponent ,
-
-									'data' : {'detail' : RCData.detail }} ,
-
-				{'path' : 'entry/update/:entry' , 'component' : InternalEntryUpdateComponent , 'canDeactivate' : [InternalEntryUpdateGuard] ,
-
-									'data' : {'update' : RCData.update }} ,
-
-				{'path' : 'entry/delete/:entry' , 'component' : InternalEntryDeleteComponent ,
-
-									'data' : {'delete' : RCData.delete } }	
+				{'path' : 'entries/delete/all' , 'component' : InternalEntryDeleteAllComponent , 'canActivate' : [EntryDeleteAllGuard] , 'data' : {'deleteAll' : RCData.deleteAll } } ,
 
 	]	} ,
 

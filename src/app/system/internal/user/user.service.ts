@@ -26,36 +26,13 @@ export class UserService {
 
   public $sa : string;
 
-	public getAllEntry(params : SearchQuery) : Observable<any> {
+	public getAllEntry(params : SearchQuery , link2Confirm? : boolean) : Observable<any> {
 
 		let link : string = `${this.apiConfig.host}/${this.$sa}/entries`;
 
-		let httpOptions = {'params' : params};
+		let link2 : string = `${this.apiConfig.host}/${this.$sa}/account-request`;
 
-		return this.http.get<User[]>(link , httpOptions)
-
-			.pipe(
-							catchError(this.handleError<User[]>(`${this.$systemType} Entries` , []))
-				)
-		}
-
-
-	public getUsers(params : SearchQuery) : Observable<any> {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/entries`;
-
-		let httpOptions = {'params' : params};
-
-		return this.http.get<User[]>(link , httpOptions)
-
-			.pipe(
-							catchError(this.handleError<User[]>(`${this.$systemType} Entries` , []))
-				)
-		}
-
-	public getAcctRequestUsers(params : SearchQuery) : Observable<any> {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/account-request`;
+		if (link2Confirm) link = link2;
 
 		let httpOptions = {'params' : params};
 
@@ -68,15 +45,14 @@ export class UserService {
 
 	public addUser() : Observable<{'User' : string[] }> {
 
-		let link : string = `${this.apiConfig.host}/${this.$sa}/add`; 
+		let link : string = `${this.apiConfig.host}/admin/user/add`; 
 
 		return this.http.get<{'User' : string[]}>(link)
 
 			.pipe(
 
-							catchError(this.handleError<{'User' : string[]}>(`${this.$systemType} Entry` , null))
+							catchError(this.handleError<{'User' : string[]}>('User Entry' , null))
 				)
-
 	}
 
 	public createUser(user : User) {
@@ -93,35 +69,13 @@ export class UserService {
 
 	}
 
-	public getUser(idx : string) : Observable<User> {
+	public getUser(idx : string , link2Confirm? : boolean) : Observable<User> {
 
 		let link : string = `${this.apiConfig.host}/${this.$sa}/entry/${idx}/detail`;
 
-		return this.http.get<User>(link)
+		let link2 : string = `${this.apiConfig.host}/${this.$sa}/account-request/entry/${idx}/detail/`;
 
-			.pipe(	
-
-				catchError(this.handleError<User>(`${this.$systemType} Entries` , null))
-
-				);
-	}
-
-	public getAcctRequestUser(idx : string) : Observable<User> {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/account-request/${idx}/detail/`;
-
-		return this.http.get<User>(link)
-
-			.pipe(	
-
-				catchError(this.handleError<User>('User Entry' , null))
-
-				);
-	}
-
-	public updateUser(idx : string) {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/entry/${idx}/update/`;
+		if (link2Confirm) link = link2;
 
 		return this.http.get<User>(link)
 
@@ -132,28 +86,17 @@ export class UserService {
 				);
 	}
 
-	public updateAcctRequestUser(idx : string) {
+	public updateUser(idx : string , link2Confirm? : boolean) {
 
 		let link : string = `${this.apiConfig.host}/${this.$sa}/entry/${idx}/update/`;
+
+		let link2 : string = `${this.apiConfig.host}/${this.$sa}/entry/${idx}/update/`;
+
+		if (link2Confirm) link = link2;
 
 		return this.http.get<User>(link)
 
 			.pipe(	
-
-				catchError(this.handleError<User>(`${this.$systemType} Entry` , null))
-
-				);
-	}
-
-	public $updateAcctRequestUser(idx : string , user : User) : Observable<any> {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/account-request/${idx}/update/`;
-
-		return this.http.put<User>(link , user)
-
-			.pipe(
-
-				map((user : User) => { return {'updated' : true , 'user' : user}; }) ,
 
 				catchError(this.handleError<User>(`${this.$systemType} Entry` , null))
 
@@ -173,9 +116,13 @@ export class UserService {
 				);
 	}
 
-	public reactivateUser(idx : string) {
+	public reactivateUser(idx : string , link2Confirm? : boolean) {
 
 		let link : string = `${this.apiConfig.host}/${this.$sa}/${idx}/reactivate/`;
+
+		let link2 : string = `${this.apiConfig.host}/${this.$sa}/${idx}/deactivate/`;
+
+		if (link2Confirm) link = link2;
 
 		return this.http.get<User>(link)
 
@@ -186,52 +133,30 @@ export class UserService {
 				);
 	}
 
-	public $reactivateUser(idx : string , user : User) : Observable<any> {
+	public $reactivateUser(idx : string , user : User , link2Confirm? : boolean) : Observable<any> {
 
 		let link : string = `${this.apiConfig.host}/${this.$sa}/${idx}/reactivate/`;
 
-		return this.http.put<User>(link , user)
+		let link2 : string = `${this.apiConfig.host}/${this.$sa}/${idx}/deactivate/`;
 
-			.pipe(
-
-				map((user : User) => { return {'updated' : true , 'user' : user}; }) ,
-
-				catchError(this.handleError<User>(`${this.$systemType} Entry` , null))
-
-				);
-	}
-
-	public deactivateUser(idx : string) {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/${idx}/deactivate/`;
-
-		return this.http.get<User>(link)
-
-			.pipe(	
-
-				catchError(this.handleError<User>(`${this.$systemType} Entry` , null))
-
-				);
-	}
-
-	public $deactivateUser(idx : string , user : User) : Observable<any> {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/${idx}/deactivate/`;
+		if (link2Confirm) link = link2;
 
 		return this.http.put<User>(link , user)
 
 			.pipe(
 
-				map((user : User) => { return {'updated' : true , 'user' : user}; }) ,
+				map((user : User) => { return {'updated' : true , 'user' : user }; }) ,
 
 				catchError(this.handleError<User>(`${this.$systemType} Entry` , null))
 
 				);
 	}
 
-	public $updateUser(idx : string , user : User) : Observable<any> {
+	public $updateUser(idx : string , user : User , link2Confirm? : boolean) : Observable<any> {
 
 		let link : string = `${this.apiConfig.host}/${this.$sa}/entry/${idx}/update/`;
+
+		let link2 : string = `${this.apiConfig.host}/${this.$sa}/account-request/entry/${idx}/detail/`;
 
 		return this.http.put<User>(link , user)
 
@@ -259,26 +184,9 @@ export class UserService {
 				);
 	}
 
-	public $deleteManyUser(arrayIdx : number[]) : Observable<any> {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/entry/delete/many/`;
-
-		let body = {'items' : arrayIdx};
-
-		return this.http.patch(link , body)
-
-			.pipe(
-
-				map((val) => { return {'manyDeleted' : true}; }) ,
-
-				catchError(this.handleError<User[]>(`${this.$systemType} Entry or Entries Delete` , []))
-
-				);
-	}
-
 	public $deleteManyEntry(arrayIdx : number[]) : Observable<any> {
 
-		let link : string = `${this.apiConfig.host}/${this.$sa}/entry/delete/many/`;
+		let link : string = `${this.apiConfig.host}/${this.$sa}/entry/many/delete`;
 
 		let body = {'items' : arrayIdx};
 
@@ -287,21 +195,6 @@ export class UserService {
 			.pipe(
 
 				map((val) => { return {'manyDeleted' : true}; }) ,
-
-				catchError(this.handleError<User[]>(`${this.$systemType} Entry or Entries Delete` , []))
-
-				);
-	}
-
-	public $deleteAllUser() : Observable<any> {
-
-		let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
-
-		return this.http.delete(link)
-
-			.pipe(
-
-				map((val) => { return {'allDeleted' : true}; }) ,
 
 				catchError(this.handleError<User[]>(`${this.$systemType} Entry or Entries Delete` , []))
 

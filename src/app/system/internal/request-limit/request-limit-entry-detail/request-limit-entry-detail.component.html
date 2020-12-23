@@ -1,0 +1,111 @@
+<h2 *ngIf ='title'> {{title}} </h2>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<div *ngIf ='entry' id ='entry-view'>
+
+	<div id ='entry-detail'>
+
+	<table>
+
+		<colgroup>
+
+			<col class ='entry-parameters'>
+			<col class ='data'>
+
+		</colgroup>
+
+		<tbody>
+
+			<ng-container *ngIf ='entry?._id'>
+
+			<tr>
+
+				<th class ='bold left'> Id : </th>
+				<td> {{entry?._id}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.author && entry?.author?.firstName'>
+
+			<tr>
+
+				<th class ='bold left'> First Name : </th>
+				<td> {{entry?.author?.firstName}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.author && entry?.author?.lastName'>
+
+			<tr>
+
+				<th class ='bold left'> Last Name : </th>
+				<td> {{entry?.author?.lastName}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.numberRemaining'>
+
+			<tr>
+
+				<th class ='bold left'> Number Remaining : </th>
+				<td> {{entry?.numberRemaining}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.status'>
+
+			<tr>
+
+				<th class ='bold left'> Status : </th>
+				<td> {{entry?.status}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.updatedAt'>
+
+			<tr>
+
+				<th class ='bold left'> Updated At : </th>
+				<td> {{entry?.updatedAt | date : 'fullDate'}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.num'>
+
+			<tr>
+
+				<th class ='bold left'> Number : </th>
+				<td> {{entry?.num}} </td>
+
+			</tr>
+
+		</ng-container>
+
+		</tbody>
+
+	</table>
+
+			<div class ='entry-options'>
+
+				<h3> Entry Options </h3>
+
+			<a [routerLink] ='["../../../" , "entry" , "update" , entry?._id]' class ='entry-option center'> {{systemType}} Update </a>
+
+		</div>
+
+</div>
+
+</div>

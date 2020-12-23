@@ -10,17 +10,17 @@ import { emailAddressValidator } from '../email-address.directive';
 
 @Component({
 
-  selector: 'app-sign-in',
+  'selector' : 'app-sign-in',
 
-  templateUrl: './sign-in.component.html',
+  'templateUrl' : './sign-in.component.html',
 
-  styleUrls: ['./sign-in.component.css']
+  'styleUrls' : ['./sign-in.component.css']
 
 })
 
 export class SignInComponent implements OnInit {
 
-  constructor(private authService : AuthenticationService , private fb : FormBuilder) { 
+  constructor(private as : AuthenticationService , private fb : FormBuilder) { 
 
   }
 
@@ -49,7 +49,7 @@ export class SignInComponent implements OnInit {
 
   public onSubmitSignIn(user : User) : any {
 
-    this.authService.signIn(user);
+    this.as.signIn(user);
 
   }
 

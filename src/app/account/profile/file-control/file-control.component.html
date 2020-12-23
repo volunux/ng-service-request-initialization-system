@@ -2,7 +2,7 @@
 
 <div id ='update-profile'>
 
-	<p> Form will not be updated if no files are uploaded. </p>
+	<p> <b class ='bold'> Note : Form will not be updated if no files are uploaded. </b> </p>
 
 <app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
 
@@ -13,6 +13,8 @@
 </div>
 
 <app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
 
 <ng-container *ngIf ='entryForm'>
 

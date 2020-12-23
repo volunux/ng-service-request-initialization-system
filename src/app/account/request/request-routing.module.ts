@@ -2,20 +2,44 @@ import { NgModule } from '@angular/core';
 
 import { Routes , RouterModule } from '@angular/router';
 
-const routes: Routes = [
+import { AuthenticationGuard } from '../../authentication/authentication.guard';
 
-	{'path' : 'course-registration' , 'loadChildren' : () => import('./course-registration/course-registration.module').then((m) => m.CourseRegistrationModule) } ,
+import { RequestComponent } from './request/request.component';
 
-	{'path' : 'school-result' , 'loadChildren' : () => import('./school-result/school-result.module').then((m) => m.SchoolResultModule) } ,
+import { RequestDashboardComponent } from './request-dashboard/request-dashboard.component';
 
-	{'path' : 'email-password' , 'loadChildren' : () => import('./email-password/email-password.module').then((m) => m.EmailPasswordModule) } ,
+const routes : Routes = [
 
-	{'path' : 'internet-credential' , 'loadChildren' : () => import('./internet-credential/internet-credential.module').then((m) => m.InternetCredentialModule) } ,
+	{'path' : '' , 
 
-	{'path' : 'internet-password' , 'loadChildren' : () => import('./internet-password/internet-password.module').then((m) => m.InternetPasswordModule) } ,
+	'component' : RequestComponent ,
 
-	{'path' : 'refund' , 'loadChildren' : () => import('./refund/refund.module').then((m) => m.RefundModule) }
+	'canLoad' : [AuthenticationGuard] ,
 
+	'children' : [
+
+			{'path' : '' ,
+
+			'canActivateChild' : [AuthenticationGuard] ,
+
+				'children' : [
+
+					{'path' : '' , 'component' : RequestDashboardComponent } ,
+
+					{'path' : 'course-registration' , 'loadChildren' : () => import('./course-registration/course-registration.module').then((m) => m.CourseRegistrationModule) } ,
+
+					{'path' : 'school-result' , 'loadChildren' : () => import('./school-result/school-result.module').then((m) => m.SchoolResultModule) } ,
+
+					{'path' : 'email-password' , 'loadChildren' : () => import('./email-password/email-password.module').then((m) => m.EmailPasswordModule) } ,
+
+					{'path' : 'internet-credential' , 'loadChildren' : () => import('./internet-credential/internet-credential.module').then((m) => m.InternetCredentialModule) } ,
+
+					{'path' : 'internet-password' , 'loadChildren' : () => import('./internet-password/internet-password.module').then((m) => m.InternetPasswordModule) } ,
+
+					{'path' : 'refund' , 'loadChildren' : () => import('./refund/refund.module').then((m) => m.RefundModule) }
+
+				]}
+		]}
 ];
 
 @NgModule({

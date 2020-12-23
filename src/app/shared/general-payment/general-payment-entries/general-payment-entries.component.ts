@@ -102,6 +102,8 @@ export class GeneralPaymentEntriesComponent implements OnInit {
 
     this.error = null;
 
+    this.entriesSearched = false;
+
     if (!qt.trim() || (Object.keys(this.searchFilters).indexOf(qt) < 0)) { return false; }
 
     this.entrySearching = true;
@@ -236,7 +238,7 @@ export class GeneralPaymentEntriesComponent implements OnInit {
 
   public addEntryToDeleteList(gridx : number , checked : boolean , idx : number) : void {
 
-  if (checked) { this.esdl.push(gridx);  }
+  if (checked) { if (gridx) this.esdl.push(gridx);  }
 
   else if (!checked && this.esdl.indexOf(gridx) > -1) {
 

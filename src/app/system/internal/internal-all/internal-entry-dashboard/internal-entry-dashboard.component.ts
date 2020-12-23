@@ -24,6 +24,8 @@ export class InternalEntryDashboardComponent implements OnInit {
 
   public view : string;
 
+  public canCreate : boolean;
+
   ngOnInit(): void {
 
   	let data = this.route.snapshot.data;
@@ -33,6 +35,8 @@ export class InternalEntryDashboardComponent implements OnInit {
   	this.title = data.dashboard.title;
 
   	this.view = data.dashboard.view;
+
+    this.canCreate = data.dashboard.canCreate != undefined ? data.dashboard.canCreate : true;
   
   }
 

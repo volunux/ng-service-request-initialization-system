@@ -34,6 +34,8 @@ export class GeneralInternalFormInputComponent implements OnInit {
 
   @Input('general-others') public generalOthers : General;
 
+  @Input() public _id : FormControl;
+
   @Input() public name : FormControl;
 
   @Input() public description : FormControl;
@@ -45,6 +47,8 @@ export class GeneralInternalFormInputComponent implements OnInit {
   @Input() public status : FormControl;
 
   @Input() public faculty : FormControl;
+
+  @Input() public placeholder : { [key : string] : any };
 
   @Input('request-username') public requestUsername : FormControl;
 

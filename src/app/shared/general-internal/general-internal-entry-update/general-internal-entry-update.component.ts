@@ -48,17 +48,19 @@ export class GeneralInternalEntryUpdateComponent implements OnInit {
 
 	@Input('view-word') public viewWord : string;
 
-	@Input('control-filters') public controlFilters : string[] = [];
+	@Input('control-filters') public controlFilters : string[];
 
   @Input('no-edit') public noEdit : boolean;
 
 	@Input() public title : string;
 
-	@Input() public view : string = '';
+	@Input() public view : string;
 
-	@Input() public link : string = '';
+	@Input() public link : string;
 
-	@Input() public $link : string = '';
+	@Input() public $link : string;
+
+  @Input() public placeholder : { [key : string] : string };
 
 	public entry : GeneralInternal;
 
@@ -119,6 +121,8 @@ export class GeneralInternalEntryUpdateComponent implements OnInit {
 	public updateEntry($entry : GeneralInternal) : any {
 
 		this.error = null;
+
+    this.fip = 'none';
 
 		for (let chrs in this.entry) {
 
@@ -211,6 +215,11 @@ export class GeneralInternalEntryUpdateComponent implements OnInit {
 
 }
 
+  get _id() : FormControl {
+
+      return this.entryForm.get('_id') as FormControl;
+  }
+
   get name() : FormControl {
 
       return this.entryForm.get('name') as FormControl;
@@ -255,4 +264,5 @@ export class GeneralInternalEntryUpdateComponent implements OnInit {
 
     return this.entryForm.valid;
   }
+
 }

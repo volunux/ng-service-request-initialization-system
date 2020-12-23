@@ -18,7 +18,7 @@ export class RequestEntryDetailComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() : void {
   
   }
 

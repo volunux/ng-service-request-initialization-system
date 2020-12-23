@@ -19,9 +19,7 @@ import { RefundLetterComponent } from './refund-letter/refund-letter.component';
 
 import { RefundService } from './refund.service';
 import { RefundFormService } from './refund-form.service';
-import { RequestDetailComponent } from './request-detail/request-detail.component';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
-import { EntryOptionsComponent } from './entry-options/entry-options.component';
 import { StageOneTwoFiveComponent } from './stage-one-two-five/stage-one-two-five.component';
 import { StageThreeComponent } from './stage-three/stage-three.component';
 import { StageFourComponent } from './stage-four/stage-four.component';
@@ -38,9 +36,7 @@ import { SignatureComponent } from './signature/signature.component';
   	RefundDetailComponent,
   	RefundEntriesComponent,
   	RefundLetterComponent,
-  	RequestDetailComponent,
   	StudentDetailComponent,
-  	EntryOptionsComponent,
   	StageOneTwoFiveComponent,
   	StageThreeComponent,
   	StageFourComponent,

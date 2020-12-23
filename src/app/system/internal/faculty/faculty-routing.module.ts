@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule , Routes } from '@angular/router'; 
 
-import { InternalEntryDeleteAllGuard } from '../internal-all/internal-entry-delete-all/internal-entry-delete-all.guard';
-
-import { InternalEntryUpdateGuard } from '../internal-all/internal-entry-update/internal-entry-update.guard';
+import { EntryDeleteAllGuard } from '../../../shared/guards/entry-delete-all.guard';
 
 import { InternalEntryComponent } from '../internal-all/internal-entry/internal-entry.component';
 
@@ -30,33 +28,19 @@ const route : Routes = [
 
 		'children' : [
 
-				{'path' : '' , 'component' : InternalEntryDashboardComponent ,
+				{'path' : '' , 'component' : InternalEntryDashboardComponent , 'data' : {'dashboard' : FData.dashboard } } ,
 
-									'data' : {'dashboard' : FData.dashboard } } ,
+				{'path' : 'entries' , 'component' : InternalEntriesComponent , 'data' : {'entries' : FData.entries } } ,
 
-				{'path' : 'entries' , 'component' : InternalEntriesComponent ,
+				{'path' : 'entries/delete/all' , 'component' : InternalEntryDeleteAllComponent , 'canActivate' : [EntryDeleteAllGuard] , 'data' : {'deleteAll' : FData.deleteAll } } ,
 
-									'data' : {'entries' : FData.entries } } ,
+				{'path' : 'create' , 'component' : InternalEntryCreateComponent , 'data' : {'create' : FData.create }} ,
 
-				{'path' : 'entries/delete/all' , 'component' : InternalEntryDeleteAllComponent , 'canActivate' : [InternalEntryDeleteAllGuard] ,
+				{'path' : 'entry/detail/:entry' , 'component' : InternalEntryDetailComponent , 'data' : {'detail' : FData.detail }} ,
 
-									'data' : {'deleteAll' : FData.deleteAll } } ,
+				{'path' : 'entry/update/:entry' , 'component' : InternalEntryUpdateComponent , 'data' : {'update' : FData.update }} ,
 
-				{'path' : 'create' , 'component' : InternalEntryCreateComponent  ,
-
-									'data' : {'create' : FData.create }} ,
-
-				{'path' : 'entry/detail/:entry' , 'component' : InternalEntryDetailComponent ,
-
-									'data' : {'detail' : FData.detail }} ,
-
-				{'path' : 'entry/update/:entry' , 'component' : InternalEntryUpdateComponent , 'canDeactivate' : [InternalEntryUpdateGuard] ,
-
-									'data' : {'update' : FData.update }} ,
-
-				{'path' : 'entry/delete/:entry' , 'component' : InternalEntryDeleteComponent ,
-
-									'data' : {'delete' : FData.delete } }	
+				{'path' : 'entry/delete/:entry' , 'component' : InternalEntryDeleteComponent , 'data' : {'delete' : FData.delete } }	
 
 	]	} ,
 

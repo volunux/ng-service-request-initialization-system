@@ -1,0 +1,181 @@
+<h2 *ngIf ='title' > {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+<div *ngIf ='entry' id ='entry-view'>
+
+	<div id ='entry-detail'>
+
+	<table>
+
+		<colgroup>
+
+			<col class ='parameter'>
+			<col class ='data'>
+
+		</colgroup>
+
+		<tbody>
+
+			<ng-container *ngIf ='entry?.text'>
+
+			<tr>
+
+				<th class ='bold left'> Text : </th>
+				<td> {{entry?.text}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.unit'>
+
+			<tr>
+
+				<th class ='bold left'> Unit : </th>
+				<td> {{entry?.unit}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.createdAt'>
+
+			<tr>
+
+				<th class ='bold left'> Created At : </th>
+				<td> {{entry?.createdAt | date : 'fullDate'}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.updatedAt'>
+
+			<tr>
+
+				<th class ='bold left'> Updated At : </th>
+				<td> {{entry?.updatedAt | date : 'fullDate'}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.slug'>
+
+			<tr>
+
+				<th class ='bold left'> Entry Slug : </th>
+				<td> {{entry?.slug}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.entrySlug'>
+
+			<tr>
+
+				<th class ='bold left'> Secondary Entry Slug : </th>
+				<td> {{entry?.entrySlug}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.commentSlug'>
+
+			<tr>
+
+				<th class ='bold left'> Comment Slug : </th>
+				<td> {{entry?.commentSlug}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.stage && entry?.stage?.name'>
+
+			<tr>
+
+				<th class ='bold left'> Stage : </th>
+				<td> {{entry?.stage?.name}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.num'>
+
+			<tr>
+
+				<th class ='bold left'> Number : </th>
+				<td> {{entry?.num}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?._id'>
+
+			<tr>
+
+				<th class ='bold left'> Unique Number : </th>
+				<td> {{entry?._id}} </td>
+
+			</tr>
+
+		</ng-container>
+
+	<ng-container *ngIf ='entry?.author && (entry?.author?.firstName || entry?.author?.lastName)'>
+
+			<tr>
+
+				<th class ='bold left'> Author Name : </th>
+				<td> {{entry?.author?.firstName}} {{entry?.author?.lastName}} </td>
+
+			</tr>
+
+	</ng-container>
+
+	<ng-container *ngIf ='entry?.entryHandler && (entry?.entryHandler?.firstName || entry?.entryHandler?.lastName)'>
+
+			<tr>
+
+				<th class ='bold left'> Entry Handler Name : </th>
+				<td> {{entry?.entryHandler?.firstName}} {{entry?.entryHandler?.lastName}} </td>
+
+			</tr>
+
+	</ng-container>
+
+			<ng-container *ngIf ='entry?.status'>
+
+			<tr>
+
+				<th class ='bold left'> Status : </th>
+				<td> {{entry?.status}} </td>
+
+			</tr>
+
+		</ng-container>
+
+		</tbody>
+
+	</table>
+
+			<div class ='entry-options'>
+
+				<h3> Entry Options </h3>
+
+			<a [routerLink] ='["../../../" , "entry" , "update" , entry?._id]' class ='entry-option center'> {{systemType}} Update </a>
+
+			<a [routerLink] ='["../../../" , "entry" , "delete" , entry?._id]' class ='entry-option center'> {{systemType}} Delete </a>
+
+		</div>
+
+</div>
+
+</div>

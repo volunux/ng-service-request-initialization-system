@@ -116,16 +116,6 @@ export class ProfileReactivateComponent implements OnInit {
       return this.router.navigate(['account' , 'profile']);  } , 5000) 
   }
 
-  get firstName() : FormControl {
-
-  	return this.entryForm.get('firstName') as FormControl;
-  }
-
-  get lastName() : FormControl {
-
-  	return this.entryForm.get('lastName') as FormControl;
-  }
-
   get emailAddress() : FormControl {
 
   	return this.entryForm.get('emailAddress') as FormControl;

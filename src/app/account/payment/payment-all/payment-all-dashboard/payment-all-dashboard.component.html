@@ -1,0 +1,42 @@
+<h2 *ngIf ='title'> {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
+
+<div *ngIf ='systemType' id ='dashboard'>
+
+<ul>
+
+	<li>
+
+		<a [routerLink] ='["../entries"]' class ='center'> Manage {{systemType}} Payment </a>
+
+	</li>
+
+	<li  *ngIf ='canCreate'>
+
+		<a [routerLink] ='["../create"]' class ='center'> Create {{systemType}} Payment </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["../../"]' class ='center'> Other Payments </a>
+
+	</li>
+
+	<li *ngIf ='canDeleteAll'>
+
+		<a [routerLink] ="['entries' , 'delete' , 'all']" class ='center'> Delete All {{systemType}} Payment </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["../account/profile"]' class ='center'> Profile </a>
+
+	</li>
+
+
+</ul>
+
+</div>

@@ -24,6 +24,8 @@ export class GeneralInternalFormValidatorsComponent implements OnInit {
 
   @Input('system-type') public systemType : string;
 
+  @Input() public _id : FormControl;
+
   @Input() public name : FormControl;
 
   @Input() public num : FormControl;

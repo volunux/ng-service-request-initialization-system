@@ -78,7 +78,7 @@ export class GeneralInternalService {
 
     let  link = `${this.apiConfig.host}/${this.$sa}/create`;
 
-    internal._id = internal.name;
+    if (!internal._id) internal._id = internal.name;
 
     return this.http.post<GeneralInternal>(link , internal)
 
@@ -163,6 +163,19 @@ export class GeneralInternalService {
         map((val) => { return {'manyDeleted' : true}; }) ,
 
         catchError(this.handleError<GeneralInternal[]>(`${this.$systemType} Entries Delete` , []))
+
+        );
+  }
+
+  public deleteAllEntry() : Observable<any> {
+
+    let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
+
+    return this.http.get(link)
+
+      .pipe(
+
+        catchError(this.handleError<GeneralInternal[]>(`${this.$systemType} Entry or Entries Delete` , []))
 
         );
   }

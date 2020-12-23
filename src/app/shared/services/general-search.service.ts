@@ -24,6 +24,10 @@ export class GeneralSearchService {
 
   }
 
+  public $systemType : string;
+
+  public $sa : string; 
+
   public searchTerms<T>(sq : SearchQuery , st : string , resource : string , result : T) : Observable<General> {
 
   	let link = `${this.apiConfig.host}/${st}/entries`;
@@ -38,6 +42,43 @@ export class GeneralSearchService {
       })
 
   		);
+  }
+
+  public deleteAllEntry() : Observable<any> {
+
+    let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
+
+    return this.http.get(link)
+
+      .pipe(
+
+        catchError(this.handleError<any[]>(`${this.$systemType} Entry or Entries Delete` , []))
+
+        );
+  }
+
+  public $deleteAllPayment() : Observable<any> {
+
+    let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
+
+    return this.http.delete(link)
+
+      .pipe(
+
+        map((val) => { return {'allDeleted' : true}; }) ,
+
+        catchError(this.handleError<any[]>(`${this.$systemType} Entry or Entries Delete` , []))
+
+        );
+  }
+
+  private handleError<T>(operation = 'operation' , result? : T) {
+
+      return (error : HttpErrorResponse) : Observable<T> => { this.ems.message = error;
+
+                return of(result as T);
+
+      }
   }
 
 }

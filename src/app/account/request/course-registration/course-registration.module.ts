@@ -1,14 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { GeneralModule } from '../../../general/general.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { GeneralRequestModule } from '../../../shared/general-request/general-request.module';
-import { SimplesModule } from '../../../shared/simples/simples.module';
-
+import { RequestAllModule } from '../request-all/request-all.module';
 import { CourseRegistrationRoutingModule } from './course-registration-routing.module';
 
-import { GeneralServicesModule } from '../../../shared/services/general-services.module';
 
 
 @NgModule({
@@ -18,11 +12,7 @@ import { GeneralServicesModule } from '../../../shared/services/general-services
  
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    GeneralRequestModule,
-    SimplesModule,
-    GeneralModule,
-    GeneralServicesModule,
+    RequestAllModule,
     CourseRegistrationRoutingModule
   ],
 

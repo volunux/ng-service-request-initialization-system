@@ -19,6 +19,17 @@
 
 		<tbody>
 
+			<ng-container *ngIf ='entry?.profilePhoto'>
+
+			<tr>
+
+				<th class ='bold left'> Profile Photo : </th>
+				<td class ='profilePhoto'> <img src ='{{entry?.profilePhoto.location}}' alt ='{{systemType}}' [title] ='systemType' > </td>
+
+			</tr>
+
+		</ng-container>
+
 			<ng-container *ngIf ='entry?._id'>
 
 			<tr>
@@ -195,12 +206,34 @@
 
 		</ng-container>
 
+			<ng-container *ngIf ='entry?.about'>
+
+			<tr>
+
+				<th class ='bold left'> About : </th>
+				<td> {{entry?.about}} </td>
+
+			</tr>
+
+		</ng-container>
+
 			<ng-container *ngIf ='entry?.num'>
 
 			<tr>
 
 				<th class ='bold left'> Number : </th>
 				<td> {{entry?.num}} </td>
+
+			</tr>
+
+		</ng-container>
+
+			<ng-container *ngIf ='entry?.signature'>
+
+			<tr>
+
+				<th class ='bold left'> Signature : </th>
+				<td class ='signature' > <img src ='{{entry?.signature.location}}' alt ='{{systemType}}' [title] ='systemType' > </td>
 
 			</tr>
 

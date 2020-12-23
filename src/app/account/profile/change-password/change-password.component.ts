@@ -56,7 +56,7 @@ export class ChangePasswordComponent implements OnInit {
 
   public fip : string = 'block';
 
-  public changePasswordForm : FormGroup;
+  public entryForm : FormGroup;
 
   ngOnInit() : void {
 
@@ -74,7 +74,7 @@ export class ChangePasswordComponent implements OnInit {
 
           this.entryIdx = $entry._id;
 
-          this.changePasswordForm = this.pfs.changePassword();  });
+          this.entryForm = this.pfs.changePassword();  });
 
   }
 
@@ -120,22 +120,22 @@ export class ChangePasswordComponent implements OnInit {
   
   get password() : FormControl {
 
-      return this.changePasswordForm.get('password') as FormControl;
+      return this.entryForm.get('password') as FormControl;
   }
 
   get newPassword() : FormControl {
 
-  		return this.changePasswordForm.get('newPassword') as FormControl;
+  		return this.entryForm.get('newPassword') as FormControl;
   }
 
   get confirmPassword() : FormControl {
 
-  		return this.changePasswordForm.get('confirmPassword') as FormControl;
+  		return this.entryForm.get('confirmPassword') as FormControl;
   }
 
   get isFormValid() : boolean {
 
-  	return this.changePasswordForm.valid;
+  	return this.entryForm.valid;
   }
 
   get notificationAvailable() : boolean {

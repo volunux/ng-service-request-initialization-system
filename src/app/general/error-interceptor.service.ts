@@ -8,7 +8,7 @@ import { catchError , tap } from 'rxjs/operators';
 
 import { ErrorHandlerService } from './error-handler.service';
 
-import { ErrorMessagesService } from './error-messages.service';
+import { ErrorMessagesService } from '../shared/services/error-messages.service';
 
 @Injectable()
 
@@ -31,10 +31,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
           console.log(val); }) ,
 
   			catchError((error : HttpErrorResponse) => {
-
-          console.log('I saw it');
-
-          console.log(error);
 
           if (error.error instanceof ErrorEvent) {}
 

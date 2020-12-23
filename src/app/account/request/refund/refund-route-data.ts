@@ -29,8 +29,12 @@ export const RFData : { [key : string] : any } = {
 
 	'transfer' : {...$$ , 'title' : `Transfer and Move ${$$.systemType} Entry` } ,
 
-	'entries' : {...$$ , 'title' : `${$$.systemType} Entries` , 'searchFilters' : {'applicationNumber' : 'Application Number' , 'status' : 'Status'} } ,
+	'entries' : {...$$ , 'title' : `${$$.systemType} Entries` ,
 
-	'reply' : {...$$ , 'title' : `Add a Reply to a Comment : ${$$.systemType} Entry`}
+		'searchFilters' : {'applicationNumber' : 'Application Number' , 'status' : 'Status' , 'department' : 'Department' , 'faculty' : 'Faculty' , 'stage' : 'Stage' } } ,
+
+	'reply' : {...$$ , 'title' : `Add a Reply to a Comment : ${$$.systemType} Entry`} ,
+
+	'deleteAll' : {...$$ , 'title' : `${$$.systemType} Entries : Delete All` } ,
 
 };

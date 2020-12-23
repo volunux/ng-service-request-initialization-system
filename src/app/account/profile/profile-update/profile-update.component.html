@@ -90,41 +90,6 @@
 		</ng-container>
 
 
-			<div class ='form-group'>
-
-				<label for ='matriculationNumber' class ='form-label bold'> Matriculation Number : </label>
-
-				<input type ='text' id ='matriculationNumber' name ='matriculationNumber' placeholder ='2015/1/57261CI' autocomplete ='new-matriculationNumber' formControlName ='matriculationNumber' 
-
-				class ='form-control'>
-
-				<app-profile-validator *ngIf ='matriculationNumber' [system-type] ='systemType' [matriculationNumber] ='matriculationNumber'> </app-profile-validator>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='jambRegistrationNumber' class ='form-label bold'> Jamb Registration Number : </label>
-
-				<input type ='text' id ='jambRegistrationNumber' name ='jambRegistrationNumber' placeholder ='56223645DH' autocomplete ='new-jambRegistrationNumber'
-
-				formControlName ='jambRegistrationNumber' class ='form-control'>
-
-				<app-profile-validator *ngIf ='jambRegistrationNumber' [system-type] ='systemType' [jambRegistrationNumber] ='jambRegistrationNumber'> </app-profile-validator>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='identityNumber' class ='form-label bold'> Identity Number : </label>
-
-				<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' autocomplete ='new-identityNumber' formControlName ='identityNumber' class ='form-control'>
-
-				<app-profile-validator *ngIf ='identityNumber' [system-type] ='systemType' [identityNumber] ='identityNumber'> </app-profile-validator>
-
-			</div>
-
-
 			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
 
 			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>

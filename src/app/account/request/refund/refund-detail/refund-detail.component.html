@@ -1,6 +1,6 @@
 <div id ='entry-view'>
 
-	<h2> {{systemType}} Entry </h2> 
+	<h2 *ngIf ='systemType' > {{systemType}} Entry </h2> 
 
 <app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
 
@@ -10,7 +10,7 @@
 
 <div *ngIf ='entry' id ='request-entry-detail'>
 
-	<app-request-detail *ngIf ='entry' [entry] ='entry'> </app-request-detail>
+	<app-request-entry-detail *ngIf ='entry' [entry] ='entry'> </app-request-entry-detail>
 
 	<app-student-detail *ngIf ='entry' [entry] ='entry' > </app-student-detail>
 
@@ -24,9 +24,9 @@
 
 	</ng-container>
 
-	<app-refund-entry-options *ngIf ='entry' [view-description] ='view' [link] ='link' [entry] ='entry' [entry-on-review] ='setEntryOnReview' [can-update-entry] ='canUpdateEntry' 
+	<app-entry-options *ngIf ='entry' [view-description] ='view' [link] ='link' [entry] ='entry' [entry-on-review] ='setEntryOnReview' [can-update-entry] ='canUpdateEntry' 
 
-	 [system-type] ='systemType' [view-word] ='viewWord' (onReviewEntry) ='$confirmEntryOnReview($event)'> </app-refund-entry-options>
+	 [system-type] ='systemType' [view-word] ='viewWord' (onReviewEntry) ='$confirmEntryOnReview($event)'> </app-entry-options>
 
 		<app-file-attachments-two *ngIf ='entry' [entry] ='entry'> </app-file-attachments-two>
 

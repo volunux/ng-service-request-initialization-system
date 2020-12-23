@@ -10,7 +10,11 @@ import { ProfileModule } from './profile/profile.module';
 
 
 @NgModule({
-  declarations: [],
+
+  declarations: [
+
+  ],
+
   imports: [
     CommonModule,
 		GeneralModule,

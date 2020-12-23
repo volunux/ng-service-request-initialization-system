@@ -36,6 +36,8 @@ export class InternalEntryCreateComponent implements OnInit {
 
   public noEdit : boolean;
 
+  public placeholder : { [key : string] : string };
+
   ngOnInit() : void {
 
   	let data = this.route.snapshot.data;
@@ -57,6 +59,8 @@ export class InternalEntryCreateComponent implements OnInit {
   	this.controlFilters = data.create.controlFilters;
 
   	this.noEdit = data.create.noEdit;
+
+    this.placeholder = data.create.placeholder;
   
   }
 

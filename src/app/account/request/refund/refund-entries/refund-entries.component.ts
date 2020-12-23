@@ -20,11 +20,11 @@ import { RefundFormService } from '../refund-form.service';
 
 import { GeneralSearchService } from '../../../../shared/services/general-search.service';
 
-import { ErrorMessagesService } from '../../../../general/error-messages.service';
+import { ErrorMessagesService } from '../../../../shared/services/error-messages.service';
 
-import { SearchQuery } from '../../../../general/search-query';
+import { SearchQuery } from '../../../../shared/interfaces/search-query';
 
-import { NotificationService } from '../../../../general/notification.service';
+import { NotificationService } from '../../../../shared/services/notification.service';
 
 import { AuthenticationService } from '../../../../authentication/authentication.service';
 
@@ -52,15 +52,19 @@ export class RefundEntriesComponent implements OnInit {
 
   }
 
-  public systemType : string = 'Refund';
+  public systemType : string;
 
-  public title : string = `${this.systemType} Entries`;
+  public title : string;
 
-  public view : string = 'rf';
+  public view : string;
 
-  public viewWord : string = 'Refund';
+  public viewWord : string;
 
-  public link : string = 'refund';
+  public link : string;
+
+  public $link : string;
+
+  public searchFilters : General;
 
   public entries : GeneralRequest[] = [];
 
@@ -88,19 +92,6 @@ export class RefundEntriesComponent implements OnInit {
 
   public searchTerm : Subject<SearchQuery> = new Subject<SearchQuery>();
 
-  public searchFilters : General = {
-
-    'applicationNumber' : 'Application Number' ,
-
-    'department' : 'Department' ,
-
-    'faculty' : 'Faculty' ,
-
-    'stage' : 'Stage' , 
-
-    'status' : 'Status' };
-
-
   public validSearch(qt) {
 
     return Object.keys(this.searchFilters).indexOf(qt) < 0;
@@ -127,6 +118,26 @@ export class RefundEntriesComponent implements OnInit {
   }
 
   ngOnInit() : void {
+
+    let data = this.route.snapshot.data;
+
+        this.systemType = data.entries.systemType;
+
+        this.title = data.entries.title;
+
+        this.view = data.entries.view;    
+
+        this.viewWord = data.entries.viewWord;
+
+        this.link = data.entries.link;
+
+        this.$link = data.entries.$link;
+
+        this.searchFilters = data.entries.searchFilters;
+
+    this.grs.$systemType = this.systemType;
+
+    this.grs.$sa = this.$link;
 
     this.searchCtrl = this.grfs.searchForm(this.searchFilters);
 

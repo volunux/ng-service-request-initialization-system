@@ -54,6 +54,8 @@ export class GeneralInternalEntryCreateComponent implements OnInit {
 
   @Input() public $link : string;
 
+  @Input() public placeholder : { [key : string] : string };
+
   public error : General | null | boolean = false;
 
   public formSubmitted : boolean = false;
@@ -84,7 +86,7 @@ export class GeneralInternalEntryCreateComponent implements OnInit {
 
       if (Object.keys(data.$data).length > 0) { 
 
-        this.generalOthers = GeneralInternalOther.processEntries(data.$data);  
+        this.generalOthers = GeneralInternalOther.processEntries(data.$data);
 
         this.gifs.createPermanent(data , this.entryForm);  }  });
   }
@@ -146,6 +148,11 @@ export class GeneralInternalEntryCreateComponent implements OnInit {
 
      this.ns.removeNotification();
    }
+
+  get _id() : FormControl {
+
+      return this.entryForm.get('_id') as FormControl;
+  }
 
   get name() : FormControl {
 

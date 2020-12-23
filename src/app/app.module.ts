@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -11,6 +11,7 @@ import { ErrorInterceptorService } from './general/error-interceptor.service';
 import { TokenInterceptorService } from './authentication/token-interceptor.service';
 import { appInterceptors } from './general/all-interceptors';
 
+import { PipesModule } from './shared/pipes/pipes.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GetStartedComponent } from './get-started/get-started.component';
@@ -33,12 +34,11 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     QuillModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
     GeneralModule,
+    PipesModule,
     AppRoutingModule,
   ],
   

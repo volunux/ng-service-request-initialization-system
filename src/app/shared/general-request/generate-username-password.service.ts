@@ -14,7 +14,7 @@ import { SearchQuery } from '../../general/search-query';
 
 import { Api_Token , Api } from '../../configuration';
 
-import { ErrorMessagesService } from '../../general/error-messages.service';
+import { ErrorMessagesService } from '../../shared/services/error-messages.service';
 
 @Injectable()
 

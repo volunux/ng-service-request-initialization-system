@@ -4,9 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthenticationGuard } from '../authentication/authentication.guard';
 
-import { SystemRoleGuard } from './system-role-guard.guard';
+import { IsAdminGuard } from '../shared/guards/is-admin.guard';
 
-import { UserStatusGuard } from '../authentication/user-status.guard';
+import { AccountStatusGuard } from '../shared/guards/account-status.guard';
 
 import { SystemComponent } from './system/system.component';
 
@@ -18,18 +18,28 @@ const routes: Routes = [
 
 		'component' : SystemComponent ,
 
-		'canActivate' : [AuthenticationGuard , UserStatusGuard , SystemRoleGuard] ,
+		'canActivate' : [AuthenticationGuard , AccountStatusGuard , IsAdminGuard] ,
+
+		'canLoad' : [IsAdminGuard] ,
 
 		'children' : [
 
 			{
 				'path' : '' ,
 
+				'canActivateChild' : [AuthenticationGuard , AccountStatusGuard , IsAdminGuard] ,
+
 				'children' : [
 
 					{'path' : '' , 'component' : SystemDashboardComponent } ,
 
 					{'path' : 'internal' , 'loadChildren' : () => import('./internal/internal.module').then(m => m.InternalModule) } ,
+
+					{'path' : 'request' , 'loadChildren' : () => import('./internal-request/internal-request.module').then(m => m.InternalRequestModule) } ,
+
+					{'path' : 'payment' , 'loadChildren' : () => import('./internal-payment/internal-payment.module').then(m => m.InternalPaymentModule) } ,
+
+					{'path' : 'statistics' , 'loadChildren' : () => import('./statistics/statistics.module').then(m => m.StatisticsModule) } ,
 
 				]
 

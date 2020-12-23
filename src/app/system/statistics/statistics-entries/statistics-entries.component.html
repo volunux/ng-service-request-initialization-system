@@ -1,0 +1,11 @@
+<h2 *ngIf ='title' > {{title}} Statistics </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
+
+<div class ='item stat-items' *ngFor ='let entry of entries | keyvalue'>
+
+	<h3> {{$records[entry.key]}} </h3>
+
+	<p> {{entry.value}}</p>
+
+</div>

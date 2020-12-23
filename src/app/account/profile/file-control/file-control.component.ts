@@ -80,7 +80,7 @@ export class FileControlComponent implements OnInit {
 
       this.entryForm = this.pfs.changeDisplay();
 
-      this.entryForm.patchValue({'profilePhoto' : 'yes' , 'signature' : 'yes'});
+      this.entryForm.patchValue({'profilePhoto' : {} , 'signature' : {}});
 
   };
 

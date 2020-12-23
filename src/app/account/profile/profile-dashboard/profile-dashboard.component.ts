@@ -1,5 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 
+import { AuthenticationService } from '../../../authentication/authentication.service';
+
 @Component({
 
   'selector' : 'app-profile-dashboard',
@@ -12,7 +14,7 @@ import { Component , OnInit } from '@angular/core';
 
 export class ProfileDashboardComponent implements OnInit {
 
-  constructor() { 
+  constructor(private as : AuthenticationService) { 
 
   }
 
@@ -25,5 +27,10 @@ export class ProfileDashboardComponent implements OnInit {
   public title : string = 'Profile';
 
   public view : string = 'upr';
+
+  get canManage() : boolean {
+
+    return ['moderator' , 'administrator' , 'superAdministrator'].indexOf(this.as.userRole) > 0; 
+  }
 
 }

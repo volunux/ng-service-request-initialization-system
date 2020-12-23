@@ -10,53 +10,9 @@
 
 		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='reactivateEntry(entryForm.value)'>
 
-			<div class ='form-group'>
+			<app-profile-input-fields *ngIf ='systemType' [system-type] ='systemType' [entry] ='entry' [entry-form] ='entryForm' [email-address] ='emailAddress' [identity-number] ='identityNumber'>
 
-				<label for ='firstName' class ='form-label bold'> First Name * : </label>
-
-				<input type ='text' id ='firstName' name ='firstName' placeholder ='Yusuf' required ='required' autocomplete ='new-firstName' formControlName ='firstName' class ='form-control' 
-
-				readonly ='readonly' appCapitalize ='appCapitalize'>
-
-				<app-profile-validator *ngIf ='firstName' [system-type] ='systemType' [firstName] ='firstName'> </app-profile-validator>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='lastName' class ='form-label bold'> Last Name * : </label>
-
-				<input type ='text' id ='lastName' name ='lastName' placeholder ='Musa' required ='required' autocomplete ='new-lastName' formControlName ='lastName' class ='form-control'
-
-				readonly ='readonly' appCapitalize ='appCapitalize' >
-
-				<app-profile-validator *ngIf ='lastName' [system-type] ='systemType' [lastName] ='lastName'> </app-profile-validator>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='emailAddress' class ='form-label bold'> Email Address * : </label>
-
-				<input type ='text' id ='emailAddress' name ='emailAddress' placeholder ='david@example.com' required ='required' autocomplete ='new-emailAddress' formControlName ='emailAddress' 
-
-				class ='form-control' readonly ='readonly' appLowercase ='appLowercase' >
-
-				<app-profile-validator *ngIf ='emailAddress' [system-type] ='systemType' [emailAddress] ='emailAddress'> </app-profile-validator>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='identityNumber' class ='form-label bold'> Identity Number : </label>
-
-				<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' autocomplete ='new-identityNumber' formControlName ='identityNumber' readonly ='readonly'
-
-				class ='form-control'>
-
-				<app-profile-validator *ngIf ='identityNumber' [system-type] ='systemType' [identityNumber] ='identityNumber'> </app-profile-validator>
-
-			</div>
+			</app-profile-input-fields>
 
 			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
 

@@ -1,6 +1,6 @@
 <div id ='general-payment'>
 
-<h2> {{title}} </h2>
+<h2 *ngIf ='title' > {{title}} </h2>
 
 <app-view-description *ngIf ='view' [view-description] ='view'> </app-view-description>
 

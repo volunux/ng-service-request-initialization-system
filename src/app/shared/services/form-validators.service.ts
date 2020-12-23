@@ -1,4 +1,4 @@
-import { AbstractControl , ValidatorFn , ValidationErrors } from '@angular/forms';
+import { AbstractControl , FormGroup , ValidatorFn , ValidationErrors } from '@angular/forms';
 
 import { General } from '../interfaces/general';
 
@@ -43,6 +43,28 @@ export function statusValidator(filters? : General) : ValidatorFn {
 
 }
 
+export function numberValidator() : ValidatorFn {
+
+  return (control : AbstractControl) : ValidationErrors | null => {
+
+    let entry = control.value;
+
+      return Number.isInteger(entry) ? null : {'numError' : {'value' : entry.value}}
+  }
+
+}
+
+export function shortCodeValidator() : ValidatorFn {
+
+  return (control : AbstractControl) : ValidationErrors | null => {
+
+    let entry = control.value;
+
+      return Number.isInteger(entry) ? null : {'shortCodeError' : {'value' : entry}}
+  }
+
+}
+
 export function roleValidator() : ValidatorFn {
 
   let $roles : string[] = ['Student' , 'Department President' , 'Faculty President' , 'Lecturer' , 'Staff' ,
@@ -58,4 +80,31 @@ export function roleValidator() : ValidatorFn {
     return roles.test(entry) ? {'roleError' : {'value' : entry , 'roles' : $roles}} : null
   }
 
+}
+
+export function forbiddenNamesValidator(name : RegExp) : ValidatorFn {
+
+  let $names : string[] = ['Student' , 'Department President' , 'Faculty President' , 'Lecturer' , 'Staff' ,
+
+                    'Head of Department' , 'Dean of Faculty' , 'Bursar' , 'Moderator' , 'Administrator' , 'Super Administrator'];
+
+  let names : RegExp = /moderator|administrator|superAdministrator|hod|deanstudent|departmentPresident|facultyPresident|bursar|lecturer|staff/i;
+
+  return (control : AbstractControl) : { [key : string] : any} | null => {
+
+    const forbidden = names.test(control.value);
+
+    return forbidden ? {forbiddenNames : {'value' : control.value , 'names' : $names} } : null }
+  }
+
+  export function firstLastNames() : ValidatorFn {
+
+  return (controlsAncestor : FormGroup) : ValidationErrors | null => {
+
+    const firstName = controlsAncestor.get('firstName');
+
+    const lastName = controlsAncestor.get('lastName');
+
+      return firstName && lastName && firstName.value == lastName.value ? {'bothNames' : {'value' : firstName.value + lastName.value } } : null;
+  }
 }

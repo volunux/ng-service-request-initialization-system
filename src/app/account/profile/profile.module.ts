@@ -14,17 +14,15 @@ import { ProfileUpdateComponent } from './profile-update/profile-update.componen
 import { ProfileDeactivateComponent } from './profile-deactivate/profile-deactivate.component';
 import { ProfileReactivateComponent } from './profile-reactivate/profile-reactivate.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ChangeSignaturePictureComponent } from './change-signature-picture/change-signature-picture.component';
 import { ProfileValidatorComponent } from './profile-validator/profile-validator.component';
 
 import { GeneralModule } from '../../general/general.module';
 import { FileControlComponent } from './file-control/file-control.component';
 
-import { UserFormValidatorNumberDirective } from './user-form-validators.directive';
-
 import { ProfileService } from './profile.service';
 import { ProfileFileControlService } from './profile-file-control.service';
 import { ProfileFormService } from './profile-form.service';
+import { ProfileInputFieldsComponent } from './profile-input-fields/profile-input-fields.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +34,9 @@ import { ProfileFormService } from './profile-form.service';
   ProfileDeactivateComponent, 
   ProfileReactivateComponent, 
   ChangePasswordComponent, 
-  ChangeSignaturePictureComponent,
   ProfileValidatorComponent,
   FileControlComponent,
-  UserFormValidatorNumberDirective
+  ProfileInputFieldsComponent
   ],
 
   imports: [

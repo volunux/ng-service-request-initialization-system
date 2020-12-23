@@ -257,6 +257,19 @@ export class GeneralRequestService {
         );
   }
 
+  public deleteAllEntry() : Observable<any> {
+
+    let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
+
+    return this.http.get(link)
+
+      .pipe(
+
+        catchError(this.handleError<GeneralRequest[]>(`${this.$systemType} Entry or Entries Delete` , []))
+
+        );
+  }
+
   public $deleteAllGeneralRequest() : Observable<any> {
 
     let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;

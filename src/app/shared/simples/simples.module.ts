@@ -16,7 +16,7 @@ import { ImageUploadService } from './attachment-upload/image-upload.service';
   	PaginationComponent,
   	GuidelinesComponent,
     FileAttachmentsTwoComponent,
-    AttachmentUploadComponent
+    AttachmentUploadComponent,
   ],
   
   imports: [

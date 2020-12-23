@@ -14,8 +14,6 @@ import { GeneralPaymentFormValidatorsComponent } from './general-payment-form-va
 import { GeneralPaymentDetailComponent } from './general-payment-detail/general-payment-detail.component';
 import { GeneralPaymentCreateComponent } from './general-payment-create/general-payment-create.component';
 
-import { GeneralPaymentUpdateComponent } from './general-payment-update/general-payment-update.component';
-import { GeneralPaymentSearchComponent } from './general-payment-search/general-payment-search.component';
 
 import { GeneralPaymentService } from './general-payment.service';
 import { GeneralPaymentFormService } from './general-payment-form.service';
@@ -29,9 +27,7 @@ import { GeneralPaymentVerificationComponent } from './general-payment-verificat
   GeneralPaymentEntriesComponent,
   GeneralPaymentDetailComponent,
   GeneralPaymentCreateComponent,
-  GeneralPaymentUpdateComponent,
-  GeneralPaymentSearchComponent,
-  GeneralPaymentVerificationComponent
+  GeneralPaymentVerificationComponent,
   ],
   
   imports: [
@@ -48,7 +44,7 @@ import { GeneralPaymentVerificationComponent } from './general-payment-verificat
   GeneralPaymentEntriesComponent,
   GeneralPaymentDetailComponent,
   GeneralPaymentCreateComponent,
-  GeneralPaymentVerificationComponent
+  GeneralPaymentVerificationComponent,
   ] ,
 
   providers : [

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 
-import { ChangeSignaturePictureComponent } from './change-signature-picture/change-signature-picture.component';
+import { AuthenticationGuard } from '../../authentication/authentication.guard';
 
 import { FileControlComponent } from './file-control/file-control.component';
 
@@ -26,24 +26,34 @@ const routes: Routes = [
 
 		'component' : ProfileComponent ,
 
-		'children' : [
+	'canActivate' : [AuthenticationGuard] ,
 
-			{'path' : '' , 'component' : ProfileDashboardComponent } ,
-						
-			{ 'path' : 'change-display' , 'component' : FileControlComponent } ,
+	'canLoad' : [AuthenticationGuard] ,
 
-			{ 'path' : 'change-password' , 'component' : ChangePasswordComponent } ,
+	'children' : [
 
-			{ 'path' : 'update' , 'component' : ProfileUpdateComponent } ,
+			{'path' : '' ,
 
-			{ 'path' : 'detail' , 'component' : ProfileDetailComponent } ,
+			'canActivateChild' : [AuthenticationGuard] ,
 
-			{ 'path' : 'deactivate' , 'component' : ProfileDeactivateComponent } ,
+				'children' : [
 
-			{ 'path' : 'reactivate' , 'component' : ProfileReactivateComponent } ,
-		
-		]	}
+						{'path' : '' , 'component' : ProfileDashboardComponent } ,
 
+						{ 'path' : 'change-display' , 'component' : FileControlComponent } ,
+
+						{ 'path' : 'change-password' , 'component' : ChangePasswordComponent } ,
+
+						{ 'path' : 'update' , 'component' : ProfileUpdateComponent } ,
+
+						{ 'path' : 'detail' , 'component' : ProfileDetailComponent } ,
+
+						{ 'path' : 'deactivate' , 'component' : ProfileDeactivateComponent } ,
+
+						{ 'path' : 'reactivate' , 'component' : ProfileReactivateComponent } ,
+
+				]}
+		]}
 
 ];
 

@@ -1,84 +1,26 @@
-<h2> {{title}} </h2>
+<h2 *ngIf ='title' > {{title}} </h2>
 
-<app-user-get-started></app-user-get-started>
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
 
-<app-view-description [view-description] ='view'></app-view-description>
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
 
-<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'></app-notification-screen>
+<app-resource-unavailable id ='error' *ngIf ='error' [error] ='error' > </app-resource-unavailable>
 
-<app-resource-unavailable *ngIf ='error' [error] ='error' ></app-resource-unavailable>
-
-<div *ngIf ='user' id ='entry-delete'>
+<div *ngIf ='entry' id ='entry-delete'>
 
 	<div id ='entry-detail'>
 
-		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='userForm' (ngSubmit) ='deleteUser(userForm.value)'>
+		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='deleteEntry(entryForm.value)'>
 
-			<ng-container *ngIf ='user.firstName'>
+<app-user-form-input *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [first-name] ='firstName' [last-name] ='lastName' [user-name] ='username' 
 
-			<div class ='form-group'>
+	[email-address] ='emailAddress' [password] ='password' [confirm-password] ='confirmPassword' [about] ='about' [faculty] ='faculty' [department] ='department' [level] ='level'
 
-				<label for ='firstName' class ='form-label bold'> First Name * : </label>
+	[country] ='country' [unit] ='unit' [role] ='role' [status] ='status' [statuses] ='statuses' [matriculation-number] ='matriculationNumber' [jamb-registration-number] ='jambRegistrationNumber' 
 
-				<input type ='text' id ='firstName' name ='firstName' placeholder ='Yusuf' required ='required' autocomplete ='new-firstName' formControlName ='firstName' class ='form-control'
+	 [roles] ='roles' [general-others] ='generalOthers' [no-edit] ='noEdit' > </app-user-form-input>
 
-				readonly ='readonly'>
-
-				<app-user-validator *ngIf ='firstName' [firstName] ='firstName'></app-user-validator>
-
-			</div>
-
-			</ng-container>
-
-			<ng-container *ngIf ='user.lastName'>
-
-			<div class ='form-group'>
-
-				<label for ='lastName' class ='form-label bold'> Last Name * : </label>
-
-				<input type ='text' id ='lastName' name ='lastName' placeholder ='Musa' required ='required' autocomplete ='new-lastName' formControlName ='lastName' class ='form-control' 
-
-				readonly ='readonly'>
-
-				<app-user-validator *ngIf ='lastName' [lastName] ='lastName'></app-user-validator>
-
-			</div>
-
-			</ng-container>
-
-			<ng-container *ngIf ='user.emailAddress'>
-
-			<div class ='form-group'>
-
-				<label for ='emailAddress' class ='form-label bold'> Email Address * : </label>
-
-				<input type ='text' id ='emailAddress' name ='emailAddress' placeholder ='david@example.com' required ='required' autocomplete ='new-emailAddress' formControlName ='emailAddress' 
-
-				class ='form-control' readonly ='readonly'>
-
-				<app-user-validator *ngIf ='emailAddress' [emailAddress] ='emailAddress'></app-user-validator>
-
-			</div>
-
-			</ng-container>	
-
-			<ng-container *ngIf ='user.country'>
-
-			<div class ='form-group'>
-
-				<label for ='country' class ='form-label bold'> Country * : </label>
-
-				<input type ='text' id ='country' name ='country' placeholder ='Nigeria' required ='required' autocomplete ='new-country' formControlName ='country' class ='form-control'
-
-				readonly ='readonly'>
-
-				<app-user-validator *ngIf ='country' [country] ='country'></app-user-validator>
-
-			</div>
-
-			</ng-container>	
-
-			<ng-container *ngIf ='user.department'>
+			<ng-container *ngIf ='entry?.department'>
 
 			<div class ='form-group'>
 
@@ -86,47 +28,45 @@
 
 				<input type ='text' id ='department' name ='department' placeholder ='Information and Media Technology' required ='required' autocomplete ='new-department' 
 
-				formControlName ='department' class ='form-control' readonly ='readonly'>
+				formControlName ='department' class ='form-control' [readOnly] ='noEdit'>
 
-				<app-user-validator *ngIf ='department' [department] ='department'></app-user-validator>
+				<app-user-validator *ngIf ='department' [system-type] ='systemType' [department] ='department'> </app-user-validator>
 
 			</div>
 
-
 			</ng-container>	
 
-			<ng-container *ngIf ='user.identityNumber'>
+		<ng-container *ngIf ='entry?.identityNumber'>
 
 			<div class ='form-group'>
 
 				<label for ='identityNumber' class ='form-label bold'> Identity Number : </label>
 
-				<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' required ='required' autocomplete ='new-identityNumber' formControlName ='identityNumber'
+				<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' autocomplete ='new-identityNumber' formControlName ='identityNumber' 
 
-				class ='form-control' readonly ='readonly'>
+				[readOnly] ='noEdit' class ='form-control'>
 
-				<app-user-validator *ngIf ='identityNumber' [identityNumber] ='identityNumber'></app-user-validator>
+				<app-user-validator *ngIf ='identityNumber' [system-type] ='systemType' [identity-number] ='identityNumber'> </app-user-validator>
 
 			</div>
 
+		</ng-container>
 
-			</ng-container>	
-
-			<ng-container *ngIf ='user.role'>
+			<ng-container *ngIf ='entry?.role'>
 
 			<div class ='form-group'>
 
 				<label for ='role' class ='form-label bold'> Role * : </label>
 
-				<input type ='text' id ='role' name ='role' placeholder ='Student' required ='required' autocomplete ='new-role' formControlName ='role' class ='form-control' readonly ='readonly'>
+				<input type ='text' id ='role' name ='role' placeholder ='Student' required ='required' autocomplete ='new-role' formControlName ='role' class ='form-control' [readOnly] ='noEdit'>
 
-				<app-user-validator *ngIf ='role' [role] ='role'></app-user-validator>
+				<app-user-validator *ngIf ='role' [system-type] ='systemType' [role] ='role'> </app-user-validator>
 
 			</div>
 
-			</ng-container>	
+			</ng-container>
 
-			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!userForm.valid'> Submit </button> 
+			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
 
 			<p *ngIf ='formSubmitted'>Your form is being processed. Please kindly be patient and wait while it completes.</p>
 
@@ -136,13 +76,13 @@
 
 				<h3> Entry Options </h3>
 
-			<a [routerLink] ='["../../../" , "user" , "entry" , "update" , user._id]' class ='entry-option center'> User Update </a>
+			<a [routerLink] ='["../../../" , "entry" , "update" , entry?._id]' class ='entry-option center'> {{systemType}} Update </a>
 
-			<a [routerLink] ='["../../../" , "user" , "entry" , "delete" , user._id]' class ='entry-option center'> User Delete </a>
+			<a [routerLink] ='["../../../" , "entry" , "detail" , entry?._id]' class ='entry-option center'> {{systemType}} Detail </a>
 
-			<a *ngIf ='user.status == "deactivated"' [routerLink] ='["../../../" , "user" , "entry" , "detail" , user._id , "reactivate"]' class ='entry-option center'> User Reactivate </a>
+			<a *ngIf ='entry?.status == "deactivated"' [routerLink] ='["../../../" , link , "entry" , "detail" , entry?._id , "reactivate"]' class ='entry-option center'> {{systemType}} Reactivate </a>
 
-			<a *ngIf ='user.status == "active"' [routerLink] ='["../../../" , "user" , "entry" , "detail" , user._id , "deactivate"]' class ='entry-option center'> User Deactivate </a>
+			<a *ngIf ='entry?.status == "active"' [routerLink] ='["../../../" , link , "entry" , "detail" , entry?._id , "deactivate"]' class ='entry-option center'> {{systemType}} Deactivate </a>
 
 		</div>
 

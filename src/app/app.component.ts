@@ -4,8 +4,6 @@ import { RouterOutlet } from '@angular/router';
 
 import { slideInAnimation } from './animations';
 
-import { FormControl } from '@angular/forms';
-
 import { AuthenticationService } from './authentication/authentication.service';
 
 @Component({
@@ -24,7 +22,7 @@ export class AppComponent implements OnInit {
 
   title = 'Request and Service Initialization System';
 
-  constructor(private authService : AuthenticationService) {
+  constructor(private as : AuthenticationService) {
 
 
   }

@@ -94,6 +94,14 @@ export class EntryTimelineComponent implements OnInit {
   	return this.as.userRole;
   }
 
+  get isAdmin() : string {
+
+      if (['moderator' , 'administrator' , 'superAdministrator'].indexOf(this.userRole) > -1) return '/system/request';
+
+      return '/request';
+
+  }
+
   get canUpdateEntry() : boolean {
 
     return $entryUpdateRole.indexOf(this.userRole) > -1;

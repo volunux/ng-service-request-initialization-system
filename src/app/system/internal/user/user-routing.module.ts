@@ -2,15 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule , Routes } from '@angular/router'; 
 
-import { ResolverService } from '../../../resolver.service';
-
-import { UserListResolverService } from './user-list-resolver.service';
-
-import { UserDeleteResolverService } from './user-delete/user-delete-resolver.service';
-
-import { UserDeleteAllGuardService } from './user-delete-all/user-delete-all-guard.service';
-
-import { CanDeactivateGuard } from './user-update/can-deactivate.guard';
+import { EntryDeleteAllGuard } from '../../../shared/guards/entry-delete-all.guard';
 
 import { UserComponent } from './user/user.component';
 
@@ -20,15 +12,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 
 import { UserListComponent } from './user-list/user-list.component';
 
-import { AccountRequestComponent } from './account-request/account-request.component';
-
-import { AccountRequestDetailComponent } from './account-request-detail/account-request-detail.component';
-
-import { AccountRequestUpdateComponent } from './account-request-update/account-request-update.component';
-
 import { AccountReactivateComponent } from './account-reactivate/account-reactivate.component';
-
-import { AccountDeactivateComponent } from './account-deactivate/account-deactivate.component';
 
 import { UserDeleteAllComponent } from './user-delete-all/user-delete-all.component';
 
@@ -38,47 +22,37 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 
 import { UserDeleteComponent } from './user-delete/user-delete.component';
 
-import { FirstComponent } from './first/first.component';
-
 import { UData } from './user-route-data';
 
 const route : Routes = [
 
 	{'path' : '' , 'component' : UserHomeComponent ,
 
-	'children' : [ 
+	'children' : [
 
 	{'path' : '' , 'component' : UserComponent , 'data' : {'title' : 'User' , 'animation' : 'user'} } ,
 
-	{'path' : 'entries' , 'component' : UserListComponent , 'data' : {'entries' : UData.entries } } ,
+	{'path' : 'entries' , 'component' : UserListComponent , 'data' : {'entries' : UData.entries , 'link2' : false } } ,
 
-	{'path' : 'account-request' , 'component' : AccountRequestComponent , 'data' : {'title' : 'Account Request Entries' , 'animation' : 'account-request' , 'resolver' : false} } ,
+	{'path' : 'account-request/entries' , 'component' : UserListComponent , 'data' : {'entries' : UData.entriesRequest , 'link2' : true} } ,
 
-	{'path' : 'entries/delete/all' , 'component' : UserDeleteAllComponent , 'canActivate' : [UserDeleteAllGuardService] ,
-
-	'data' : {'title' : 'User Entries : Delete All' , 'animation' : 'user-delete-all'} } ,
+	{'path' : 'entries/delete/all' , 'component' : UserDeleteAllComponent , 'canActivate' : [EntryDeleteAllGuard] , 'data' : {'deleteAll' : UData.deleteAll } } ,
 
 	{'path' : 'entry/create' , 'component' : UserCreateComponent , 'data' : {'create' : UData.create } } ,
 
-	{'path' : 'entry/detail/:entry' , 'component' : UserDetailComponent , 'data' : {'detail' : UData.detail } } ,
+	{'path' : 'entry/detail/:entry' , 'component' : UserDetailComponent , 'data' : {'detail' : UData.detail , 'link2' : false } } ,
 	
-	{'path' : 'entry/update/:entry' , 'component' : UserUpdateComponent , 'canDeactivate' : [CanDeactivateGuard] , 
+	{'path' : 'entry/update/:entry' , 'component' : UserUpdateComponent , 'data' : {'update' : UData.update , 'link2' : false } } ,
 
-	'data' : {'title' : 'User Entry Update' , 'animation' : 'user-entry-update'} } ,
-
-	{'path' : 'account-request/entry/detail/:entry' , 'component' : AccountRequestDetailComponent , 'data' : {'title' : 'Account Request Entry Detail' , 'animation' : 'user-entry-detail'} } ,
+	{'path' : 'account-request/entry/detail/:entry' , 'component' : UserDetailComponent , 'data' : {'detail' : UData.detail , 'link2' : true } } ,
 	
-	{'path' : 'account-request/entry/update/:entry' , 'component' : AccountRequestUpdateComponent , 'canDeactivate' : [CanDeactivateGuard] , 
+	{'path' : 'account-request/entry/update/:entry' , 'component' : UserUpdateComponent , 'data' : {'update' : UData.update , 'link2' : true} } ,
 
-	'data' : {'title' : 'Account Request Entry Update' , 'animation' : 'user-entry-update'} } ,
+	{'path' : 'entry/detail/:entry/reactivate' , 'component' : AccountReactivateComponent , 'data' : {'changes' : UData.reactivate , 'link2' : false } },
 
-	{'path' : 'entry/detail/:entry/reactivate' , 'component' : AccountReactivateComponent , 'data' : {'title' : 'User Account Reactivate' , 'animation' : 'account-reactivate'} },
+	{'path' : 'entry/detail/:entry/deactivate' , 'component' : AccountReactivateComponent , 'data' : {'changes' : UData.deactivate , 'link2' : true } },
 
-	{'path' : 'entry/detail/:entry/deactivate' , 'component' : AccountDeactivateComponent , 'data' : {'title' : 'User Account Deactivate' , 'animation' : 'account-deactivate'} },
-
-	{'path' : 'entry/delete/:entry' , 'component' : UserDeleteComponent , 
-
-	'data' : {'title' : 'User Entry Delete' , 'animation' : 'user-entry-delete'} }	
+	{'path' : 'entry/delete/:entry' , 'component' : UserDeleteComponent , 'data' : {'delete' : UData.delete } }	
 
 		] }
 

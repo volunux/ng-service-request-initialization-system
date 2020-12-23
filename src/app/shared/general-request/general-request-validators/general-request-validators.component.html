@@ -197,3 +197,20 @@
 	</div>
 
 </ng-container>
+
+
+<ng-container *ngIf ='num'>
+
+<div *ngIf ='num.invalid && (num.touched || num.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='num.errors?.required'> Unique Number of {{systemType}} should be provided and cannot be empty </li>
+		<li *ngIf ='num.errors?.required || num.errors?.maxLength'> Unique Number of {{systemType}} cannot be less than 20 characters in length </li>
+		<li *ngIf ='num.errors?.numberError'> The value of the Unique Number field should be an integer or whole number </li>
+
+	</ul>
+
+</div>
+
+</ng-container>

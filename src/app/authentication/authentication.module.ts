@@ -32,7 +32,17 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 
 @NgModule({
 
-  declarations: [SignInComponent, SignUpComponent, ForbiddenNamesDirective, SimplePasswordDirective, ForgotPasswordComponent, ResetAccountComponent, ResetPasswordComponent],
+  declarations: [
+
+    SignInComponent,
+    SignUpComponent,
+    ForbiddenNamesDirective,
+    SimplePasswordDirective,
+    ForgotPasswordComponent,
+    ResetAccountComponent,
+    ResetPasswordComponent
+
+  ],
 
   imports: [
     CommonModule,
@@ -41,8 +51,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     GeneralModule ,
     AuthenticationRoutingModule
   ],
+  
   exports : [
-  	ForbiddenNamesDirective , SimplePasswordDirective 
+  	ForbiddenNamesDirective ,
+    SimplePasswordDirective 
   ]
 
 })

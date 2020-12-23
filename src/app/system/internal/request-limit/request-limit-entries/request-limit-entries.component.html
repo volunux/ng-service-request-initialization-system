@@ -1,0 +1,131 @@
+<div id ='entry-main'>
+
+<h2 *ngIf ='title' > {{title}} </h2>
+
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
+
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
+
+<app-list-entry-options> </app-list-entry-options>
+
+		<div class ='search-bar'>
+
+		<a class ='entry-option entry-option-small center' [class.hide] ='esdl.length < 2' (click) ='deleteManyEntry()'> Delete Many </a>
+
+</div>
+
+<div *ngIf ='$entriesLength > 0'>
+
+<table class ='entries'>
+
+	<caption class ='bold left'> Entries </caption>
+
+	<colgroup>
+
+		<col class =''>
+		<col class =''>
+		<col class =''>
+		<col class =''>
+		<col class =''>		
+		<col class =''>
+		<col class ='changes'>
+
+	</colgroup>
+
+	<thead>
+
+		<tr>
+			<th class ='bold center'> Index </th>
+			<th class ='bold center'> Author </th>
+			<th class ='bold center'> Number Remaining </th>
+			<th class ='bold center'> Status </th>
+			<th class ='bold center'> Unique Number </th>
+			<th class ='bold center'> Created At </th>
+			<th class ='bold center'> Changes </th>
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<tr *ngFor ='let entry of entries , let i = index , trackBy : trackByName'>
+
+			<td class ='center'> {{i + 1}}. </td>
+
+			<ng-template #nilValue>
+
+				<td class ='center'> Nil </td>
+
+			</ng-template>
+
+			<td class ='center' *ngIf ='entry?.author; else nilValue'> {{entry?.author}} </td>
+
+			<td class ='center' *ngIf ='entry?.numberRemaining; else nilValue'> {{entry?.numberRemaining}} </td>
+
+			<td class ='center' *ngIf ='entry?.status; else nilValue'> {{entry?.status}} </td>
+
+			<td class ='center' *ngIf ='entry?.num; else nilValue'> {{entry?.num}} </td>
+
+			<td class ='center' *ngIf ='entry?.createdAt; else nilValue'> {{entry?.createdAt | date : 'longDate'}} </td>
+
+			<td class =''>
+				
+				<a class ='center changes-option' [routerLink] ='["../" , "entry" , "detail" , entry?._id]'> View </a>
+
+				<a class ='center changes-option' [routerLink] ='["../" , "entry" , "update" , entry?._id]'> Update </a>
+
+				<label *ngIf ='true' class='changes-mark'>
+
+					<ng-container *ngIf ='esdl.length; else normalChecks' >
+
+					<ng-container *ngFor ='let $ed of esdl'>
+
+						<input [checked] ='$ed == entry?.num' type ='checkbox' #checked (click) ='addEntryToDeleteList(entry?.num , checked.checked , i)'>
+
+				  	<span class='checkmark'> </span>
+
+					</ng-container>
+
+				</ng-container>
+
+				<ng-template #normalChecks>
+
+				  <input type ='checkbox' #checked  (click) ='addEntryToDeleteList(entry?.num , checked.checked , i)'>
+
+				  <span class ='checkmark'> </span>
+
+				 </ng-template>
+
+				</label>
+			
+			</td>
+
+		</tr>
+
+		</tbody>
+
+		<tfoot>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td></td>
+			</tr>
+
+			<tr>
+
+			<app-pagination *ngIf ='pageNumber' [entries-length] ='$entriesLength' [entry-ref] ='$entryRef' [page-number] ='pageNumber'> </app-pagination>
+
+			</tr>
+
+		</tfoot>
+
+	</table>
+
+</div>
+
+<app-resource-unavailable id ='error' *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+</div>

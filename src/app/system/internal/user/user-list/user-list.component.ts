@@ -58,6 +58,8 @@ export class UserListComponent implements OnInit {
 
   public link : string;
 
+  public link2 : boolean;
+
   public $link : string;
 
   public entries : User[] = [];
@@ -96,6 +98,8 @@ export class UserListComponent implements OnInit {
 
     this.error = null;
 
+    this.entriesSearched = false;
+
     if (!qt.trim() || (Object.keys(this.searchFilters).indexOf(qt) < 0)) { return false; }
 
     this.entrySearching = true;
@@ -125,6 +129,8 @@ export class UserListComponent implements OnInit {
     this.viewWord = data.entries.viewWord;
 
     this.link = data.entries.link;
+
+    this.link2 = data.link2;
 
     this.$link = data.entries.$link;
 
@@ -197,7 +203,7 @@ export class UserListComponent implements OnInit {
 
   public getAllEntry(sq : SearchQuery) {
 
-   this.us.getAllEntry(sq)
+   this.us.getAllEntry(sq , this.link2)
   
     .subscribe(($entries : User[]) => {
 
@@ -239,7 +245,7 @@ export class UserListComponent implements OnInit {
 
   public addEntryToDeleteList(gridx : number , checked : boolean , idx : number) : void {
 
-  if (checked) { this.esdl.push(gridx);  }
+  if (checked) { if (gridx) this.esdl.push(gridx);  }
 
   else if (!checked && this.esdl.indexOf(gridx) > -1) {
 

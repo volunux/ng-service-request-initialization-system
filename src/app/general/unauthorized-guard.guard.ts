@@ -8,7 +8,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
 @Injectable({
 
-  providedIn: 'root'
+  'providedIn' : 'root'
 
 })
 
@@ -20,8 +20,6 @@ export class UnauthorizedGuard implements CanActivate {
 	}
 
   canActivate(route: ActivatedRouteSnapshot , state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-  	console.log('Why Why')
 
     return this.verifyLogin();
   }

@@ -31,6 +31,8 @@ export const SRData : { [key : string] : any } = {
 
 	'entries' : {...$$ , 'title' : `${$$.systemType} Entries` , 'searchFilters' : {'applicationNumber' : 'Application Number' , 'status' : 'Status'} } ,
 
-	'reply' : {...$$ , 'title' : `Add a Reply to a Comment : ${$$.systemType} Entry`}
+	'reply' : {...$$ , 'title' : `Add a Reply to a Comment : ${$$.systemType} Entry`} ,
+
+	'deleteAll' : {...$$ , 'title' : `${$$.systemType} Entries : Delete All` } ,
 
 };

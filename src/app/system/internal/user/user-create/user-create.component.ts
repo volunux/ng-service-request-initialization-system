@@ -105,8 +105,6 @@ export class UserCreateComponent extends UserFormService implements OnInit {
 
     this.us.$sa = this.$link;
 
-    console.log(this.entryForm);
-
       this.us.addUser()
 
     .subscribe((data : General) => {
@@ -116,8 +114,6 @@ export class UserCreateComponent extends UserFormService implements OnInit {
       return window.scrollTo(0 , 0);  }
 
       if (data) { this.generalOthers = new UserOther(data);
-
-        console.log(this.generalOthers);
 
         this.createPermanent(data);  }   });
 
@@ -162,7 +158,7 @@ export class UserCreateComponent extends UserFormService implements OnInit {
 
       return this.router.navigate(data && data.user && data.user._id ? 
 
-       ['system' , 'internal' , this.link , 'entry' , 'detail' , data.user._id] : ['system' , 'internal' , this.link , 'entries']);  } 
+       ['system' , 'internal' , this.link , 'entries'] : ['system' , 'internal' , this.link , 'entries']);  } 
 
       , 5000); 
   }

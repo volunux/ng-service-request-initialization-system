@@ -2,23 +2,31 @@ import { NgModule } from '@angular/core';
 
 import { Routes , RouterModule } from '@angular/router';
 
-import { RequestComponent } from '../request/request.component';
+import { AuthenticationGuard } from '../../../authentication/authentication.guard';
 
-import { RequestDashboardComponent } from '../request-dashboard/request-dashboard.component';
+import { IsStudentGuard } from '../../../shared/guards/is-student.guard';
 
-import { RequestEntryCreateComponent } from '../request-entry-create/request-entry-create.component';
+import { EntryDeleteAllGuard } from '../../../shared/guards/entry-delete-all.guard';
 
-import { RequestEntryCommentComponent } from '../request-entry-comment/request-entry-comment.component';
+import { RequestAllEntryComponent } from '../request-all/request-all-entry/request-all-entry.component';
 
-import { RequestEntryDetailComponent } from '../request-entry-detail/request-entry-detail.component';
+import { RequestAllDashboardComponent } from '../request-all/request-all-dashboard/request-all-dashboard.component';
 
-import { RequestEntryTimelineComponent } from '../request-entry-timeline/request-entry-timeline.component';
+import { RequestEntryCreateComponent } from '../request-all/request-entry-create/request-entry-create.component';
 
-import { RequestEntryTransferComponent } from '../request-entry-transfer/request-entry-transfer.component';
+import { RequestEntryCommentComponent } from '../request-all/request-entry-comment/request-entry-comment.component';
 
-import { RequestEntriesComponent } from '../request-entries/request-entries.component';
+import { RequestEntryDetailComponent } from '../request-all/request-entry-detail/request-entry-detail.component';
 
-import { RequestEntryReplyComponent } from '../request-entry-reply/request-entry-reply.component';
+import { RequestEntryTimelineComponent } from '../request-all/request-entry-timeline/request-entry-timeline.component';
+
+import { RequestEntryTransferComponent } from '../request-all/request-entry-transfer/request-entry-transfer.component';
+
+import { RequestEntriesComponent } from '../request-all/request-entries/request-entries.component';
+
+import { RequestEntryReplyComponent } from '../request-all/request-entry-reply/request-entry-reply.component';
+
+import { RequestAllDeleteAllComponent } from '../request-all/request-all-delete-all/request-all-delete-all.component';
 
 import { EPData } from './email-password-route-data';
 
@@ -26,41 +34,33 @@ const routes : Routes = [
 
 	{'path' : '' ,
 
-		'component' : RequestComponent , 
+		'component' : RequestAllEntryComponent , 
+
+		'canActivate' : [AuthenticationGuard] ,
+
+		'canLoad' : [AuthenticationGuard] ,
+
+		'canActivateChild' : [AuthenticationGuard] ,
 
 		'children' : [
 
-	{'path' : '' , 'component' : RequestDashboardComponent , 
+				{'path' : '' , 'component' : RequestAllDashboardComponent , 'data' : {'dashboard' : EPData.dashboard} } ,
 
-									'data' : {'animation' : 'dashboard' , 'dashboard' : EPData.dashboard} } ,
+				{'path' : 'create' , 'component' : RequestEntryCreateComponent , 'data' : {'create' : EPData.create } , 'canActivate' : [IsStudentGuard] } ,
 
-	{'path' : 'create' , 'component' : RequestEntryCreateComponent , 
+				{'path' : 'entry/:entry/comment/add' , 'component' : RequestEntryCommentComponent , 'data' : {'comment' : EPData.comment } } ,
 
-									'data' : {'animation' : 'create' , 'create' : EPData.create } } ,
+				{'path' : 'entry/detail/:entry' , 'component' : RequestEntryDetailComponent , 'data' : {'detail' : EPData.detail } } ,
 
-	{'path' : 'entry/:entry/comment/add' , 'component' : RequestEntryCommentComponent ,
+				{'path' : 'entry/:entry/timeline' , 'component' : RequestEntryTimelineComponent , 'data' : {'timeline' : EPData.timeline } } ,
 
-									'data' : {'comment' : EPData.comment } } ,
+				{'path' : 'entry/:entry/transfer' , 'component' : RequestEntryTransferComponent , 'data' : {'transfer' : EPData.transfer } } ,
 
-	{'path' : 'entry/detail/:entry' , 'component' : RequestEntryDetailComponent ,
+				{'path' : 'entries' , 'component' : RequestEntriesComponent , 'data' : {'entries' : EPData.entries } } ,
 
-									'data' : {'detail' : EPData.detail } } ,
+				{'path' : 'entry/:entry/comment/:comment/reply/add' , 'component' : RequestEntryReplyComponent , 'data' : {'reply' : EPData.reply } }	,
 
-	{'path' : 'entry/:entry/timeline' , 'component' : RequestEntryTimelineComponent ,
-
-									'data' : {'timeline' : EPData.timeline } } ,
-
-	{'path' : 'entry/:entry/transfer' , 'component' : RequestEntryTransferComponent ,
-
-									'data' : {'transfer' : EPData.transfer } } ,
-
-	{'path' : 'entries' , 'component' : RequestEntriesComponent ,
-
-									'data' : {'entries' : EPData.entries } } ,
-
-	{'path' : 'entry/:entry/comment/:comment/reply/add' , 'component' : RequestEntryReplyComponent ,
-
-									'data' : {'reply' : EPData.reply } }	
+				{'path' : 'entries/delete/all' , 'component' : RequestAllDeleteAllComponent , 'canActivate' : [EntryDeleteAllGuard] , 'data' : {'deleteAll' : EPData.deleteAll } } ,
 
 	]	}
 

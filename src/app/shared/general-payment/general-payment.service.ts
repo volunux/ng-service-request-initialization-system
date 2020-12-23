@@ -194,6 +194,19 @@ export class GeneralPaymentService {
         );
   }
 
+  public deleteAllEntry() : Observable<any> {
+
+    let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
+
+    return this.http.get(link)
+
+      .pipe(
+
+        catchError(this.handleError<Payment[]>(`${this.$systemType} Entry or Entries Delete` , []))
+
+        );
+  }
+
   public $deleteAllPayment() : Observable<any> {
 
     let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;

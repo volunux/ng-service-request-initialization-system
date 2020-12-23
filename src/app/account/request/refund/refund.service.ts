@@ -14,7 +14,7 @@ import { SearchQuery } from '../../../general/search-query';
 
 import { Api_Token , Api } from '../../../configuration';
 
-import { ErrorMessagesService } from '../../../general/error-messages.service';
+import { ErrorMessagesService } from '../../../shared/services/error-messages.service';
 
 @Injectable()
 
@@ -25,9 +25,9 @@ export class RefundService {
 
   }
 
-  public $systemType : string = 'Refund';
+  public $systemType : string;
 
-  public $sa : string = 'refund'; 
+  public $sa : string; 
 
   public getAllEntry(params : SearchQuery) : Observable<GeneralRequest[]> {
 

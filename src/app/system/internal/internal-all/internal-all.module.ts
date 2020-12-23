@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { GeneralModule } from '../../../general/general.module';
 import { GeneralInternalModule } from '../../../shared/general-internal/general-internal.module';
-import { GeneralServicesModule } from '../../../shared/services/general-services.module';
+import { GeneralAllModule } from '../../../shared/general-all/general-all.module';
 
 import { InternalEntryDashboardComponent } from './internal-entry-dashboard/internal-entry-dashboard.component';
 import { InternalEntryDetailComponent } from './internal-entry-detail/internal-entry-detail.component';
@@ -15,8 +15,6 @@ import { InternalEntryCreateComponent } from './internal-entry-create/internal-e
 import { InternalEntryComponent } from './internal-entry/internal-entry.component';
 import { InternalEntryDeleteComponent } from './internal-entry-delete/internal-entry-delete.component';
 
-import { InternalEntryDeleteAllGuard } from './internal-entry-delete-all/internal-entry-delete-all.guard';
-import { InternalEntryUpdateGuard } from './internal-entry-update/internal-entry-update.guard';
 
 
 
@@ -36,15 +34,13 @@ import { InternalEntryUpdateGuard } from './internal-entry-update/internal-entry
   imports: [
     CommonModule,
     GeneralModule,
+    GeneralAllModule,
     GeneralInternalModule,
-    GeneralServicesModule,
     RouterModule.forChild([])
   ] ,
 
   providers : [
 
-    InternalEntryDeleteAllGuard,
-    InternalEntryUpdateGuard
   ]
 })
 export class InternalAllModule { 

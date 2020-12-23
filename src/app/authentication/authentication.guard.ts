@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree , Router } from '@angular/router';
+import { ActivatedRouteSnapshot , CanActivate , CanActivateChild , CanLoad , Route , RouterStateSnapshot , UrlTree , Router } from '@angular/router';
 
 import { AuthenticationService } from './authentication.service';
 
@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 
 @Injectable({
 
-  providedIn: 'root'
+  'providedIn' : 'root'
 
 })
 
-export class AuthenticationGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate , CanActivateChild , CanLoad {
 
-	constructor(private authenticationService : AuthenticationService , private router : Router) {
+	constructor(private as : AuthenticationService , private router : Router) {
 
 
 	}
@@ -26,15 +26,27 @@ export class AuthenticationGuard implements CanActivate {
     return this.verifyLogin(url);
   }
 
-  public verifyLogin(url : string) : true | UrlTree {
+  public verifyLogin(url : string) : boolean | UrlTree {
 
-  		if (this.authenticationService.isLoggedIn()) { return true; }
+  		if (this.as.isLoggedIn()) { return true; }
 
-  		else { this.authenticationService.redirectAddress = url;
+  		else { this.as.redirectAddress = url;
 
   			return this.router.parseUrl('/signin');
 
   		}
+  }
+
+  canActivateChild(route: ActivatedRouteSnapshot , state: RouterStateSnapshot) : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
+    return this.canActivate(route , state);
+  }
+
+  canLoad(route : Route) {
+
+    const url : string = route.path;
+
+    return this.verifyLogin(url);
   }
   
 }

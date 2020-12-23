@@ -1,6 +1,6 @@
 import { Component , OnInit , Inject } from '@angular/core';
 
-import { ActivatedRoute , Router } from '@angular/router';
+import { ActivatedRoute , ParamMap , Router } from '@angular/router';
 
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 
@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../../../authentication/authentication
 
 import { Api , Api_Token } from '../../../../configuration';
 
-import { User , User$ } from '../user';
+import { User } from '../user';
 
 import { General } from '../general';
 
@@ -22,11 +22,9 @@ import { UserOther } from '../user-other';
 
 import { UserFormService } from '../user-form.service';
 
-import { DialogService } from './dialog.service';
+import { ErrorMessagesService } from '../../../../shared/services/error-messages.service';
 
-import { ErrorMessagesService } from '../../../../general/error-messages.service';
-
-import { NotificationService } from '../../../../general/notification.service';
+import { NotificationService } from '../../../../shared/services/notification.service';
 
 import { Role , roles } from '../roles';
 
@@ -40,7 +38,7 @@ import { Status , statuses } from '../status';
 	
 	'styleUrls' : ['./user-update.component.css'] ,
 
-  'providers' : [NotificationService]
+  'providers' : [NotificationService , ErrorMessagesService]
 
 })
 
@@ -50,15 +48,31 @@ export class UserUpdateComponent extends UserFormService implements OnInit {
 
               public ufs : UserFormService , public ems : ErrorMessagesService , public aS : AuthenticationService , public fb : FormBuilder ,
 
-              public http : HttpClient , @Inject(Api_Token) public apiConfig : Api , private dialogService : DialogService) {  super(aS , fb , http , apiConfig);  }
+              public http : HttpClient , @Inject(Api_Token) public apiConfig : Api) {  super(aS , fb , http , apiConfig);  }
 
-  public userOthers : UserOther = null;
+  public systemType : string;
 
-	public title : string = 'User Update';
+	public title : string;
 
-	public userForm : FormGroup;
+	public view : string;
 
-	public user : User;
+	public viewWord : string;
+
+	public link : string;
+
+	public link2 : boolean;
+
+	public $link : string;
+
+	public controlFilters : string[];
+
+	public noEdit : boolean;
+
+  public generalOthers : UserOther = null;
+
+	public entryForm : FormGroup;
+
+	public entry : User;
 
 	public formModified : boolean = false;
 
@@ -74,57 +88,96 @@ export class UserUpdateComponent extends UserFormService implements OnInit {
 
   public statuses : Status[] = statuses;
 
-  public view : string = '';
-
   public fip : string = 'block';
 
 
-	ngOnInit(): void { let controls = ['password' , 'confirmPassword' , 'num'];
+	ngOnInit(): void {
 
-  this.removeControls(controls);
+  	let data = this.route.snapshot.data;
 
-		this.route.paramMap.subscribe((params) => {
+  	this.systemType = data.update.systemType;
 
-			this.us.updateUser(params.get('entry'))
+  	this.title = data.update.title;
+
+  	this.view = data.update.view;
+
+  	this.viewWord = data.update.viewWord;
+
+  	this.link = data.update.link;
+
+  	this.link2 = data.link2;
+
+  	this.$link = data.update.$link;
+
+  	this.controlFilters = data.update.controlFilters;
+
+  	this.noEdit = data.update.noEdit;
+
+  	this.us.$systemType = this.systemType;
+
+  	this.us.$sa = this.$link;
+
+  	this.removeControls(this.controlFilters);
+
+		this.route.paramMap.subscribe((params : ParamMap) => { let $e = params.get('entry');
+
+			this.us.updateUser($e , this.link2)
 
 				.subscribe((data : General) => { 
 
-					if (!data) { return this.error = Object.assign({'resource' : 'User Entry'} , this.ems.message);  }
+					if (!data) { return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);  }
 
-					this.user = data.User ? new User$(data.User) : {};
+					this.entry = data[this.systemType];
 
-					this.entryIdx = this.user._id;
+					this.entryIdx = this.entry._id;
 
-         this.userOthers = new UserOther(data);
+         this.generalOthers = new UserOther(data);
 
           this.createPermanent(data);
 
-					this.entryForm.patchValue(this.user);	})   });
+					this.entryForm.patchValue(this.entry);	})   });
 	}
 
-	public updateUser(user : User) : any {
+	public confirmChanges(entry : User , $entry : User) : boolean {
 
-		this.error = null;
+		for (let chrs in entry) {
 
-		this.fip = 'none';
-
-		for (let chrs in this.user) { 
-
-				if((this.user[chrs] != user[chrs] && (user[chrs] !== null && user[chrs] !== undefined))) { 
+				if((entry[chrs] != $entry[chrs] && ($entry[chrs] !== null && $entry[chrs] !== undefined))) { 
 
 					this.formModified = true;
 
 					break;	}	}
 
+     let $$entry = Object.keys(entry);
+
+     let $$$entry = Object.keys($entry);
+
+    const found = $$$entry.some((r) => {
+      
+        if (!($$entry.indexOf(r) > -1)) {
+
+            this.formModified = true;  }  })
+
+    return this.formModified;
+	}
+
+	public updateEntry($entry : User) : any {
+
+		this.error = null;
+
+    this.fip = 'none';
+
+    this.confirmChanges(this.entry , this.entryForm.value);
+
 		if (this.formModified) {
 
 			this.formSubmitted = true;
 
-		this.us.$updateUser(this.entryIdx , user)
+		this.us.$updateUser(this.entryIdx , $entry , this.link2)
 
-			.subscribe((data : General) => {
+			.subscribe(($entry : General) => {
 
-				if (!data) { this.formSubmitted = false;
+				if (!$entry) { this.formSubmitted = false;
 
 					this.fip = 'block';
 
@@ -132,17 +185,17 @@ export class UserUpdateComponent extends UserFormService implements OnInit {
 
           this.ns.setNotificationStatus(true);
 
-          this.ns.addNotification('Operation is unsuccessful and user is not updated.');
+          this.ns.addNotification(`Operation is unsuccessful and ${this.systemType} is not updated.`);
 
-					return this.error = Object.assign({'resource' : 'User Entry'} , this.ems.message);  }
+					return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);  }
 
-				if (data && data.updated) { this.formSubmitted = false;
+				if ($entry && $entry.updated) { this.formSubmitted = false;
 
           this.ns.setNotificationStatus(true);
 
-          this.ns.addNotification('Operation is successful and user is updated.');
+          this.ns.addNotification(`Operation is successful and ${this.systemType} is updated.`);
 
-					return this.$entryChanges(data);	}	});		}
+					return this.$entryChanges($entry.$data);	}	});		}
 
 		else { 
 
@@ -156,7 +209,7 @@ export class UserUpdateComponent extends UserFormService implements OnInit {
 
     return setTimeout(() => {
 
-      return this.router.navigate(['system' , 'internal' , 'user' , 'entries']);  } , 5000) 
+      return this.router.navigate(['system' , 'internal' , this.link , 'entries']);  } , 5000) 
   }
 
   get notificationAvailable() : boolean {

@@ -1,4 +1,20 @@
 
+<ng-container *ngIf ='_id'>
+
+	<div *ngIf ='_id.invalid && (_id.touched || _id.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='_id.errors?.required'> Unique Number of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='_id.errors?.required || _id.errors?.minlength'> Unique Number of {{systemType}} cannot be less than 1 characters in length </li>
+			<li *ngIf ='_id.errors?.required || _id.errors?.maxlength'> Unique Number of {{systemType}} cannot be greater than 150 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
 <ng-container *ngIf ='name'>
 
 	<div *ngIf ='name.invalid && (name.touched || name.dirty)' class ='validation-error'>
@@ -7,7 +23,7 @@
 
 			<li *ngIf ='name.errors?.required'> Name of {{systemType}} should be provided and cannot be empty </li>			
 			<li *ngIf ='name.errors?.required || name.errors?.minlength'> Name of {{systemType}} cannot be less than 1 characters in length </li>
-			<li *ngIf ='name.errors?.required || name.errors?.maxlength'> Name of {{systemType}} cannot be greater than 40 characters in length </li>
+			<li *ngIf ='name.errors?.required || name.errors?.maxlength'> Name of {{systemType}} cannot be greater than 150 characters in length </li>
 
 		</ul>
 

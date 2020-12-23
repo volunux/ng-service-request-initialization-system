@@ -1,0 +1,32 @@
+.stat-items {
+
+  overflow : hidden;
+  margin-bottom : 50px;
+}
+
+.item {
+
+	width : 30%;
+	float : left;
+	margin-right : 2%;
+}
+
+.item h3 {
+
+	text-align : left;
+}
+
+.item p {
+
+	height: 200px;
+	width: 200px;	
+  background-color: #250848;
+  border: 15px solid #663fde;
+  text-align: center;
+  vertical-align: bottom;
+  border-radius: 50%;
+  line-height: 180px;
+  color: white;
+  font-size: 22px;
+}
+

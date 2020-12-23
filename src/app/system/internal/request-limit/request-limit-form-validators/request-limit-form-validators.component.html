@@ -1,0 +1,59 @@
+<ng-container *ngIf ='numberRemaining'>
+
+	<div *ngIf ='numberRemaining.invalid && (numberRemaining.touched || numberRemaining.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='numberRemaining.errors?.required'> Number Remaining of {{systemType}} should be provided and cannot be empty </li>
+			<li *ngIf ='numberRemaining.errors?.required || numberRemaining.errors?.max'> Number Remaining of {{systemType}} cannot be exceed or be greater than 3 </li>
+			
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='status'>
+
+<div *ngIf ='status.invalid && (status.touched || status.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='status.errors?.required'> Status of {{systemType}} should be provided and cannot be empty </li>
+		<li *ngIf ='status.errors?.required || status.errors?.minlength'> Status of {{systemType}} cannot be less than 1 characters in length </li>
+		<li *ngIf ='status.errors?.required || status.errors?.maxlength'> Status of {{systemType}} cannot be greater than 20 characters in length </li>
+		<li *ngIf ='status.errors?.statusError'> Status of {{systemType}} should be either of the following 
+
+				<ng-container *ngIf ='status.errors?.statusError?.statuses'>  
+
+					<ng-container *ngFor ='let status of status.errors.statusError.statuses , let lss = last'>
+
+						{{status}} <ng-container *ngIf ='!lss'> or </ng-container> 
+
+				</ng-container>
+
+				</ng-container>
+
+				</li>
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+<ng-container *ngIf ='author'>
+
+	<div *ngIf ='author.invalid && (author.touched || author.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='author.errors?.required'> Author of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='author.errors?.required || author.errors?.minlength'> Author of {{systemType}} cannot be less than 1 characters in length </li>
+			<li *ngIf ='author.errors?.required || author.errors?.maxlength'> Author of {{systemType}} cannot be greater than 150 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>

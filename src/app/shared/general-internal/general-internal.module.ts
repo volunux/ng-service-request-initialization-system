@@ -12,7 +12,6 @@ import { GeneralInternalEntryDeleteComponent } from './general-internal-entry-de
 import { GeneralInternalEntriesComponent } from './general-internal-entries/general-internal-entries.component';
 import { GeneralInternalEntryDetailComponent } from './general-internal-entry-detail/general-internal-entry-detail.component';
 import { GeneralInternalEntryCreateComponent } from './general-internal-entry-create/general-internal-entry-create.component';
-import { GeneralInternalEntryDeleteAllComponent } from './general-internal-entry-delete-all/general-internal-entry-delete-all.component';
 import { GeneralInternalEntryUpdateComponent } from './general-internal-entry-update/general-internal-entry-update.component';
 
 
@@ -29,7 +28,6 @@ import { GeneralInternalFormInputComponent } from './general-internal-form-input
   GeneralInternalEntriesComponent,
   GeneralInternalEntryDetailComponent,
   GeneralInternalEntryCreateComponent,
-  GeneralInternalEntryDeleteAllComponent,
   GeneralInternalEntryUpdateComponent,
   GeneralInternalFormInputComponent
 
@@ -60,7 +58,6 @@ import { GeneralInternalFormInputComponent } from './general-internal-form-input
   GeneralInternalEntriesComponent,
   GeneralInternalEntryDetailComponent,
   GeneralInternalEntryCreateComponent,
-  GeneralInternalEntryDeleteAllComponent,
   GeneralInternalEntryUpdateComponent
 
   ]

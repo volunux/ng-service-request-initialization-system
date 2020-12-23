@@ -88,7 +88,23 @@
 
 		</ng-container>
 
+	</ng-container>
+
+	<ng-container *ngIf ='entry?.stage; else noStage'>
+
+		<ng-container *ngIf ='entry?.stage?._id'>
+
+			<p> <b class ='bold'> Stage </b> : {{entry?.stage?._id}} </p>
+
+		</ng-container>
 
 	</ng-container>
+
+	<ng-template #noStage>
+
+			<p> <b class ='bold'> Stage </b> : "Not yet in Stage" </p>
+
+	</ng-template> 
+	
 
 </ng-container>

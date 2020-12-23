@@ -148,7 +148,7 @@ export class AuthenticationService {
 
           this.saveUserId(token);
 
-          this.router.navigate(['/system']);  });
+          this.redirectAddress ? this.router.navigate(['/system']) : this.router.navigate([this.redirectAddress]);   });
   	}
 
   public logout() : void {

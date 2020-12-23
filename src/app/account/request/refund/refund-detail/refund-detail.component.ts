@@ -44,17 +44,17 @@ export class RefundDetailComponent implements OnInit {
 
   }
 
-  public systemType : string = 'Refund';
+  public systemType : string;
 
-  public title : string = `${this.systemType} Entry`;
+  public title : string;
 
-  public view : string = 'rf';
+  public view : string;
 
-  public viewWord : string = 'Refund';
+  public viewWord : string;
 
-  public link : string = 'refund';
+  public link : string;
 
-  public $link : string = this.link;
+  public $link : string;
 
   public entry : GeneralRequest;
 
@@ -74,11 +74,31 @@ export class RefundDetailComponent implements OnInit {
 
   ngOnInit() : void {
 
+    let data = this.route.snapshot.data;
+
+      this.systemType = data.detail.systemType;
+
+      this.title = data.detail.title;
+
+      this.view = data.detail.view;
+
+      this.viewWord = data.detail.viewWord;
+
+      this.link = data.detail.link;
+
+      this.$link = data.detail.$link;
+
+      this.grs.$systemType = this.systemType;
+
+      this.grs.$sa = this.$link;
+
     this.route.paramMap
 
       .pipe(
 
           switchMap((params : ParamMap) => { let $e = params.get('entry');
+
+            console.log($e);
 
           	return this.grs.getEntry($e);  })
         )

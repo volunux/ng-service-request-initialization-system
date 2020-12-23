@@ -58,6 +58,8 @@ export class GeneralInternalEntryDeleteComponent implements OnInit {
 
   @Input() public $link : string;
 
+  @Input() public placeholder : { [key : string] : string };
+
   public error : General | null | boolean = false;
 
   public formSubmitted : boolean = false;
@@ -73,8 +75,6 @@ export class GeneralInternalEntryDeleteComponent implements OnInit {
   public entry : GeneralInternal;
 
   ngOnInit() : void {
-
-    console.log(this.noEdit);
 
   	this.gis.$systemType = this.systemType;
 
@@ -100,11 +100,7 @@ export class GeneralInternalEntryDeleteComponent implements OnInit {
 
           this.gifs.removeControls(this.controlFilters , this.entryForm);
 
-          this.entryForm.patchValue($entry);
-
-/*          this.gifs.disableControls(this.controlsDisabled , this.entryForm);*/
-
-        }); 
+          this.entryForm.patchValue($entry);  }); 
   }
 
   public deleteEntry($entry : GeneralInternal) {
@@ -164,6 +160,11 @@ export class GeneralInternalEntryDeleteComponent implements OnInit {
 
      this.ns.removeNotification();
    }
+
+  get _id() : FormControl {
+
+      return this.entryForm.get('_id') as FormControl;
+  }
 
   get name() : FormControl {
 

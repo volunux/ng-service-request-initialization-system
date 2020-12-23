@@ -15,24 +15,34 @@ let $$ : { [key : string] : any } = {
 		'systemGuideline' : 'gen-internal'
 };
 
+let searchFilters = { 'role' : 'Role' , 'emailAddress' : 'Email Address' , 'level' : 'Level' , 'identityNumber' : 'Identity Number' , 'status' : 'Status' };
+
 export const UData : { [key : string] : any } = {
 
 	'dashboard' : {...$$} ,
 
-	'create' : {...$$ , 'title' : `Add a ${$$.systemType}` , 'view' : 'ca' , 'controlFilters' : ['num' , 'description' , 'faculty' , 'requestUsername' , 'requestPassword'] , 'noEdit' : false } ,
+	'create' : {...$$ , 'title' : `Add a ${$$.systemType}` , 'view' : 'ca' , 'controlFilters' : [] , 'noEdit' : false } ,
 
 	'detail' : {...$$ , 'title' : `${$$.systemType} Entry Detail` } ,
 
-	'update' : {...$$ , 'title' : `${$$.systemType} Entry Update` , 'controlFilters' : ['description' , 'num' , 'faculty' , 'requestUsername' , 'requestPassword'] , 'noEdit' : false } ,
+	'update' : {...$$ , 'title' : `${$$.systemType} Entry Update` , 'controlFilters' : ['emailAddress' , 'username' , 'password' , 'confirmPassword'] } , 
 
-	'delete' : {...$$ , 'title' : `${$$.systemType} Entry Delete` , 'controlFilters' : ['description' , 'shortCode' , 'status' , 'faculty' , 'requestUsername' , 'requestPassword'] ,
+	'updateReq' : {...$$ , 'title' : `${$$.systemType} Entry Update` , 'link' : 'user/account-request/' , 'controlFilters' : ['emailAddress' , 'username' , 'password' , 'confirmPassword'] } , 
 
-		'controlsDisabled' : ['name' ,'description' , 'status' , 'shortCode' , 'secondaryKey' , '_id' , 'num'] , 'noEdit' : true } ,
+	'reactivate' : {...$$ , 'title' : `${$$.systemType} Entry Reactivate` , 'noEdit' : false , 'link2' : false } ,
 
-	'deleteAll' : {...$$ , 'title' : `${$$.systemType} Entries : Delete All` } ,
+	'deactivate' : {...$$ , 'title' : `${$$.systemType} Entry Deactivate` , 'noEdit' : false , 'link2' : true } ,
 
-	'entries' : {...$$ , 'title' : `${$$.systemType} Entries` ,
+	'delete' : {...$$ , 'title' : `${$$.systemType} Entry Delete` ,
 
-	'searchFilters' : { 'role' : 'Role' , 'emailAddress' : 'Email Address' , 'level' : 'Level' , 'identityNumber' : 'Identity Number' , 'status' : 'Status' } } ,
+	'controlFilters' : ['username' , 'about' , 'password' , 'confirmPassword' , 'level' , 'faculty' , 'status' , 'jambRegistrationNumber' , 'matriculationNumber' , 'unit' , 'num'] , 
+
+	'noEdit' : true , 'asyncValidators' : ['emailAddress' , 'username'] , 'link' : 'user/account-request' } ,
+
+	'deleteAll' : {...$$ , 'title' : `${$$.systemType} Entries : Delete All` , 'view' : 'uadp'} ,
+
+	'entries' : {...$$ , searchFilters , 'title' : `${$$.systemType} Entries` } ,
+
+	'entriesRequest' : {...$$ , searchFilters , 'title' : `${$$.systemType} Request Entries` , 'link' : 'user/account-request' } ,
 
 };

@@ -16,9 +16,9 @@
 
 		<form action ='' method ='post' name ='{{view}}-form' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
 
-		<app-general-internal-form-input *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [short-code] ='shortCode' [name] ='name' [description] ='description'
+		<app-general-internal-form-input *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [short-code] ='shortCode' [name] ='name' [description] ='description' [_id] ='_id'
 
-		[num] ='num' [status] ='status' [entry] ='null' [general-others] ='generalOthers' [faculty] ='faculty' [no-edit] ='noEdit' > </app-general-internal-form-input>
+		[num] ='num' [status] ='status' [entry] ='null' [general-others] ='generalOthers' [faculty] ='faculty' [no-edit] ='noEdit' [placeholder] ='placeholder'> </app-general-internal-form-input>
 
 
 			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
@@ -33,7 +33,7 @@
 
 			<a [routerLink] ='["../../../" , "entry" , "detail" , entry.num]' class ='entry-option center'> {{systemType}} Detail </a>
 
-			<a [routerLink] ='["../../../" , "entry" , "update" , entry.num]' class ='entry-option center'> {{systemType}} Update </a>
+			<a [routerLink] ='["../../../" , "entry" , "delete" , entry.num]' class ='entry-option center'> {{systemType}} Delete </a>
 
 		</div>
 

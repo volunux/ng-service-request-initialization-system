@@ -14,7 +14,7 @@ import { Api , Api_Token } from '../../../configuration';
 
 import { statusValidator , roleValidator , searchValidator } from '../../../shared/services/form-validators.service';
 
-import { forbiddenNamesValidator } from './forbidden-names.directive';
+import { forbiddenNamesValidator } from '../../../shared/services/form-validators.service';
 
 import { emailAddressValidator } from '../../../shared/services/form-validators.service';
 
@@ -53,6 +53,7 @@ export class UserFormService {
 
   };
 
+  public statusValidators = {'active' : 'Active' , 'banned' : 'Banned' , 'deactivated' : 'Deactivate' , 'inactivate' : 'Inactive' , 'pending' : 'Pending' };
 
   public entryValidators : { [key : string] : ValidatorFn[] } = {
 
@@ -112,7 +113,7 @@ export class UserFormService {
 
       'role' : ['' , {'validators' : [Validators.required , roleValidator , Validators.minLength(2) , Validators.maxLength(40)] } ,] ,
 
-      'status' : ['' , {'validators' : [Validators.required , statusValidator , Validators.minLength(2) , Validators.maxLength(30) ]}] ,
+      'status' : ['' , {'validators' : [Validators.required , statusValidator(this.statusValidators) , Validators.minLength(2) , Validators.maxLength(30) ]}] ,
 
       'matriculationNumber' : ['' , {'validators' : this.entryValidators.jamb$matric$identity }] ,
 
@@ -244,7 +245,9 @@ export class UserFormService {
 
   public removeControls(controls : string[]) : void {
 
-    controls.forEach((control) => { this.entryForm.removeControl(control); })
+    controls.forEach((control) => { let ctrl = this.entryForm.get(control);
+
+      return ctrl ? this.entryForm.removeControl(control) : null; })
 
   }
 

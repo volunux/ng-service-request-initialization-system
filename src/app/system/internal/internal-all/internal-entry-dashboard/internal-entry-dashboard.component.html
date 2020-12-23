@@ -6,7 +6,7 @@
 
 <ul>
 
-	<li>
+	<li *ngIf ='canCreate'>
 
 		<a [routerLink] ="['create']" class ='center'> Add a {{systemType}} </a>
 

@@ -6,51 +6,57 @@
 
 <ul>
 
-	<li>
+	<li *ngIf ='canManage'>
 
-		<a [routerLink] ='["../detail"]' class ='center'> {{systemType}} Detail </a>
-
-	</li>
-
-	<li>
-
-		<a [routerLink] ='["../update"]' class ='center'> {{systemType}} Update </a>
+		<a [routerLink] ='["/system"]' class ='center'> Manage System </a>
 
 	</li>
 
 	<li>
 
-		<a [routerLink] ='["../deactivate"]' class ='center'> {{systemType}} Deactivate </a>
+		<a [routerLink] ='["detail"]' class ='center'> {{systemType}} Detail </a>
 
 	</li>
 
 	<li>
 
-		<a [routerLink] ='["../reactivate"]' class ='center'> {{systemType}} Reactivate </a>
+		<a [routerLink] ='["update"]' class ='center'> {{systemType}} Update </a>
 
 	</li>
 
 	<li>
 
-		<a [routerLink] ='[ "../" , "change-password"]' class ='center'> Change Password </a>
+		<a [routerLink] ='["deactivate"]' class ='center'> {{systemType}} Deactivate </a>
 
 	</li>
 
 	<li>
 
-		<a [routerLink] ='["../change-display"]' class ='center'> Update Display & Signature </a>
+		<a [routerLink] ='["reactivate"]' class ='center'> {{systemType}} Reactivate </a>
 
 	</li>
 
 	<li>
 
-		<a [routerLink] ='["request"]' class ='center'> Manage Request </a>
+		<a [routerLink] ='[ "" , "change-password"]' class ='center'> Change Password </a>
 
 	</li>
 
 	<li>
 
-		<a [routerLink] ='["payment"]' class ='center'> Manage Payment </a>
+		<a [routerLink] ='["change-display"]' class ='center'> Update Display & Signature </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["/request"]' class ='center'> Manage Request </a>
+
+	</li>
+
+	<li>
+
+		<a [routerLink] ='["/payment"]' class ='center'> Manage Payment </a>
 
 	</li>
 

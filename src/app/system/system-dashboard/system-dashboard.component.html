@@ -1,4 +1,4 @@
-<h2>{{title}}</h2>
+<h2 *ngIf ='title'> {{title}} </h2>
 
 <p>Only Administrators and Moderators are allowed to perform an action within this part of the system. Anybody with a privilege less than an Administrator and Moderator are not allowed or permitted to make permanent or temporary changes to the records available in the system. In this dashboard, the Administrator and Moderator will be able to monitor and evaluate entries that are specifically meant for internal decision making to drive the system development and entries that have been made by the user for the purpose the system have been created for.</p> 
 
@@ -8,7 +8,7 @@
 
 	<li>
 
-		<a [routerLink] ='["user"]' class ='center'>Manage Users</a>
+		<a [routerLink] ='["internal" , "user"]' class ='center'>Manage Users</a>
 
 	</li>
 

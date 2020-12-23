@@ -1,0 +1,31 @@
+<ng-container *ngIf ='entry'>
+
+<div [formGroup] ='entryForm'>
+
+<div *ngIf ='emailAddress' class ='form-group'>
+
+	<label for ='emailAddress' class ='form-label bold'> Email Address * : </label>
+
+	<input type ='text' id ='emailAddress' name ='emailAddress' placeholder ='david@example.com' required ='required' autocomplete ='new-emailAddress' formControlName ='emailAddress' 
+
+	class ='form-control' readonly ='readonly' appLowercase ='appLowercase' >
+
+	<app-profile-validator *ngIf ='emailAddress' [system-type] ='systemType' [emailAddress] ='emailAddress'> </app-profile-validator>
+
+</div>
+
+<div *ngIf ='identityNumber' class ='form-group'>
+
+	<label for ='identityNumber' class ='form-label bold'> Identity Number : </label>
+
+	<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' autocomplete ='new-identityNumber' formControlName ='identityNumber' readonly ='readonly'
+
+	class ='form-control'>
+
+	<app-profile-validator *ngIf ='identityNumber' [system-type] ='systemType' [identityNumber] ='identityNumber'></app-profile-validator>
+
+</div>
+
+</div>
+
+</ng-container>

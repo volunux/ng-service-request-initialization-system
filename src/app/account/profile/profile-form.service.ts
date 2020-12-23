@@ -10,8 +10,6 @@ import { General } from './general';
 
 import { Api , Api_Token } from '../../configuration';
 
-import { statusValidator , roleValidator , } from './user-form-validators.directive';
-
 import { emailAddress , forbiddenNames } from './general';
 
 import { dynamicDataValidator } from '../../shared/services/dynamic-control-validator';
