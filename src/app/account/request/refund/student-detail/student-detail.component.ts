@@ -8,7 +8,7 @@ import { GeneralRequest } from '../../request';
 
   'templateUrl' : './student-detail.component.html',
 
-  'styleUrls' : ['./student-detail.component.css']
+  'styleUrls' : ['./student-detail.component.css'] ,
 
 })
 

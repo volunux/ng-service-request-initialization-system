@@ -1,8 +1,8 @@
 import { Component , OnInit , Injectable , Inject } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute , Router } from '@angular/router';
 
-import { FormControl , FormGroup , FormBuilder , Validators } from '@angular/forms';
+import { FormControl , FormGroup , FormBuilder } from '@angular/forms';
 
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 
@@ -16,180 +16,159 @@ import { User , UserFormModel } from '../user';
 
 import { UserOther } from '../user-other';
 
-import { forbiddenNamesValidator , firstLastNames } from '../forbidden-names.directive';
+import { General } from '../general';
 
-import { emailAddressValidator } from '../email-address.directive';
+import { AuthenticationFormService } from '../authentication-form.service';
 
-import { simplePasswordValidator } from '../simple-password.directive';
+import { UserAccountFormService } from '../../shared/user-account/user-account-form.service';
 
-import { VerifyUsernameValidator , usernameVerification} from '../verify-username.service';
+import { ErrorMessagesService } from '../../shared/services/error-messages.service';
 
-import { VerifyEmailAddressValidator , emailAddressVerification } from '../verify-email.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
 
-  selector: 'app-sign-up',
+  'selector' : 'app-sign-up',
 
-  templateUrl: './sign-up.component.html',
+  'templateUrl' : './sign-up.component.html',
 
-  styleUrls: ['./sign-up.component.css']
+  'styleUrls' : ['./sign-up.component.css'] ,
+
+  'providers' : [ErrorMessagesService , NotificationService]
 
 })
 
-export class SignUpComponent implements OnInit {
+export class SignUpComponent extends UserAccountFormService implements OnInit {
 
-  constructor(private authService : AuthenticationService , private dataService : DataService , private formBuilder : FormBuilder ,
+  constructor(public router : Router , private ds : DataService , public ns : NotificationService , private route : ActivatedRoute ,
 
-              private verifyUsernameValidator : VerifyUsernameValidator , private verifyEmailAddressValidator : VerifyEmailAddressValidator ,
+              public ems : ErrorMessagesService , public aS : AuthenticationService , public fb : FormBuilder ,
 
-              public http : HttpClient , @Inject(Api_Token) private apiConfig : Api , private router : Router) { 
+              public http : HttpClient , @Inject(Api_Token) public apiConfig : Api ) {  super(aS , fb , http , apiConfig);  }
 
+  public systemType : string;
+
+  public viewWord : string;
+
+  public systemGuideline : string; 
+
+  public title : string;
+
+  public view : string;
+
+  public link : string;
+
+  public $link : string;
+
+  public controlFilters : string[];
+
+  public noEdit : boolean;
+
+  public generalOthers : UserOther = null;
+
+  public error : General | null | boolean = false;
+
+  public formSubmitted : boolean = false;
+
+  public fip : string = 'block';
+
+  ngOnInit() : void {
+
+    let data = this.route.snapshot.data;
+
+    this.systemType = data.signUp.systemType;
+
+    this.viewWord = data.signUp.viewWord;
+
+    this.systemGuideline = data.signUp.systemGuideline;
+
+    this.title = data.signUp.title;
+
+    this.view = data.signUp.view;
+
+    this.link = data.signUp.link;
+
+    this.$link = data.signUp.$link;
+
+    this.controlFilters = data.signUp.controlFilters;
+
+    this.noEdit = data.signUp.noEdit;
+
+    this.ds.$systemType = this.systemType;
+
+      this.ds.addUser()
+
+    .subscribe((data : General) => {
+
+      if (!data) { this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);
+
+      return window.scrollTo(0 , 0);  }
+
+      if (data) { this.generalOthers = new UserOther(data);
+
+        this.removeControls(this.controlFilters);
+
+        this.createPermanent(data);  }   });
+
+  };
+
+  public addEntry($entry : User) {
+
+    this.formSubmitted = true;
+
+    this.error = null;
+
+    this.fip = 'none';
+
+    this.ds.$addUser($entry)
+
+      .subscribe((data : General | null) => {
+
+        if (!data) { this.formSubmitted = false;
+
+          this.fip = 'block';
+
+          this.ns.setNotificationStatus(true);
+
+          this.ns.addNotification(`Operation is unsuccessful and ${this.systemType} is not added.`);
+
+          this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);  
+
+          return window.scrollTo(0 , 0); }
+
+       else if (data && data.created) { this.formSubmitted = false;
+
+          this.ns.setNotificationStatus(true);
+
+          this.ns.addNotification(`Operation is successful and ${this.systemType} is added.`);
+
+          return this.$entryChanges(data);  }   });
   }
 
-    public error : any;
+  public $entryChanges(data) {
 
-   public signUpForm : FormGroup
+    return setTimeout(() => {
 
-  ngOnInit(): void {
+      return this.router.navigate(data && data.user && data.user._id ? 
 
-    this.dataService.createUser()
+       ['system' , 'internal' , this.link , 'entries'] : ['system' , 'internal' , this.link , 'entries']);  } 
 
-      .subscribe((data : {'Department' : string[] , 'Faculty' : string[] , 'Level' : string[] , 'Country' : string[]}) => {
-
-          this.userOthers = new UserOther(data.Department , data.Faculty , data.Level , data.Country);
-      });
-
-  this.signUpForm = this.formBuilder.group({
-
-    'firstName' : ['' , {'validators' : 
-
-      [Validators.required , Validators.minLength(2) , Validators.maxLength(20) , forbiddenNamesValidator(/moderator|administrator|superAdministrator/i)] , 'updateOn' : 'blur' } ] ,
-
-    'lastName' : ['' , {'validators' : 
-
-      [Validators.required , Validators.minLength(2) , Validators.maxLength(20) , forbiddenNamesValidator(/moderator|administrator|superAdministrator/i)] , 'updateOn' : 'blur' } ] ,
-
-    'username' : ['' , {'validators' : 
-
-      [Validators.required , Validators.minLength(3) , Validators.maxLength(20) , forbiddenNamesValidator(/moderator|administrator|superAdministrator/i)] ,
-
-      'asyncValidators' : [usernameVerification(this.authService , this.http , HttpHeaders , this.apiConfig).bind(this)] , 'updateOn' : 'blur' } ] ,
-
-    'emailAddress' : ['' , {'validators' : 
-
-      [Validators.required , Validators.minLength(8) , Validators.maxLength(50) , emailAddressValidator(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/) ,
-
-      forbiddenNamesValidator(/moderator|administrator|superAdministrator/i)] ,
-
-      'asyncValidators' : [emailAddressVerification(this.authService , this.http , HttpHeaders , this.apiConfig).bind(this)] , 'updateOn' : 'blur' } ] ,
-
-    'department' : ['' , { 'validators' : [Validators.required , Validators.minLength(2) , Validators.maxLength(150)] , 'updateOn' : 'blur' } ] ,
-
-    'faculty' : ['' , {'validators' : [Validators.required , Validators.minLength(2) , Validators.maxLength(150)] , 'updateOn' : 'blur' } ] ,
-
-    'level' : ['' , {'validators' : [Validators.required , Validators.minLength(2) , Validators.maxLength(50)] , 'updateOn' : 'blur' } ] ,
-
-    'country' : ['' , {'validators' : [Validators.required , Validators.minLength(2) , Validators.maxLength(50)] , 'updateOn' : 'blur' } ] ,
-
-    'password' : ['' , {'validators' : [Validators.required , Validators.minLength(7) , Validators.maxLength(35) , simplePasswordValidator()] , 'updateOn' : 'blur' }  ] ,
-
-    'identityNumber' : ['' , [Validators.maxLength(30)] ] , 'matriculationNumber' : ['' , [Validators.maxLength(30)] ] ,
-
-    'about' : ['' , [Validators.minLength(10) , Validators.maxLength(300)] ] ,
-
-  } , {'validators' : firstLastNames() });
-  
+      , 5000); 
   }
 
-  public onSubmitSignUp(user : User) {
+  get notificationAvailable() : boolean {
 
-    // this.authService.signUp(user);
-
-      this.dataService.signUp(user)
-
-        .subscribe((token) => {
-
-          this.authService.saveToken(token);
-
-          this.router.navigate(['/']);  } ,
-
-          (error) => { this.error = {...error , 'resource' : error.resource };  
-
-          return window.scrollTo(0 , 0);
-
-          });
-
+    return this.ns.notificationStatus();
   }
 
-  public userOthers : UserOther;
+  get notificationMessage() : string {
 
-  public title : string = 'Sign Up';
-
-
-
-  get firstName() {
-
-    return this.signUpForm.get('firstName') as FormControl;
+    return this.ns.getNotificationMessage();
   }
 
-  get lastName() {
+   public removeNotification() {
 
-    return this.signUpForm.get('lastName') as FormControl;
-  }
-
-  get username() {
-
-    return this.signUpForm.get('username') as FormControl;
-  }
-
-  get emailAddress() {
-
-    return this.signUpForm.get('emailAddress') as FormControl;
-  }
-
-  get department() {
-
-    return this.signUpForm.get('department') as FormControl;
-  }
-
-  get faculty() {
-
-    return this.signUpForm.get('faculty') as FormControl;
-  }
-
-  get level() {
-
-    return this.signUpForm.get('level') as FormControl;
-  }
-
-  get country() {
-
-    return this.signUpForm.get('country') as FormControl;
-  }
-
-  get password() {
-
-    return this.signUpForm.get('password') as FormControl;
-  }
-
-  get identityNumber() {
-
-    return this.signUpForm.get('identityNumber') as FormControl;
-  }
-
-  get matriculationNumber() {
-
-    return this.signUpForm.get('matriculationNumber') as FormControl;
-  }
-
-  get about() {
-
-    return this.signUpForm.get('about') as FormControl;
-  }
-
-  get isFormValid() : boolean {
-
-    return this.signUpForm.valid;
-  }
+     this.ns.removeNotification();
+   }
  
 }

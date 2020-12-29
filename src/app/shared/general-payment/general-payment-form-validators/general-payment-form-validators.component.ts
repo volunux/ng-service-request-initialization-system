@@ -2,13 +2,17 @@ import { Component , Input , OnInit } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 
+import { fadeAnimation } from '../../../animations';
+
 @Component({
 
   'selector' : 'app-general-payment-form-validators',
 
   'templateUrl' : './general-payment-form-validators.component.html',
 
-  'styleUrls' : ['./general-payment-form-validators.component.css']
+  'styleUrls' : ['./general-payment-form-validators.component.css'] ,
+
+  'animations' : [fadeAnimation]  
 
 })
 

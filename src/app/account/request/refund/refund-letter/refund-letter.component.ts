@@ -22,26 +22,26 @@ import { NotificationService } from '../../../../shared/services/notification.se
 
   'styleUrls' : ['./refund-letter.component.css'] ,
 
-  'providers' : [NotificationService , ErrorMessagesService]
+  'providers' : [ErrorMessagesService]
 
 })
 export class RefundLetterComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute , private grs : RefundService , public ns : NotificationService , public ems : ErrorMessagesService ,) { 
+  constructor(private route : ActivatedRoute , private grs : RefundService , public ems : ErrorMessagesService ,) { 
 
   }
 
-  public systemType : string = 'Refund';
+  public systemType : string;
 
-  public title : string = `${this.systemType} Letter`;
+  public title : string;
 
-  public view : string = 'rf';
+  public view : string;
 
-  public viewWord : string = 'Refund';
+  public viewWord : string;
 
-  public link : string = 'refund';
+  public link : string;
 
-  public $link : string = this.link;
+  public $link : string;
 
   public entry : GeneralRequest;
 
@@ -49,7 +49,25 @@ export class RefundLetterComponent implements OnInit {
 
   private entrySlug : string = '';
 
-  ngOnInit(): void {
+  ngOnInit() : void {
+
+    let data = this.route.snapshot.data;
+
+        this.systemType = data.letter.systemType;
+
+        this.title = data.letter.title;
+
+        this.view = data.letter.view;    
+
+        this.viewWord = data.letter.viewWord;
+
+        this.link = data.letter.link;
+
+        this.$link = data.letter.$link;
+
+        this.grs.$systemType = this.systemType;
+
+        this.grs.$sa = this.$link;
 
     this.route.paramMap
 
@@ -62,6 +80,8 @@ export class RefundLetterComponent implements OnInit {
           .subscribe(($entry : GeneralRequest) => {
 
               if (!$entry) { return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);  }
+
+              this.error = null;
 
               this.entry = $entry;
 

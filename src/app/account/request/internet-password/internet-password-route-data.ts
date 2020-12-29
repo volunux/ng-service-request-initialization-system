@@ -12,7 +12,9 @@ let $$ : { [key : string] : any } = {
 
 		'$link' : 'internet-password' ,
 
-		'systemGuideline' : 'request'
+		'systemGuideline' : 'request' ,
+
+		'base' : 'request'
 };
 
 export const IPData : { [key : string] : any } = {

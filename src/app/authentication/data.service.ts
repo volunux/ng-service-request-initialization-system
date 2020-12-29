@@ -4,83 +4,116 @@ import { Api , Api_Token } from '../configuration';
 
 import { HttpClient , HttpResponse , HttpErrorResponse } from '@angular/common/http';
 
-import { User } from './user';
+import { User , Payload } from './user';
+
+import { General } from './general';
 
 import { AuthResponse } from './authresponse';
 
-import { Observable , throwError } from 'rxjs';
+import { Observable , of , throwError } from 'rxjs';
 
 import { catchError , tap } from 'rxjs/operators';
 
+import { ErrorMessagesService1 } from './error-messages.service1';
+
 @Injectable({
 
-  providedIn: 'root'
-
+   'providedIn' : 'root'
 })
 
 export class DataService {
 
-  constructor(@Inject(Api_Token) private apiConfig : Api , private http : HttpClient) { 
+  constructor(@Inject(Api_Token) private apiConfig : Api , private http : HttpClient , private ems : ErrorMessagesService1) { 
 
   }
+
+  public $systemType : string;
 
   public signIn(user : User) : Observable<AuthResponse> {
 
   	let link = `${this.apiConfig.host}/signin`;
 
-  	return this.http.post<AuthResponse>(link , user);
+  	return this.http.post<AuthResponse>(link , user)
+
+      .pipe(
+              catchError(this.handleError<AuthResponse>(`${this.$systemType} Entry` , null))
+            )
 
   }
 
-  public createUser() : Observable<{'Country' : string[] , 'Department' : string[] , 'Faculty' : string[] , 'Level' : string[]}> {
+  public addUser() : Observable<Payload> {
 
     let link = `${this.apiConfig.host}/signup`;
 
-    return this.http.get<{'Country' : string[] , 'Department' : string[] , 'Faculty' : string[] , 'Level' : string[]}>(link)
+    return this.http.get<Payload>(link)
 
       .pipe(
-              catchError((error) : Observable<any> => {
-
-                  return throwError(error);
-              })
-        )
+              catchError(this.handleError<AuthResponse>(`${this.$systemType} Entry` , null))
+          )
   }
 
-  public signUp(user : User) : Observable<AuthResponse> {
+  public $addUser(user : User) : Observable<AuthResponse> {
 
   	let link = `${this.apiConfig.host}/signup`;
 
   	return this.http.post<AuthResponse>(link , user)
 
   		.pipe(
-        catchError(this.handleError<any>('Faculty Entry or Entries Delete')
-
-              )
-  				)
+              catchError(this.handleError<AuthResponse>(`${this.$systemType} Entry` , null))
+            )
 	  }
+
+  public forgotPassword() : Observable<General> {
+
+    let link = `${this.apiConfig.host}/forgot-password/`;
+
+    return this.http.get<General>(link)
+
+      .pipe(
+              catchError(this.handleError<General>(`${this.$systemType} Entry` , null))
+            )
+    }
+
+  public $forgotPassword(details : General) : Observable<General> {
+
+    let link = `${this.apiConfig.host}/forgot-password`;
+
+    return this.http.put<General>(link , details)
+
+      .pipe(
+              catchError(this.handleError<General>(`${this.$systemType} Entry` , null))
+            )
+    }
+
+  public resetPassword(token : string) : Observable<General> {
+
+    let link = `${this.apiConfig.host}/reset/${token}`;
+
+    return this.http.get<General>(link)
+
+      .pipe(
+              catchError(this.handleError<General>(`${this.$systemType} Entry` , null))
+            )
+    }
+
+  public $resetPassword(token , password : General) : Observable<General> {
+
+    let link = `${this.apiConfig.host}/reset/${token}`;
+
+    return this.http.post<General>(link , password)
+
+      .pipe(
+              catchError(this.handleError<General>(`${this.$systemType} Entry` , null))
+            )
+    }
 
   private handleError<T>(operation = 'operation' , result? : T) {
 
-      return (error : HttpErrorResponse) : Observable<T> => { let errArr = [];
+      return (error : HttpErrorResponse) : Observable<T> => { this.ems.message = error;
 
-        if (error) {
+                return of(result as T);
 
-          if (error.error.message) { let compiledError = Object.assign({'resource' : operation } , errArr); 
-
-                  return throwError(compiledError);}
-
-          else if (error.error && !error.error.message) {
-
-           for (let prop in error.error) { errArr.push(error.error[prop]); }  
-
-              let compiledError = Object.assign({'resource' : operation } , {'errors' : errArr} , error);  
-
-                  return throwError(compiledError);}
-
-          else { let compiledError = Object.assign({'resource' : operation } , error); 
-
-                  return throwError(compiledError);}
-      }  }
+      }
   }
 
 

@@ -12,6 +12,18 @@
 
 	</li>
 
+	<li *ngIf ='!canManage'>
+
+		<a [routerLink] ='["/request"]' class ='center'> Manage Request </a>
+
+	</li>
+
+	<li *ngIf ='!canManage'>
+
+		<a [routerLink] ='["/payment"]' class ='center'> Manage Payment </a>
+
+	</li>
+
 	<li>
 
 		<a [routerLink] ='["detail"]' class ='center'> {{systemType}} Detail </a>
@@ -48,17 +60,7 @@
 
 	</li>
 
-	<li>
 
-		<a [routerLink] ='["/request"]' class ='center'> Manage Request </a>
-
-	</li>
-
-	<li>
-
-		<a [routerLink] ='["/payment"]' class ='center'> Manage Payment </a>
-
-	</li>
 
 </ul>
 

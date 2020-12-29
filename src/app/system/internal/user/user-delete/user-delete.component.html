@@ -12,13 +12,13 @@
 
 		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='deleteEntry(entryForm.value)'>
 
-<app-user-form-input *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [first-name] ='firstName' [last-name] ='lastName' [user-name] ='username' 
+<app-user-account-form-inputs *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [first-name] ='firstName' [last-name] ='lastName' [user-name] ='username' 
 
 	[email-address] ='emailAddress' [password] ='password' [confirm-password] ='confirmPassword' [about] ='about' [faculty] ='faculty' [department] ='department' [level] ='level'
 
 	[country] ='country' [unit] ='unit' [role] ='role' [status] ='status' [statuses] ='statuses' [matriculation-number] ='matriculationNumber' [jamb-registration-number] ='jambRegistrationNumber' 
 
-	 [roles] ='roles' [general-others] ='generalOthers' [no-edit] ='noEdit' > </app-user-form-input>
+	 [roles] ='roles' [general-others] ='generalOthers' [no-edit] ='noEdit' > </app-user-account-form-inputs>
 
 			<ng-container *ngIf ='entry?.department'>
 

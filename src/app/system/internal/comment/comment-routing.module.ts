@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule , Routes } from '@angular/router'; 
 
-import { ResolverService } from '../../../resolver.service';
-
 import { EntryDeleteAllGuard } from '../../../shared/guards/entry-delete-all.guard';
 
 import { ConversationEntriesComponent } from '../conversation/conversation-entries/conversation-entries.component';

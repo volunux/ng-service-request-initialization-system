@@ -12,7 +12,7 @@
 
 <div id ='guidelines'>
 
-	<app-guidelines [system-guideline] ='systemGuideline' > </app-guidelines>
+<app-guidelines *ngIf ='systemGuideline' [view] ='view' [system-guideline] ='systemGuideline'> </app-guidelines>
 
 </div>
 

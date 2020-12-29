@@ -59,7 +59,7 @@ export class EntryTransferComponent implements OnInit {
 
   public entry : GeneralRequest;
 
-  public entryOthers : any;
+  public generalOthers : any;
 
   public error : General | null | boolean = false;
 
@@ -93,11 +93,11 @@ export class EntryTransferComponent implements OnInit {
 
 							this.entrySlug = this.entry.slug;
 
-							this.entryOthers = $entry.general ? new GeneralRequestOther($entry.general) : {};
+							this.generalOthers = $entry.$data ? new GeneralRequestOther($entry.$data) : {};
 
 							this.transferForm = this.grfs.$entryTransferForm();
 
-		          this.grfs.createPermanent($entry.general , this.transferForm);	});
+		          this.grfs.createPermanent($entry.$data , this.transferForm);	});
   }
 
   ngOnDestroy() {

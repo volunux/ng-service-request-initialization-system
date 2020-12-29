@@ -26,6 +26,7 @@ import { ErrorMessagesService } from '../../services/error-messages.service';
 
 import { NotificationService } from '../../services/notification.service';
 
+import { listAnimation } from '../../../animations';
 
 @Component({
 
@@ -35,7 +36,9 @@ import { NotificationService } from '../../services/notification.service';
 
   'styleUrls' : ['./general-internal-entries.component.css'] ,
 
-  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService]
+  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService] ,
+
+  'animations' : [listAnimation]
 
 })
 

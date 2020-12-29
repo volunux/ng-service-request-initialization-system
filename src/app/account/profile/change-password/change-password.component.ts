@@ -10,7 +10,7 @@ import { User } from '../user';
 
 import { General } from '../general';
 
-import { ProfileService } from '../profile.service'
+import { ProfileService } from '../profile.service';
 
 import { ProfileFormService } from '../profile-form.service';
 

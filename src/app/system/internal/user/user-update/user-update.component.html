@@ -14,13 +14,13 @@
 
 		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' autocomplete ='off' [formGroup] ='entryForm' (ngSubmit) ='updateEntry(entryForm.value)'>
 
-	<app-user-form-input *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [first-name] ='firstName' [last-name] ='lastName' [user-name] ='null' 
+	<app-user-account-form-inputs *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [first-name] ='firstName' [last-name] ='lastName' [user-name] ='null' 
 
 	[email-address] ='null' [password] ='null' [confirm-password] ='null' [about] ='about' [faculty] ='faculty' [department] ='department' [level] ='level'
 
 	[country] ='country' [unit] ='unit' [role] ='role' [status] ='status' [statuses] ='statuses' [matriculation-number] ='matriculationNumber' [jamb-registration-number] ='jambRegistrationNumber' 
 
-	 [roles] ='roles' [general-others] ='generalOthers' [no-edit] ='noEdit' > </app-user-form-input>
+	 [roles] ='roles' [general-others] ='generalOthers' [no-edit] ='noEdit' > </app-user-account-form-inputs>
 
 			<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
 

@@ -125,7 +125,7 @@ export class AuthenticationService {
 
   public signUp(user : User) : any {
 
-  		return this.dataService.signUp(user)
+  		return this.dataService.$addUser(user)
 
 	  		.subscribe((token) => {
 

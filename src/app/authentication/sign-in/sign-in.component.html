@@ -1,61 +1,30 @@
 <div id ='entry-create'>
 
-	<h2> {{title}} </h2>
+	<h2 *ngIf ='title'> {{title}} </h2>
 
-	<div class ='description'>
+	<div class ='description' *ngIf ='description'>
 
 		<p>{{description}}</p>
 
 	</div>
 
-		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' [formGroup] ='signInForm'  (ngSubmit) ='onSubmitSignIn(signInForm.value)'>
+<app-resource-unavailable *ngIf ='error' [error] ='error' > </app-resource-unavailable>
 
-			<div class ='form-group'>
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
 
-				<label for ='emailAddress' class ='form-label bold'> Email Address * : </label>
+		<form action ='' method ='post' enctype ='application/x-www-form-urlencoded' [formGroup] ='entryForm'  (ngSubmit) ='confirmAuth(entryForm.value)'>
 
-				<input type ='text' id ='emailAddress' name ='emailAddress' placeholder ='david@example.com' required ='required' formControlName ='emailAddress' class ='form-control'>
+<app-user-account-form-inputs *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [first-name] ='firstName' [last-name] ='lastName' [user-name] ='username' 
 
-				<div *ngIf ='emailAddress.invalid && (emailAddress.touched || emailAddress.dirty)' class ='validation-error'>
+	[email-address] ='emailAddress' [password] ='password' [confirm-password] ='confirmPassword' [about] ='about' [faculty] ='faculty' [department] ='department' [level] ='level'
 
-					<ul>
+	[country] ='country' [unit] ='unit' [role] ='role' [status] ='status' [statuses] ='statuses' [matriculation-number] ='matriculationNumber' [jamb-registration-number] ='jambRegistrationNumber' 
 
-						<p>
+	[identity-number] ='identityNumber' [roles] ='roles' [general-others] ='generalOthers' [no-edit] ='noEdit' > </app-user-account-form-inputs>
 
-						<li *ngIf ='emailAddress.errors?.required'> Email Address should be provided and cannot be empty </li>
-						<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.minlength'> Email Address cannot be less than 8 characters in length </li>
-						<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.maxlength'> Email Address cannot be greater than 50 characters in length </li>
-						<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.emailAddress'> Email Address must be valid and should conform to standards for example david@gmail.com </li>
+	<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
 
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='password' class ='form-label bold'> Password * : </label>
-
-				<input type ='password' id ='password' name ='password' placeholder ='************' required ='required' formControlName ='password' class ='form-control'>
-
-				<div *ngIf ='password.invalid && (password.touched || password.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='password.errors?.required'> Password should be provided and cannot be empty </li>
-						<li *ngIf ='password.errors?.required || password.errors?.minlength'> Password cannot be less than 7 characters in length </li>
-						<li *ngIf ='password.errors?.required || password.errors?.maxlength'> Password cannot be greater than 35 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<button type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!signInForm.valid'> Submit </button> 
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
 
 		</form>
 

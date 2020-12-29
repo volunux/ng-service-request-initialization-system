@@ -41,9 +41,11 @@ export function currentAndNewPasswordValidator() {
 
  return (group : FormGroup) : ValidationErrors | null => {
 
-    let password = group.get('password') ? group.get('password').value : null;
+    let password = group.get('newPassword') ? group.get('newPassword').value : null;
 
     let newPassword = group.get('newPassword') ? group.get('newPassword') : null;
+
+    if (!password) password = group.get('password') ? group.get('password').value : null;
 
     if (newPassword) { newPassword.value == password ? newPassword.setErrors({'currentAndNew' : true , 'required' : true , 'minLength' : true , 'maxLength' : true}) : newPassword.setErrors(null); 
 

@@ -1,6 +1,6 @@
 import { Component , OnInit } from '@angular/core';
 
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet , Router , RouterEvent , RouteConfigLoadEnd , RouteConfigLoadStart } from '@angular/router';
 
 import { slideInAnimation } from './animations';
 
@@ -20,10 +20,31 @@ import { AuthenticationService } from './authentication/authentication.service';
 
 export class AppComponent implements OnInit {
 
-  title = 'Request and Service Initialization System';
+  public title : string = 'Request and Service Initialization System';
 
-  constructor(private as : AuthenticationService) {
+  public isShowingRouteLoadIndicator: boolean;
 
+  constructor(private as : AuthenticationService , private router : Router) {
+
+    this.isShowingRouteLoadIndicator = false;
+
+    var asyncLoadCount = 0;
+
+router.events
+        .subscribe((event: RouterEvent) : void => {
+ 
+        if (event instanceof RouteConfigLoadStart ) { asyncLoadCount++;  }
+
+        else if (event instanceof RouteConfigLoadEnd) { asyncLoadCount--;  }
+ 
+        // If there is at least one pending asynchronous config load request,
+        // then let's show the loading indicator.
+        // --
+        // CAUTION: I'm using CSS to include a small delay such that this loading
+        // indicator won't be seen by people with sufficiently fast connections.
+        this.isShowingRouteLoadIndicator = !!asyncLoadCount;
+ 
+      });
 
   }
 
@@ -34,7 +55,9 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() : void {
 
-    }
+
+
+  }
 
    getAnimationData(outlet: RouterOutlet) {
 

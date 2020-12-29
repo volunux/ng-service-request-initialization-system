@@ -18,13 +18,15 @@ import { User } from '../user';
 
 import { UserService } from '../user.service';
 
-import { UserFormService } from '../user-form.service';
+import { UserAccountFormService } from '../../../../shared/user-account/user-account-form.service'; 
 
 import { GeneralSearchService } from '../../../../shared/services/general-search.service';
 
 import { ErrorMessagesService } from '../../../../shared/services/error-messages.service';
 
 import { NotificationService } from '../../../../shared/services/notification.service';
+
+import { listAnimation } from '../../../../animations';
 
 @Component({
 
@@ -34,13 +36,15 @@ import { NotificationService } from '../../../../shared/services/notification.se
 
   'styleUrls' : ['./user-list.component.css'] ,
 
-  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService]
+  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService] ,
+
+  'animations' : [listAnimation]
 
 })
 
 export class UserListComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute , private router : Router , private location : Location , private ufs : UserFormService ,
+  constructor(private route : ActivatedRoute , private router : Router , private location : Location , private ufs : UserAccountFormService ,
 
               private us : UserService , private grss : GeneralSearchService , private ems : ErrorMessagesService , private ns : NotificationService ) { 
 

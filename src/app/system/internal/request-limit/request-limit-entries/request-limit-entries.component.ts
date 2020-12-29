@@ -20,6 +20,8 @@ import { ErrorMessagesService } from '../../../../shared/services/error-messages
 
 import { NotificationService } from '../../../../shared/services/notification.service';
 
+import { listAnimation } from '../../../../animations';
+
 @Component({
 
   'selector' : 'app-request-limit-entries',
@@ -28,7 +30,9 @@ import { NotificationService } from '../../../../shared/services/notification.se
 
   'styleUrls' : ['./request-limit-entries.component.css'] ,
 
-  'providers' : [ErrorMessagesService , NotificationService]
+  'providers' : [ErrorMessagesService , NotificationService] ,
+
+  'animations' : [listAnimation]
 
 })
 

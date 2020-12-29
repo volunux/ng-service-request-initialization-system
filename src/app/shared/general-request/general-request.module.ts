@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GeneralModule } from '../../general/general.module';
 import { SimplesModule } from '../simples/simples.module';
 import { GeneralServicesModule } from '../services/general-services.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 import { GeneralRequestService } from './general-request.service';
 import { GeneralRequestFormService } from './general-request-form.service';
@@ -54,6 +55,7 @@ import { GeneratePasswordComponent } from './generate-password/generate-password
     RouterModule.forChild([]),
     GeneralModule,
     SimplesModule,
+    PipesModule,
     GeneralServicesModule,
   ],
 

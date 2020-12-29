@@ -8,7 +8,7 @@ import { GeneralRequest } from '../request';
 
   'templateUrl' : './request-entry-detail.component.html',
 
-  'styleUrls' : ['./request-entry-detail.component.css']
+  'styleUrls' : ['./request-entry-detail.component.css'] ,
 
 })
 
@@ -23,5 +23,7 @@ export class RequestEntryDetailComponent implements OnInit {
   }
 
   @Input() public entry : GeneralRequest;
+
+  @Input() public view : string;
 
 }

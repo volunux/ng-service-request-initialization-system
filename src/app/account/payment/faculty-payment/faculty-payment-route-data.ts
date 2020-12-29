@@ -12,7 +12,9 @@ let $$ : { [key : string] : any } = {
 
 		'$link' : 'faculty-payment' ,
 
-		'systemGuideline' : 'payment'
+		'systemGuideline' : 'payment' ,
+
+		'base' : 'payment'
 };
 
 export const FPData : { [key : string] : any } = {

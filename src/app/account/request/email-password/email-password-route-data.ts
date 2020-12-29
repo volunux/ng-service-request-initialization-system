@@ -12,7 +12,9 @@ let $$ : { [key : string] : any } = {
 
 		'$link' : 'email-password' ,
 
-		'systemGuideline' : 'request'
+		'systemGuideline' : 'request' ,
+
+		'base' : 'request'
 };
 
 export const EPData : { [key : string] : any } = {

@@ -4,10 +4,8 @@ import { GeneralModule } from '../../../general/general.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GeneralRequestModule } from '../../../shared/general-request/general-request.module';
 import { SimplesModule } from '../../../shared/simples/simples.module';
+import { PipesModule } from '../../../shared/pipes/pipes.module';
 
-
-
-import { QuillModule } from 'ngx-quill';
 
 import { RefundRoutingModule } from './refund-routing.module';
 import { GeneralServicesModule } from '../../../shared/services/general-services.module';
@@ -16,7 +14,7 @@ import { RefundEntriesComponent } from './refund-entries/refund-entries.componen
 import { RefundDetailComponent } from './refund-detail/refund-detail.component';
 import { RefundLetterComponent } from './refund-letter/refund-letter.component';
 
-
+import { FroalaEditorService } from './froala-editor.service';
 import { RefundService } from './refund.service';
 import { RefundFormService } from './refund-form.service';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
@@ -25,6 +23,7 @@ import { StageThreeComponent } from './stage-three/stage-three.component';
 import { StageFourComponent } from './stage-four/stage-four.component';
 
 import { SignatureComponent } from './signature/signature.component';
+import { RefundEditorComponent } from './refund-editor/refund-editor.component';
 
 
 
@@ -40,25 +39,27 @@ import { SignatureComponent } from './signature/signature.component';
   	StageOneTwoFiveComponent,
   	StageThreeComponent,
   	StageFourComponent,
-  	SignatureComponent
+  	SignatureComponent,
+  	RefundEditorComponent
 
 	],
 
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    QuillModule,
 		GeneralModule,
 		GeneralRequestModule,
 		SimplesModule,
+    PipesModule,
     GeneralServicesModule,
     RefundRoutingModule
   ] ,
 
   providers : [
 
-    RefundService ,
-    RefundFormService
+    RefundService,
+    RefundFormService,
+    FroalaEditorService
   ]
 
 })

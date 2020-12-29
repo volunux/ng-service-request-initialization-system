@@ -12,7 +12,9 @@ let $$ : { [key : string] : any } = {
 
 		'$link' : 'course-registration' ,
 
-		'systemGuideline' : 'request'
+		'systemGuideline' : 'request' ,
+
+		'base' : 'request'
 };
 
 export const CRData : { [key : string] : any } = {

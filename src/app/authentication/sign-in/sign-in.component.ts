@@ -1,12 +1,28 @@
-import { Component , OnInit } from '@angular/core';
+import { Component , OnInit , Injectable , Inject } from '@angular/core';
 
-import { FormControl , FormGroup , FormBuilder , Validators } from '@angular/forms';
+import { ActivatedRoute , Router } from '@angular/router';
 
-import { User } from '../user';
+import { FormControl , FormGroup , FormBuilder } from '@angular/forms';
+
+import { HttpClient , HttpHeaders } from '@angular/common/http';
 
 import { AuthenticationService } from '../authentication.service';
 
-import { emailAddressValidator } from '../email-address.directive';
+import { Api , Api_Token } from '../../configuration';
+
+import { DataService } from '../data.service';
+
+import { User , Payload , UserFormModel } from '../user';
+
+import { UserOther } from '../user-other';
+
+import { General } from '../general';
+
+import { UserAccountFormService } from '../../shared/user-account/user-account-form.service';
+
+import { ErrorMessagesService } from '../../shared/services/error-messages.service';
+
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
 
@@ -14,49 +30,140 @@ import { emailAddressValidator } from '../email-address.directive';
 
   'templateUrl' : './sign-in.component.html',
 
-  'styleUrls' : ['./sign-in.component.css']
+  'styleUrls' : ['./sign-in.component.css'] ,
+
+  'providers' : [ErrorMessagesService , NotificationService]
 
 })
 
-export class SignInComponent implements OnInit {
+export class SignInComponent extends UserAccountFormService implements OnInit {
 
-  constructor(private as : AuthenticationService , private fb : FormBuilder) { 
+  constructor(public router : Router , private ds : DataService , public ns : NotificationService , private route : ActivatedRoute ,
 
-  }
+              public ems : ErrorMessagesService , public aS : AuthenticationService , public fb : FormBuilder ,
+
+              public http : HttpClient , @Inject(Api_Token) public apiConfig : Api ) {  super(aS , fb , http , apiConfig);  }
 
   public description : string = `All members of the system are required to signin before they can complete or perform any action or task.`;
 
-  public title : string = 'Sign In';
+  public systemType : string;
 
-  ngOnInit(): void {
-  
+  public viewWord : string;
+
+  public systemGuideline : string; 
+
+  public title : string;
+
+  public view : string;
+
+  public link : string;
+
+  public $link : string;
+
+  public noEdit : boolean;
+
+  public generalOthers : UserOther = null;
+
+  public error : General | null | boolean = false;
+
+  public formSubmitted : boolean = false;
+
+  public fip : string = 'block';
+
+  public controlFilters : string[];
+
+  public asyncValidators : string[];
+
+  ngOnInit() : void {
+
+    let data = this.route.snapshot.data;
+
+    this.systemType = data.signIn.systemType;
+
+    this.viewWord = data.signIn.viewWord;
+
+    this.systemGuideline = data.signIn.systemGuideline;
+
+    this.title = data.signIn.title;
+
+    this.view = data.signIn.view;
+
+    this.link = data.signIn.link;
+
+    this.$link = data.signIn.$link;
+
+    this.controlFilters = data.signIn.controlFilters;
+
+    this.noEdit = data.signIn.noEdit;
+
+    this.asyncValidators = data.signIn.asyncValidators;
+
+    this.ds.$systemType = this.systemType;
+
+    this.removeControls(this.controlFilters);
+
+    this.removeAsyncValidators(this.asyncValidators);
+
   }
 
-  get emailAddress() : FormControl {
+  public confirmAuth($entry : User) : any {
 
-    return this.signInForm.get('emailAddress') as FormControl;
+    this.formSubmitted = true;
+
+    this.error = null;
+
+    this.fip = 'none';
+
+    this.ds.signIn($entry)
+
+      .subscribe((data : Payload) => {
+
+        if (!data) { this.formSubmitted = false;
+
+          this.fip = 'block';
+
+          this.ns.setNotificationStatus(true);
+
+          this.ns.addNotification(`Operation is unsuccessful and ${this.systemType} is not logged in.`);
+
+          return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message); }
+
+       else if (data) { this.formSubmitted = false;
+
+          this.aS.saveToken(data);
+
+          this.aS.saveUserId(data);
+
+          this.ns.setNotificationStatus(true);
+
+          this.ns.addNotification(`Operation is successful and ${this.systemType} is logged in.`);
+
+          return this.$entryChanges($entry); }   });
+
   }
 
-  get password() : FormControl {
+  public $entryChanges(data) {
 
-    return this.signInForm.get('password') as FormControl;
+    return setTimeout(() => {
+
+      return this.aS.redirectAddress ? this.router.navigate([this.aS.redirectAddress]) : this.router.navigate(['/account/profile'])  } , 5000) 
   }
 
-  get isFormValid() : boolean {
 
-    return this.signInForm.valid;
+  get notificationAvailable() : boolean {
+
+    return this.ns.notificationStatus();
   }
 
-  public onSubmitSignIn(user : User) : any {
+  get notificationMessage() : string {
 
-    this.as.signIn(user);
-
+    return this.ns.getNotificationMessage();
   }
 
-  public signInForm : FormGroup = this.fb.group({
+   public removeNotification() {
 
-    'emailAddress' : ['' , {'validators' : [Validators.required , Validators.minLength(5) , Validators.maxLength(50) , emailAddressValidator(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)] } ] ,
-
-    'password' : ['' , {'validators' : [Validators.required , Validators.minLength(8) , Validators.maxLength(35)] } ]  });
+     this.ns.removeNotification();
+   }
+ 
 
 }

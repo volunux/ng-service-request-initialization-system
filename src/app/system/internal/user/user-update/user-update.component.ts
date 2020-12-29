@@ -20,7 +20,7 @@ import { UserService } from '../user.service';
 
 import { UserOther } from '../user-other';
 
-import { UserFormService } from '../user-form.service';
+import { UserAccountFormService } from '../../../../shared/user-account/user-account-form.service'; 
 
 import { ErrorMessagesService } from '../../../../shared/services/error-messages.service';
 
@@ -42,11 +42,11 @@ import { Status , statuses } from '../status';
 
 })
 
-export class UserUpdateComponent extends UserFormService implements OnInit {
+export class UserUpdateComponent extends UserAccountFormService implements OnInit {
 
   constructor(public router : Router , public us : UserService , public ns : NotificationService , private route : ActivatedRoute ,
 
-              public ufs : UserFormService , public ems : ErrorMessagesService , public aS : AuthenticationService , public fb : FormBuilder ,
+              public ufs : UserAccountFormService , public ems : ErrorMessagesService , public aS : AuthenticationService , public fb : FormBuilder ,
 
               public http : HttpClient , @Inject(Api_Token) public apiConfig : Api) {  super(aS , fb , http , apiConfig);  }
 

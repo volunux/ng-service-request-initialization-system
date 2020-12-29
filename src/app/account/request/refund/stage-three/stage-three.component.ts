@@ -10,7 +10,7 @@ import { GeneralRequest } from '../../request';
 
   'templateUrl' : './stage-three.component.html',
 
-  'styleUrls' : ['./stage-three.component.css']
+  'styleUrls' : ['./stage-three.component.css'] ,
 
 })
 

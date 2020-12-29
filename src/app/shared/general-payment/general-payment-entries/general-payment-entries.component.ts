@@ -28,6 +28,8 @@ import { GeneralSearchService } from '../../services/general-search.service';
 
 import { AuthenticationService } from '../../../authentication/authentication.service';
 
+import { listAnimation } from '../../../animations';
+
 @Component({
 
   'selector' : 'app-general-payment-entries',
@@ -36,7 +38,9 @@ import { AuthenticationService } from '../../../authentication/authentication.se
 
   'styleUrls' : ['./general-payment-entries.component.css'] ,
 
-  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService]
+  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService] ,
+
+  'animations' : [listAnimation]
 
 })
 

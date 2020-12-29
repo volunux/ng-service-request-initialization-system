@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { Routes , RouterModule } from '@angular/router';
 
-import { AuthenticationGuard } from '../../../authentication/authentication.guard';
+import { AuthenticationGuard } from '../../../shared/guards/authentication.guard';
 
 import { IsStudentGuard } from '../../../shared/guards/is-student.guard';
 
@@ -27,8 +27,6 @@ import { RequestEntryCommentComponent } from '../request-all/request-entry-comme
 import { RequestEntryDetailComponent } from '../request-all/request-entry-detail/request-entry-detail.component';
 
 import { RequestEntryTimelineComponent } from '../request-all/request-entry-timeline/request-entry-timeline.component';
-
-import { RequestEntryTransferComponent } from '../request-all/request-entry-transfer/request-entry-transfer.component';
 
 import { RequestEntriesComponent } from '../request-all/request-entries/request-entries.component';
 
@@ -61,9 +59,9 @@ const routes : Routes = [
 
 				{'path' : 'entry/detail/:entry' , 'component' : RefundDetailComponent , 'data' : {'detail' : RFData.detail } } ,
 
-				{'path' : 'entry/:entry/timeline' , 'component' : RequestEntryTimelineComponent } ,
+				{'path' : 'entry/:entry/timeline' , 'component' : RequestEntryTimelineComponent , 'data' : {'timeline' : RFData.timeline } } ,
 
-				{'path' : 'entry/:entry/letter' , 'component' : RefundLetterComponent } ,
+				{'path' : 'entry/:entry/letter' , 'component' : RefundLetterComponent , 'data' : {'letter' : RFData.letter } } ,
 
 				{'path' : 'entries' , 'component' : RefundEntriesComponent , 'data' : {'entries' : RFData.entries } } ,
 

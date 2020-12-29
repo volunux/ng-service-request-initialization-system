@@ -1,0 +1,78 @@
+<ng-container *ngIf ='isLoggedIn else notLoggedIn'>
+
+<div id ='nav'>
+
+	<ul>
+
+		<li> 
+				<a [routerLink] ="['/']"> Home </a>
+
+		</li>
+
+		<li>
+				
+				<a [routerLink] ="[isAdmin , 'payment']"> Payment </a>
+
+		</li>
+
+		<li>
+				
+				<a [routerLink] ="[isAdmin , 'request']"> Request </a>
+
+		</li>
+
+		<li *ngIf ='isAdminStatus'>
+				
+				<a [routerLink] ="[isAdmin , 'internal']"> Internal </a>
+
+		</li>
+
+		<li>
+				<a [routerLink] ="['/account' , 'profile']"> Profile </a>
+
+			</li>
+
+		<li>
+				<a [routerLink] ="" (click) ='signOut($event)'> Sign Out </a>
+
+			</li>
+
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+<ng-template #notLoggedIn>
+
+	<div id ='nav'>
+
+	<ul>
+
+		<li> 
+				<a [routerLink] ="['/']"> Home </a>
+
+		</li>
+
+		<li>
+				
+				<a [routerLink] ="['/recovery']"> Recovery </a>
+
+		</li>
+
+		<li> 
+				<a [routerLink] ="['/signin']"> Sign In </a>
+
+		</li>
+
+		<li> 
+				<a [routerLink] ="['/signup']"> Sign Up </a>
+
+		</li>
+
+	</ul>
+
+	</div>
+
+	</ng-template>

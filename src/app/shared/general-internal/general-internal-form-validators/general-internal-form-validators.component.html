@@ -1,7 +1,7 @@
 
 <ng-container *ngIf ='_id'>
 
-	<div *ngIf ='_id.invalid && (_id.touched || _id.dirty)' class ='validation-error'>
+	<div @fadeAnimation *ngIf ='_id.invalid && (_id.touched || _id.dirty)' class ='validation-error'>
 
 		<ul>
 
@@ -17,7 +17,7 @@
 
 <ng-container *ngIf ='name'>
 
-	<div *ngIf ='name.invalid && (name.touched || name.dirty)' class ='validation-error'>
+	<div @fadeAnimation *ngIf ='name.invalid && (name.touched || name.dirty)' class ='validation-error'>
 
 		<ul>
 
@@ -34,7 +34,7 @@
 
 <ng-container *ngIf ='shortCode'>
 
-<div *ngIf ='shortCode.invalid && (shortCode.touched || shortCode.dirty)' class ='validation-error'>
+<div @fadeAnimation *ngIf ='shortCode.invalid && (shortCode.touched || shortCode.dirty)' class ='validation-error'>
 
 	<ul>
 
@@ -51,7 +51,7 @@
 
 <ng-container *ngIf ='num'>
 
-<div *ngIf ='num.invalid && (num.touched || num.dirty)' class ='validation-error'>
+<div @fadeAnimation *ngIf ='num.invalid && (num.touched || num.dirty)' class ='validation-error'>
 
 	<ul>
 
@@ -67,7 +67,7 @@
 
 <ng-container *ngIf ='status'>
 
-<div *ngIf ='status.invalid && (status.touched || status.dirty)' class ='validation-error'>
+<div @fadeAnimation *ngIf ='status.invalid && (status.touched || status.dirty)' class ='validation-error'>
 
 	<ul>
 
@@ -96,7 +96,7 @@
 
 <ng-container *ngIf ='description'>
 
-<div *ngIf ='description.invalid && (description.touched || description.dirty)' class ='validation-error'>
+<div @fadeAnimation *ngIf ='description.invalid && (description.touched || description.dirty)' class ='validation-error'>
 
 	<ul>
 
@@ -112,7 +112,7 @@
 
 <ng-container *ngIf ='faculty'>
 
-<div *ngIf ='faculty.invalid && (faculty.touched || faculty.dirty)' class ='validation-error'>
+<div @fadeAnimation *ngIf ='faculty.invalid && (faculty.touched || faculty.dirty)' class ='validation-error'>
 
 	<ul>
 
@@ -129,7 +129,7 @@
 
 <ng-container *ngIf ='requestUsername'>
 
-	<div *ngIf ='requestUsername.invalid && (requestUsername.touched || requestUsername.dirty)' class ='validation-error'>
+	<div @fadeAnimation *ngIf ='requestUsername.invalid && (requestUsername.touched || requestUsername.dirty)' class ='validation-error'>
 
 		<ul>
 
@@ -146,7 +146,7 @@
 
 <ng-container *ngIf ='requestPassword'>
 
-	<div *ngIf ='requestPassword.invalid && (requestPassword.touched || requestPassword.dirty)' class ='validation-error'>
+	<div @fadeAnimation *ngIf ='requestPassword.invalid && (requestPassword.touched || requestPassword.dirty)' class ='validation-error'>
 
 		<ul>
 
@@ -163,7 +163,7 @@
 
 <ng-container *ngIf ='search'>
 
-<div *ngIf ='search.invalid && (search.touched || search.dirty)' class ='validation-error'>
+<div @fadeAnimation *ngIf ='search.invalid && (search.touched || search.dirty)' class ='validation-error'>
 
 	<ul>
 

@@ -1,0 +1,64 @@
+#get-started-menu ul {
+
+	font-size : 11px;
+	list-style-type : none;
+	width : 90%;
+	padding : 5px;
+	margin : 20px auto 0px;
+}
+
+#get-started-menu ul li {
+
+	width : 95%;
+	display : block;
+	margin : 0px auto;
+}
+
+ul li {
+
+	height : 120px;
+	background-color : #290140;
+	border : 2px solid #ac4bd8;
+	border-radius : 8px;
+	margin : 0px 0px 35px 0px;
+	padding : 0px 5px;
+}
+
+ ul li a {
+
+	display : block;
+	height : 120px;
+	line-height : 120px;
+}
+
+li a {
+
+	color : white;
+}
+
+
+
+#get-started-menu ul li:hover {
+
+	background-color : #210140;
+}
+
+@media screen and (max-width : 800px) {
+
+	#get-started-menu ul li {
+
+	height : 80px;
+	margin-bottom : 10px;
+}
+
+ul li a {
+
+	line-height : 80px;
+}
+
+#profile-menu ul li {
+
+	margin : 0px 0px 10px 0px;
+}
+
+}

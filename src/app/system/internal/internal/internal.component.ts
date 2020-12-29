@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
+
+import { RouterOutlet } from '@angular/router';
+
+import { slideInAnimation } from '../../../animations';
 
 @Component({
 
@@ -6,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 
   'templateUrl' : './internal.component.html',
 
-  'styleUrls' : ['./internal.component.css']
+  'styleUrls' : ['./internal.component.css'] ,
+
+  'animations' : [slideInAnimation]
 
 })
 
@@ -16,8 +22,14 @@ export class InternalComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() : void {
   
   }
+
+   getAnimationData(outlet: RouterOutlet) {
+
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+  }
+
 
 }

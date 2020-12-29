@@ -30,6 +30,8 @@ import { AuthenticationService } from '../../../authentication/authentication.se
 
 import { $entryUpdateRole } from '../roles';
 
+import { listAnimation } from '../../../animations';
+
 @Component({
 
   'selector' : 'app-request-list',
@@ -38,7 +40,9 @@ import { $entryUpdateRole } from '../roles';
 
   'styleUrls' : ['./request-list.component.css'] ,
 
-  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService]
+  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService] ,
+
+  'animations' : [listAnimation]
 
 })
 

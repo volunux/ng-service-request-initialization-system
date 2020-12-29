@@ -1,25 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { QuillModule } from 'ngx-quill';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { Api_Token , Api_Config} from './configuration';
-import { ErrorInterceptorService } from './general/error-interceptor.service';
-import { TokenInterceptorService } from './authentication/token-interceptor.service';
 import { appInterceptors } from './general/all-interceptors';
 
-import { PipesModule } from './shared/pipes/pipes.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GetStartedComponent } from './get-started/get-started.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { FrameworkComponent } from './framework/framework.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { GeneralModule } from './general/general.module';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { GetStartedComponent } from './all/get-started/get-started.component';
+import { WelcomeComponent } from './all/welcome/welcome.component';
+import { PageNotFoundComponent } from './all/page-not-found/page-not-found.component';
+import { UnauthorizedComponent } from './all/unauthorized/unauthorized.component';
+import { NavigationBarComponent } from './all/navigation-bar/navigation-bar.component';
+
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
 
@@ -27,9 +23,9 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     AppComponent,
     GetStartedComponent,
     WelcomeComponent,
-    FrameworkComponent,
     PageNotFoundComponent,
     UnauthorizedComponent,
+    NavigationBarComponent,
   ],
 
   imports: [
@@ -37,8 +33,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     QuillModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
-    GeneralModule,
-    PipesModule,
+    MatProgressBarModule,
     AppRoutingModule,
   ],
   

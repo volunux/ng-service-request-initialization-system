@@ -30,6 +30,8 @@ import { AuthenticationService } from '../../../../authentication/authentication
 
 import { $entryUpdateRole } from '../../roles';
 
+import { listAnimation } from '../../../../animations';
+
 @Component({
 
   'selector' : 'app-refund-entries',
@@ -38,7 +40,9 @@ import { $entryUpdateRole } from '../../roles';
 
   'styleUrls' : ['./refund-entries.component.css'] ,
 
-  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService]
+  'providers' : [NotificationService , ErrorMessagesService , GeneralSearchService] ,
+
+  'animations' : [listAnimation]
 
 })
 

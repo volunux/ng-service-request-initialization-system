@@ -22,7 +22,7 @@
 
 						<form action ='' method ='post' name ='{{view}}-entry-detail' [formGroup] ='transferForm' (ngSubmit) ='updateEntry(transferForm.value)'>
 
-							<ng-container *ngIf ='entryOthers && entryOthers?.units && entryOthers?.units?.length'>
+							<ng-container *ngIf ='generalOthers && generalOthers?.units && generalOthers?.units?.length'>
 
 							<div class ='form-group'>
 
@@ -32,7 +32,7 @@
 
 									<option value =''> </option> 
 
-									<option *ngFor ='let unit of entryOthers.units' [value] ='unit._id'> {{unit._id}} </option> 
+									<option *ngFor ='let unit of generalOthers.units' [value] ='unit._id'> {{unit._id}} </option> 
 
 								</select>
 
@@ -42,7 +42,7 @@
 
 						</ng-container>
 
-							<div class ='form-group'>
+							<div *ngIf ='text' class ='form-group'>
 
 								<label for ='text' class ='form-label bold'> Message </label>
 

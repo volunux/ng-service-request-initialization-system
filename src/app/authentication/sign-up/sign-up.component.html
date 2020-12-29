@@ -1,344 +1,41 @@
 <div id ='entry-create'>
 
-	<h2> {{title}} </h2>
+	<h2 *ngIf ='title'> {{title}} </h2>
 
-<app-resource-unavailable *ngIf ='error' [error] ='error' ></app-resource-unavailable>
+<app-view-description *ngIf ='view' [view-description] ='view' [system-type] ='systemType' > </app-view-description>
 
-		<form [formGroup] ='signUpForm' action ='' method ='post' enctype ='application/x-www-form-urlencoded' (ngSubmit) ='onSubmitSignUp(signUpForm.value)'>
+<app-notification-screen *ngIf ='notificationAvailable' [notified] ='notificationAvailable' [message] ='notificationMessage' (finished) ='removeNotification()'> </app-notification-screen>
 
-			<div *ngIf ='(signUpForm.touched || signUpForm.dirty)'>
+<app-resource-unavailable id ='error' *ngIf ='error' [error] ='error' > </app-resource-unavailable>
+
+	<div *ngIf ='generalOthers' id ='entry-detail'>
+
+		<form [formGroup] ='entryForm' action ='' method ='post' enctype ='application/x-www-form-urlencoded' (ngSubmit) ='addEntry(entryForm.value)'>
+
+			<div *ngIf ='(entryForm.touched || entryForm.dirty)'>
 
 					<ul>
 
-						<li *ngIf ='signUpForm.errors && signUpForm.errors.bothNames'> First Name and Last Name cannot be equal </li>
+						<li *ngIf ='entryForm.errors && entryForm.errors.bothNames'> First Name and Last Name cannot be equal </li>
 
 					</ul>
 
 			</div>
 
-			<div class ='form-group'>
+<app-user-account-form-inputs *ngIf ='systemType' [system-type] ='systemType' [entry-form] ='entryForm' [first-name] ='firstName' [last-name] ='lastName' [user-name] ='username' 
 
-				<label for ='firstName' class ='form-label bold'> First Name * : </label>
+	[email-address] ='emailAddress' [password] ='password' [confirm-password] ='confirmPassword' [about] ='about' [faculty] ='faculty' [department] ='department' [level] ='level'
 
-				<input type ='text' id ='firstName' name ='firstName' placeholder ='David' required ='required' minlength ='4' formControlName ='firstName' class ='form-control'>
+	[country] ='country' [unit] ='unit' [role] ='role' [status] ='status' [statuses] ='statuses' [matriculation-number] ='matriculationNumber' [jamb-registration-number] ='jambRegistrationNumber' 
 
-				<div *ngIf ='firstName.invalid && (firstName.touched || firstName.dirty)' class ='validation-error'>
+	[identity-number] ='identityNumber' [roles] ='roles' [general-others] ='generalOthers' [no-edit] ='noEdit' > </app-user-account-form-inputs>
 
-					<ul>
+	<button [style.display] ='fip' type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!entryForm.valid'> Submit </button> 
 
-						<p>
-
-						<li *ngIf ='firstName.errors?.required'> First Name should be provided and cannot be empty </li>
-						<li *ngIf ='firstName.errors?.required || firstName.errors?.minlength'> First Name cannot be less than 2 characters in length </li>
-						<li *ngIf ='firstName.errors?.required || firstName.errors?.maxlength'> First Name cannot be greater than 20 characters in length </li>
-						<li *ngIf ='firstName.errors?.required || firstName.errors?.forbiddenNames'> First Name cannot be either moderator , administrator or superAdministrator </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='lastName' class ='form-label bold'> Last Name * : </label>
-
-				<input type ='text' id ='lastName' name ='lastName' placeholder ='Mark' required ='required' formControlName ='lastName' class ='form-control'>
-
-				<div *ngIf ='lastName.invalid && (lastName.touched || lastName.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='lastName.errors?.required'> Last Name should be provided and cannot be empty </li>
-						<li *ngIf ='lastName.errors?.required || lastName.errors?.minlength'> Last Name cannot be less than 2 characters in length </li>
-						<li *ngIf ='lastName.errors?.required || lastName.errors?.maxlength'> Last Name cannot be greater than 20 characters in length </li>
-						<li *ngIf ='lastName.errors?.required || lastName.errors?.forbiddenNames'> Last Name cannot be either moderator , administrator or superAdministrator </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='username' class ='form-label bold'> Username * : </label>
-
-				<input type ='text' id ='username' name ='username' placeholder ='dave' required ='required' formControlName ='username' class ='form-control'>
-
-				<ul *ngIf ='username.pending' class ='validation' >
-
-				<li>Confirming Username from the records</li>
-
-				</ul>
-
-				<div *ngIf ='username.invalid && (username.touched || username.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='username.errors?.required'> Username should be provided and cannot be empty </li>
-						<li *ngIf ='username.errors?.required || username.errors?.minlength'> Username cannot be less than 3 characters in length </li>
-						<li *ngIf ='username.errors?.required || username.errors?.maxlength'> Username cannot be greater than 20 characters in length </li>
-						<li *ngIf ='username.errors?.required || username.errors?.forbiddenNames'> Username cannot be either moderator , administrator or superAdministrator </li>
-						<li *ngIf ='username.errors?.required || username.errors?.userNameService'> Username cannot be used at the moment because it is already taken by another user </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='emailAddress' class ='form-label bold'> Email Address * : </label>
-
-				<input type ='text' id ='emailAddress' name ='emailAddress' placeholder ='david@example.com' required ='required' formControlName ='emailAddress' class ='form-control'>
-
-				<ul *ngIf ='emailAddress.pending' class ='validation' >
-
-				<li>Confirming Email Address from the records</li>
-
-				</ul>
-
-				<div *ngIf ='emailAddress.invalid && (emailAddress.touched || emailAddress.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='emailAddress.errors?.required'> Email Address should be provided and cannot be empty </li>
-						<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.minlength'> Email Address cannot be less than 8 characters in length </li>
-						<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.maxlength'> Email Address cannot be greater than 50 characters in length </li>
-						<li *ngIf ='emailAddress.errors?.required || emailAddress.errors?.emailAddress'> Email Address must be valid and should conform to standards for example david@gmail.com </li>
-						<li *ngIf ='emailAddress.errors?.emailAddressService'> Email Address cannot be used at the moment because it is already taken by another user </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<ng-container *ngIf ='userOthers && userOthers.departments'>
-
-			<div class ='form-group'>
-
-				<label for ='department' class ='form-label bold'> Department * : </label>
-
-				<select name ='department' id ='department' class ='form-control' formControlName ='department'>
-
-					<option [value] =''> </option> 
-
-					<option *ngFor ='let department of userOthers.departments' [value] ='department._id'> {{department._id}} </option> 
-
-				</select>
-
-				<div *ngIf ='department.invalid && (department.touched || department.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='department.errors?.required'> Department should be provided and cannot be empty </li>
-						<li *ngIf ='department.errors?.required || department.errors?.minlength'> Department cannot be less than 2 characters in length </li>
-						<li *ngIf ='department.errors?.required || department.errors?.maxlength'> Department cannot be greater than 150 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-		</ng-container>
-
-			<ng-container *ngIf ='userOthers && userOthers.faculties'>
-
-			<div class ='form-group'>
-
-				<label for ='faculty' class ='form-label bold'> Faculty * : </label>
-
-				<select name ='faculty' id ='faculty' class ='form-control' formControlName ='faculty'>
-
-					<option [value] =''> </option> 
-
-					<option *ngFor ='let faculty of userOthers.faculties' [value] ='faculty._id'> {{faculty._id}} </option> 
-
-				</select>
-
-				<div *ngIf ='faculty.invalid && (faculty.touched || faculty.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='faculty.errors?.required'> Faculty should be provided and cannot be empty </li>
-						<li *ngIf ='faculty.errors?.required || faculty.errors?.minlength'> Faculty cannot be less than 2 characters in length </li>
-						<li *ngIf ='faculty.errors?.required || faculty.errors?.maxlength'> Faculty cannot be greater than 150 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-		</ng-container>
-
-			<ng-container *ngIf ='userOthers && userOthers.levels'>
-
-			<div class ='form-group'>
-
-				<label for ='level' class ='form-label bold'> Level * : </label>
-
-				<select name ='level' id ='level' class ='form-control' formControlName ='level'>
-
-					<option [value] =''> </option> 
-
-					<option *ngFor ='let level of userOthers.levels' [value] ='level._id'> {{level._id}} </option> 
-
-				</select>
-
-				<div *ngIf ='level.invalid && (level.touched || level.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='level.errors?.required'> Level should be provided and cannot be empty </li>
-						<li *ngIf ='level.errors?.required || level.errors?.minlength'> Level cannot be less than 2 characters in length </li>
-						<li *ngIf ='level.errors?.required || level.errors?.maxlength'> Level cannot be greater than 50 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-		</ng-container>
-
-			<ng-container *ngIf ='userOthers && userOthers.countries'>
-
-			<div class ='form-group'>
-
-				<label for ='country' class ='form-label bold'> Country * : </label>
-
-				<select name ='country' id ='country' class ='form-control' formControlName ='country'>
-
-					<option [value] =''> </option> 
-
-					<option *ngFor ='let country of userOthers.countries' [value] ='country._id'> {{country._id}} </option> 
-
-				</select>
-
-				<div *ngIf ='country.invalid && (country.touched || country.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='country.errors?.required'> Country should be provided and cannot be empty </li>
-						<li *ngIf ='country.errors?.required || country.errors?.minlength'> Country cannot be less than 2 characters in length </li>
-						<li *ngIf ='country.errors?.required || country.errors?.maxlength'> Country cannot be greater than 50 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-		</ng-container>
-
-			<div class ='form-group'>
-
-				<label for ='password' class ='form-label bold'> Password * : </label>
-
-				<input type ='password' id ='password' name ='password' placeholder ='***********' required ='required' formControlName ='password' class ='form-control'>
-
-				<div *ngIf ='password.invalid && (password.touched || password.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='password.errors?.required'> Password should be provided and cannot be empty </li>
-						<li *ngIf ='password.errors?.required || password.errors?.minlength'> Password cannot be less than 7 characters in length </li>
-						<li *ngIf ='password.errors?.required || password.errors?.maxlength'> Password cannot be greater than 35 characters in length </li>
-						<li *ngIf ='password.errors?.simplePassword'> Password is too simple and will not be allowed in this system. Please pick another one </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='identityNumber' class ='form-label bold'> Identity Number * : </label>
-
-				<input type ='text' id ='identityNumber' name ='identityNumber' placeholder ='M1503186' required ='required' formControlName ='identityNumber' class ='form-control'>
-
-				<div *ngIf ='identityNumber.invalid && (identityNumber.touched || identityNumber.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='identityNumber.errors?.required'> Identity Number should be provided and cannot be empty </li>
-						<li *ngIf ='identityNumber.errors?.required || identityNumber.errors?.maxlength'> Identity Number cannot be greater than 30 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='matriculationNumber' class ='form-label bold'> Matriculation Number * : </label>
-
-				<input type ='text' id ='matriculationNumber' name ='matriculationNumber' placeholder ='2015/1/57261' required ='required' formControlName ='matriculationNumber' class ='form-control'>
-
-				<div *ngIf ='matriculationNumber.invalid && (matriculationNumber.touched || matriculationNumber.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='matriculationNumber.errors?.required'> Matriculation Number should be provided and cannot be empty </li>
-						<li *ngIf ='matriculationNumber.errors?.required || matriculationNumber.errors?.maxlength'> Matriculation Number cannot be greater than 30 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class ='form-group'>
-
-				<label for ='about' class ='form-label bold'> About * : </label>
-
-				<input type ='text' id ='about' name ='about' placeholder ='I am a student' required ='required' formControlName ='about' class ='form-control'>
-
-				<div *ngIf ='about.invalid && (about.touched || about.dirty)' class ='validation-error'>
-
-					<ul>
-
-						<p>
-
-						<li *ngIf ='about.errors?.required'> About should be provided and cannot be empty </li>
-						<li *ngIf ='about.errors?.required || about.errors?.minlength'> About cannot be less than 10 characters in length </li>
-						<li *ngIf ='about.errors?.required || about.errors?.maxlength'> About cannot be greater than 300 characters in length </li>
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<button type ='submit' id ='form-btn-submit' [class] ='{"disabled" : !isFormValid , "btn-submit" : isFormValid }' [disabled] ='!signUpForm.valid'> Submit </button> 
+			<p *ngIf ='formSubmitted'> Your form is being processed. Please kindly be patient and wait while it completes. </p>
 
 		</form>
 
 	</div>
+
+</div>

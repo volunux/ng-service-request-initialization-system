@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { Routes , RouterModule } from '@angular/router';
 
-import { AuthenticationGuard } from '../../../authentication/authentication.guard';
+import { AuthenticationGuard } from '../../../shared/guards/authentication.guard';
 
 import { IsStudentGuard } from '../../../shared/guards/is-student.guard';
 

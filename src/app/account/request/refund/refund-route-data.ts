@@ -12,7 +12,9 @@ let $$ : { [key : string] : any } = {
 
 		'$link' : 'refund' ,
 
-		'systemGuideline' : 'request'
+		'systemGuideline' : 'request' ,
+
+		'base' : 'request'
 };
 
 export const RFData : { [key : string] : any } = {
@@ -26,6 +28,8 @@ export const RFData : { [key : string] : any } = {
 	'detail' : {...$$ , 'title' : `${$$.systemType} Entry` , 'generateCred' : 'csif' } ,
 
 	'timeline' : {...$$ , 'title' : `${$$.systemType} Entry Timeline` } ,
+
+	'letter' : {...$$ , 'title' : `${$$.systemType} Entry Letter` } ,
 
 	'transfer' : {...$$ , 'title' : `Transfer and Move ${$$.systemType} Entry` } ,
 

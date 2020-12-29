@@ -1,4 +1,4 @@
-import { Component , OnInit , Input , Output , EventEmitter } from '@angular/core';
+import { Component , ChangeDetectionStrategy , OnInit , Input , Output , EventEmitter } from '@angular/core';
 
 @Component({
 
@@ -6,7 +6,9 @@ import { Component , OnInit , Input , Output , EventEmitter } from '@angular/cor
 
   'templateUrl' : './notification-screen.component.html',
 
-  'styleUrls' : ['./notification-screen.component.css']
+  'styleUrls' : ['./notification-screen.component.css'] ,
+
+  'changeDetection' : ChangeDetectionStrategy.OnPush
 
 })
 

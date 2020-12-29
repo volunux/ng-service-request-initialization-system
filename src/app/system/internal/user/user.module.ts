@@ -7,6 +7,8 @@ import { SimplesModule } from '../../../shared/simples/simples.module';
 import { GeneralServicesModule } from '../../../shared/services/general-services.module';
 import { GeneralModule } from '../../../general/general.module';
 import { GeneralAllModule } from '../../../shared/general-all/general-all.module';
+import { PipesModule } from '../../../shared/pipes/pipes.module';
+import { UserAccountModule } from '../../../shared/user-account/user-account.module';
 
 import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user/user.component';
@@ -17,14 +19,10 @@ import { UserDeleteComponent } from './user-delete/user-delete.component';
 import { UserDeleteAllComponent } from './user-delete-all/user-delete-all.component';
 
 
-import { UserValidatorComponent } from './user-validator/user-validator.component';
-
 import { UserService } from './user.service';
-import { UserFormService } from './user-form.service';
 import { AccountReactivateComponent } from './account-reactivate/account-reactivate.component';
 
 import { UserHomeComponent } from './user-home/user-home.component';
-import { UserFormInputComponent } from './user-form-input/user-form-input.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +34,8 @@ import { UserFormInputComponent } from './user-form-input/user-form-input.compon
   UserCreateComponent,
   UserDeleteComponent,
   UserDeleteAllComponent,
-  UserValidatorComponent,
   AccountReactivateComponent,
   UserHomeComponent,
-  UserFormInputComponent
 
   ],
 
@@ -49,13 +45,14 @@ import { UserFormInputComponent } from './user-form-input/user-form-input.compon
     GeneralModule,
     GeneralAllModule,
     SimplesModule,
+    PipesModule,
     GeneralServicesModule,
+    UserAccountModule,
     UserRoutingModule,
   ],
   
   providers : [
 
-  UserFormService,
   UserService,
 
   ],

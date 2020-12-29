@@ -8,7 +8,7 @@ import { GeneralRequest } from '../../request';
   
   'templateUrl' : './signature.component.html',
   
-  'styleUrls' : ['./signature.component.css']
+  'styleUrls' : ['./signature.component.css'] ,
 
 })
 

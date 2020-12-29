@@ -221,40 +221,6 @@ export class RefundService {
         );
   }
 
-  public transferEntry(entry : string) : Observable<General> {
-
-    let link = `${this.apiConfig.host}/${this.$sa}/entry/${entry}/transfer`;
-
-    return this.http.get<General>(link)
-
-      .pipe(
-
-        tap((value : General) => console.log(value)) ,
-
-        map((entry : General) => { return {'permitted' : true , '$data' : entry }; }) ,
-
-        catchError(this.handleError<General>(`${this.$systemType} Entry` , null))
-
-        );
-  }
-
-  public $transferEntry(entry : string , request : GeneralRequest) : Observable<General> {
-
-    let  link = `${this.apiConfig.host}/${this.$sa}/entry/${entry}/transfer`;
-
-    return this.http.put<GeneralRequest>(link , request)
-
-      .pipe(
-
-        tap((value : GeneralRequest) => console.log(value)) ,
-
-        map((entry : GeneralRequest) => { return { 'updated' : true , '$data' : entry }; }) ,
-
-        catchError(this.handleError<GeneralRequest>(`${this.$systemType} Entry` , null))
-
-        );
-  }
-
   public $deleteManyEntry(arrayIdx : number[]) : Observable<any> {
 
     let link : string = `${this.apiConfig.host}/${this.$sa}/entry/many/delete`;

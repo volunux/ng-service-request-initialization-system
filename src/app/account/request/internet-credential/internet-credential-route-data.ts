@@ -12,7 +12,9 @@ let $$ : { [key : string] : any } = {
 
 		'$link' : 'internet-credential' ,
 
-		'systemGuideline' : 'request'
+		'systemGuideline' : 'request' ,
+
+		'base' : 'request'
 };
 
 export const ICData : { [key : string] : any } = {

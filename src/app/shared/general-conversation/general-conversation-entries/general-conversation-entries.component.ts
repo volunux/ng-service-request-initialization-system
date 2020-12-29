@@ -26,6 +26,8 @@ import { ErrorMessagesService } from '../../services/error-messages.service';
 
 import { NotificationService } from '../../services/notification.service';
 
+import { listAnimation } from '../../../animations';
+
 @Component({
 
   'selector' : 'app-general-conversation-entries',
@@ -34,7 +36,9 @@ import { NotificationService } from '../../services/notification.service';
 
   'styleUrls' : ['./general-conversation-entries.component.css'] ,
 
-  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService]
+  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService] ,
+
+  'animations' : [listAnimation]
 
 })
 

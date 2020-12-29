@@ -12,7 +12,9 @@ let $$ : { [key : string] : any } = {
 
 		'$link' : 'department-payment' ,
 
-		'systemGuideline' : 'payment'
+		'systemGuideline' : 'payment' ,
+
+		'base' : 'payment'
 };
 
 export const DPData : { [key : string] : any } = {

@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../../authentication/authentication.se
 
   'templateUrl' : './entry-options.component.html',
 
-  'styleUrls' : ['./entry-options.component.css']
+  'styleUrls' : ['./entry-options.component.css'] ,
 
 })
 

@@ -1,4 +1,4 @@
-import { Component , OnInit , Input } from '@angular/core';
+import { Component , ChangeDetectionStrategy , Input , OnInit , } from '@angular/core';
 
 @Component({
 
@@ -6,7 +6,9 @@ import { Component , OnInit , Input } from '@angular/core';
 
   'templateUrl' : './resource-unavailable.component.html',
 
-  'styleUrls' : ['./resource-unavailable.component.css']
+  'styleUrls' : ['./resource-unavailable.component.css'] ,
+
+  'changeDetection' : ChangeDetectionStrategy.OnPush
 
 })
 

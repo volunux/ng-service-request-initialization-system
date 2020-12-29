@@ -89,7 +89,7 @@ export class GeneralPaymentVerificationComponent implements OnInit {
 
       return this.router.navigate(data && data._id ? 
 
-        ['payment' , this.link , 'entry' , 'detail' , data._id] : ['payment' , this.link] );  } 
+        ['payment' , this.link , 'entry' , 'detail' , data._id] : ['payment' , this.link] , {'replaceUrl' : true} );  } 
 
       , 5000); 
   }

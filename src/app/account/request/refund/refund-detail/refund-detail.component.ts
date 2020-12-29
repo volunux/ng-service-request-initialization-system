@@ -98,8 +98,6 @@ export class RefundDetailComponent implements OnInit {
 
           switchMap((params : ParamMap) => { let $e = params.get('entry');
 
-            console.log($e);
-
           	return this.grs.getEntry($e);  })
         )
           .subscribe(($entry : GeneralRequest) => {

@@ -1,6 +1,13 @@
+<mat-progress-bar [color] ='"purple"' [mode] ='"buffer"' *ngIf='isShowingRouteLoadIndicator'> </mat-progress-bar>
+
+<h1><img src ='/assets/images/logo.png' id ='logo-sris'></h1>
 
 <div [@routeAnimation] ='getAnimationData(routerOutlet)'>
+
+<app-navigation-bar> </app-navigation-bar>
 
 <router-outlet #routerOutlet ='outlet' ></router-outlet>
 
 </div>
+
+<div *ngIf='isShowingRouteLoadIndicator' class='router-load-indicator'> Please wait </div>

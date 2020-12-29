@@ -28,11 +28,9 @@ export class UnauthorizedGuard implements CanActivate {
 
 		if (this.authenticationService.isLoggedIn()) { 
 
-			console.log('I got it not right');
-
 			return true; }
 
-		else {			console.log('I got it right');
+		else {
 
 			return this.router.parseUrl('/**');
 		}

@@ -23,7 +23,7 @@ import { GeneralServicesModule } from '../shared/services/general-services.modul
       DeleteAllEntryComponent,
       CapitalizeDirective,
       LowercaseDirective,
-      ViewDescriptionComponent,
+      ViewDescriptionComponent
 		],
 
   imports: [

@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule , Routes } from '@angular/router'; 
 
-import { ResolverService } from '../../../resolver.service';
-
 import { RequestCredentialListComponent } from './request-credential-list/request-credential-list.component';
 
 import { EntryDeleteAllGuard } from '../../../shared/guards/entry-delete-all.guard';

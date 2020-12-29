@@ -2,13 +2,17 @@ import { Component , Input , OnInit } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 
+import { fadeAnimation } from '../../../animations';
+
 @Component({
 
   'selector' : 'app-general-internal-form-validators',
 
   'templateUrl' : './general-internal-form-validators.component.html',
 
-  'styleUrls' : ['./general-internal-form-validators.component.css']
+  'styleUrls' : ['./general-internal-form-validators.component.css'] ,
+
+  'animations' : [fadeAnimation]
 
 })
 
