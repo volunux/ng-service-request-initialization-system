@@ -80,7 +80,7 @@ export class GeneralInternalEntryCreateComponent implements OnInit {
 
       if (!data) { return this.error = Object.assign({'resource' : `${this.systemType} Entry`} , this.ems.message);	}
 
-      if (data.permitted) { this.entryForm = this.gifs.$entryForm();	
+      if (data.permitted) { this.entryForm = this.gifs.$entryForm();
 
     												this.gifs.removeControls(this.controlFilters , this.entryForm);	}
 

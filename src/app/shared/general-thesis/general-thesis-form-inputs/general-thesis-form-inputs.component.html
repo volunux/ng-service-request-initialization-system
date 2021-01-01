@@ -1,0 +1,146 @@
+<ng-container *ngIf ='entryForm'>
+
+<div class ='' [formGroup] ='entryForm'>
+
+			<ng-container *ngIf ='authorName'>
+
+			<div class ='form-group'>
+
+				<label for ='authorName' class ='form-label bold'> Author Name * : </label>
+
+				<input type ='text' id ='authorName' required ='required' name ='authorName' [placeholder] ='placeholder?.authorName' formControlName ='authorName' class ='form-control' 
+
+				[readOnly] ='noEdit' appCapitalize ='appCapitalize'>
+
+				<app-general-thesis-form-validators *ngIf ='authorName' [system-type] ='systemType' [authorName] ='authorName'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='title'>
+
+			<div class ='form-group'>
+
+				<label for ='title' class ='form-label bold'> Title * : </label>
+
+				<input type ='text' id ='title' required ='required' name ='title' [placeholder] ='placeholder?.title' formControlName ='title' class ='form-control' [readOnly] ='noEdit'>
+
+				<app-general-thesis-form-validators *ngIf ='title' [system-type] ='systemType' [title] ='title'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='datePublished'>
+
+			<div class ='form-group'>
+
+				<label for ='datePublished' class ='form-label bold'> Publication Date * : </label>
+
+				<input type ='text' id ='datePublished' required ='required' name ='datePublished' [placeholder] ='placeholder?.datePublished' formControlName ='datePublished' class ='form-control' 
+
+				[readOnly] ='noEdit'>
+
+				<app-general-thesis-form-validators *ngIf ='datePublished' [system-type] ='systemType' [date-published] ='datePublished'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='description'>
+
+			<div class ='form-group'>
+
+				<label for ='description' class ='form-label bold'> Description * : </label>
+
+				<textarea id ='description' required ='required' name ='description' [placeholder] ='placeholder?.description' formControlName ='description' class ='form-control form-textarea' 
+
+				[readOnly] ='noEdit' ></textarea>
+
+				<app-general-thesis-form-validators *ngIf ='description' [system-type] = 'systemType' [description] ='description'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>		
+
+			<ng-container *ngIf ='faculty && generalOthers && generalOthers.faculty'>
+
+			<div class ='form-group'>
+
+				<label for ='faculty' class ='form-label bold'> Faculty * : </label>
+
+				<select name ='faculty' id ='faculty' required ='required' class ='form-control' formControlName ='faculty' [readOnly] ='noEdit' >
+
+					<option [value] =''> </option> 
+
+					<option *ngFor ='let faculty of generalOthers.faculty' [value] ='faculty._id'> {{faculty._id}} </option> 
+
+				</select>
+
+				<app-general-thesis-form-validators *ngIf ='faculty' [system-type] = 'systemType' [faculty] ='faculty'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='department && generalOthers && generalOthers.department'>
+
+			<div class ='form-group'>
+
+				<label for ='department' class ='form-label bold'> Department * : </label>
+
+				<select name ='department' id ='department' required ='required' class ='form-control' formControlName ='department' [readOnly] ='noEdit' >
+
+					<option [value] =''> </option> 
+
+					<option *ngFor ='let department of generalOthers.department' [value] ='department._id'> {{department._id}} </option> 
+
+				</select>
+
+				<app-general-thesis-form-validators *ngIf ='department' [system-type] = 'systemType' [department] ='department'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>
+
+		<ng-container *ngIf ='num'>
+
+			<div class ='form-group'>
+
+				<label for ='num' class ='form-label bold'> Number * : </label>
+
+				<input type ='text' id ='num' required ='required' name ='num' placeholder ='879281921' formControlName ='num' class ='form-control' [readOnly] ='noEdit' >
+
+				<app-general-thesis-form-validators *ngIf ='num' [system-type] = 'systemType' [num] ='num'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>
+
+			<ng-container *ngIf ='status'>
+
+			<div class ='form-group'>
+
+				<label for ='status' class ='form-label bold'> Status * : </label>
+
+				<select name ='status' id ='status' required ='required' formControlName ='status' class ='form-control' [readOnly] ='noEdit' >
+
+				<option [value] =''> </option> 
+
+				<option [value] ='"Active"'> Active </option> 
+				
+				<option [value] ='"Hidden"'> Hidden </option> 
+
+			</select>
+
+				<app-general-thesis-form-validators *ngIf ='status' [system-type] ='systemType' [status] ='status'> </app-general-thesis-form-validators>
+
+			</div>
+
+		</ng-container>
+
+
+		</div>
+
+	</ng-container>

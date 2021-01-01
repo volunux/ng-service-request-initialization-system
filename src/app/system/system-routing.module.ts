@@ -41,6 +41,8 @@ const routes: Routes = [
 
 					{'path' : 'statistics' , 'loadChildren' : () => import('./statistics/statistics.module').then(m => m.StatisticsModule) } ,
 
+					{'path' : 'thesis' , 'loadChildren' : () => import('./internal-thesis/internal-thesis.module').then(m => m.InternalThesisModule) } ,
+
 				]
 
 			}

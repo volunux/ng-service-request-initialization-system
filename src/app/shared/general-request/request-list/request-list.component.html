@@ -98,8 +98,10 @@
 
 			<td class ='center' *ngIf ='entry?.author?.identityNumber; else nilValue'> {{entry?.author?.identityNumber}} </td>
 
-			<td class ='center' *ngIf ='entry?.status; else nilValue'> {{entry?.status}} </td>
-						
+<td class ='center' *ngIf ='entry?.status; else nilValue' [ngClass] ="{'rejected' : entry?.status == 'Rejected' , 'fulfilled' : entry?.status == 'Fulfilled' , 'update' : entry?.status == 
+
+'Update' }"> {{entry?.status}} </td>
+
 			<td class =''>
 
 				<a class ='center changes-option changes-option-full' [routerLink] ='["../" , "entry" , "detail" , entry?.slug]'> View </a>

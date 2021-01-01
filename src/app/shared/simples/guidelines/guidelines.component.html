@@ -2,7 +2,7 @@
 
 	<h3> Form filling guidelines </h3>
 
-	<p> It is important to the read the list of following guidelines to be able to successfully fill in and submit the form. </p>
+	<p> It is important to read the list of following guidelines to be able to successfully fill in and submit the form. </p>
 
 	<ul *ngIf ='systemGuideline == "payment"'>
 
@@ -28,13 +28,13 @@
 
 	<ul *ngIf ='systemGuideline == "file"'>
 
-		<li> Only Images are allowed to be uploaded in the form input fields. </li>
+		<li> Only {{fileType}} documents are allowed to be uploaded in the form input fields. </li>
 
-		<li> Images that are to be uploaded must not exceed 500 kilobyte in size. </li>
+		<li> {{fileType}} documents that are to be uploaded must not exceed 500 kilobyte in size. </li>
 
 		<li> Other Form inputs not requested by this form will be deemed invalid. </li>
 
-		<li> Multiple Image upload for each field are not allowed. </li> 
+		<li> Multiple {{fileType}} documents upload for each field are not allowed. </li> 
 
 	</ul>
 

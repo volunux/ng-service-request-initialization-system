@@ -2,17 +2,17 @@
 
 	<div class ='form-group' [formGroup] ='theForm'>
 
-	<label for ='photo-{{myNumber}}' class ='form-label-file bold'> {{myProps.label}} </label>
+	<label for ='attachment-{{myNumber}}' class ='form-label-file bold'> {{myProps.label}} </label>
 
-	<input [style.display] ='"none"' [type] ='myProps.controlType' [name] ='myProps.key' [accept] ='myProps.accepts' id ='photo-{{myNumber}}' (change) ='uploadFile($event , fileImage)' #fileImage>
+	<input [style.display] ='"none"' [type] ='myProps.controlType' [name] ='myProps.key' [accept] ='myProps.accepts' id ='attachment-{{myNumber}}' (change) ='uploadFile($event , fileAttachment)' #fileAttachment>
 
-	<button class ='btn-upload' (click) ='chooseFile($event , fileImage)' #selectFileButton> Choose a File </button>
+	<button class ='btn-upload' (click) ='chooseFile($event , fileAttachment)' #selectFileButton> Choose a File </button>
 
 </div>
 
 <div class ='form-group' id ='file-upload-{{myNumber}}'>
 
-	<button class ='btn btn-add btn-options' id ='btn-add-file-{{myNumber}}' (click) ='addFile($event , fileImage)' #btnAddFile1> add </button>
+	<button class ='btn btn-add btn-options' id ='btn-add-file-{{myNumber}}' (click) ='addFile($event , fileAttachment)' #btnAddFile1> add </button>
 
 	<button class ='btn btn-options' id ='btn-del-file-{{myNumber}}' #btnDelFile1 (click) ='deleteUpload($event)' > delete </button>
 

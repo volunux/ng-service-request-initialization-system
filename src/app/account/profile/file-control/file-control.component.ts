@@ -74,7 +74,7 @@ export class FileControlComponent implements OnInit {
 
   @ViewChildren('attachments') attachments : QueryList<AttachmentUploadComponent>;
 
-  @ViewChildren('fileImage') fileInputs : QueryList<ElementRef>;
+  @ViewChildren('fileAttachment') fileInputs : QueryList<ElementRef>;
 
   ngOnInit() : void {
 

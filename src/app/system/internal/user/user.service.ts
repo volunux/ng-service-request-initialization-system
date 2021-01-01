@@ -50,7 +50,6 @@ export class UserService {
 		return this.http.get<{'User' : string[]}>(link)
 
 			.pipe(
-
 							catchError(this.handleError<{'User' : string[]}>('User Entry' , null))
 				)
 	}

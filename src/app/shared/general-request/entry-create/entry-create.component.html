@@ -22,7 +22,7 @@
 
 		(ngSubmit) ='createEntry(entryForm.value)'>
 
-			<div class ='form-group'>
+			<div *ngIf ='message' class ='form-group'>
 
 				<label for ='message' class ='form-label bold'> Message * : </label>
 
@@ -34,9 +34,9 @@
 
 			<ng-container *ngIf ='$controls'>
 
-		<app-attachment-upload [theControl] ='props.key' [theForm] ='entryForm' [submission] = 'submission' [myProps] ='props' [myNumber] ='i + 1'
+		<app-attachment-upload [theControl] ='props.key' [theForm] ='entryForm' [submission] = 'submission' [attachment-name] ='attachmentName' [attachment-type] ='attachmentType' 
 
-		(myFile) ='pushFile($event)' *ngFor ='let props of $controls; let i =index;' #attachments> </app-attachment-upload>
+		[myProps] ='props' [myNumber] ='i + 1' (myFile) ='pushFile($event)' *ngFor ='let props of $controls; let i =index;' #attachments> </app-attachment-upload>
 
 	</ng-container>
 

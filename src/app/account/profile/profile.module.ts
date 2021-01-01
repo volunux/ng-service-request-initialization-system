@@ -17,6 +17,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProfileValidatorComponent } from './profile-validator/profile-validator.component';
 
 import { GeneralModule } from '../../general/general.module';
+import { GeneralDirectivesModule } from '../../shared/general-directives/general-directives.module';
 import { FileControlComponent } from './file-control/file-control.component';
 
 import { ProfileService } from './profile.service';
@@ -43,6 +44,7 @@ import { ProfileInputFieldsComponent } from './profile-input-fields/profile-inpu
     CommonModule,
     ReactiveFormsModule,
     GeneralModule,
+    GeneralDirectivesModule,
     SimplesModule,
     GeneralServicesModule,
     ProfileRoutingModule,

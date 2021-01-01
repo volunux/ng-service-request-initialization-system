@@ -8,7 +8,7 @@ import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { FileAttachmentsTwoComponent } from './file-attachments-two/file-attachments-two.component';
 import { AttachmentUploadComponent } from './attachment-upload/attachment-upload.component';
 
-import { ImageUploadService } from './attachment-upload/image-upload.service';
+import { AttachmentUploadService } from './attachment-upload/attachment-upload.service';
 
 @NgModule({
 
@@ -27,7 +27,7 @@ import { ImageUploadService } from './attachment-upload/image-upload.service';
 
   providers : [
 
-    ImageUploadService
+    AttachmentUploadService
   ],
   
   exports : [

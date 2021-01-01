@@ -24,4 +24,11 @@ export class GuidelinesComponent implements OnInit {
 
   @Input('system-guideline') systemGuideline : string;
 
+  @Input('file-type') public fileType : string = 'Image';
+
+  @Input('attachment-name') set attachmentName(attachmentName : string) {
+
+  	if (attachmentName) this.fileType = attachmentName;
+  }
+
 }

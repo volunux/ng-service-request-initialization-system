@@ -1,0 +1,176 @@
+<ng-container *ngIf ='authorName'>
+
+	<div @fadeAnimation *ngIf ='authorName.invalid && (authorName.touched || authorName.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='authorName.errors?.required'> Author Name of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='authorName.errors?.required || authorName.errors?.minlength'> Author Name of {{systemType}} cannot be less than 1 characters in length </li>
+			<li *ngIf ='authorName.errors?.required || authorName.errors?.maxlength'> Author Name of {{systemType}} cannot be greater than 200 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='title'>
+
+	<div @fadeAnimation *ngIf ='title.invalid && (title.touched || title.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='title.errors?.required'> Title of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='title.errors?.required || title.errors?.minlength'> Title of {{systemType}} cannot be less than 1 characters in length </li>
+			<li *ngIf ='title.errors?.required || title.errors?.maxlength'> Title of {{systemType}} cannot be greater than 200 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='datePublished'>
+
+	<div @fadeAnimation *ngIf ='datePublished.invalid && (datePublished.touched || datePublished.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='datePublished.errors?.required'> Publication Date of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='datePublished.errors?.required || datePublished.errors?.minlength'> Publication Date of {{systemType}} cannot be less than 1 characters in length </li>
+			<li *ngIf ='datePublished.errors?.required || datePublished.errors?.maxlength'> Publication Date of {{systemType}} cannot be greater than 15 characters in length </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+
+<ng-container *ngIf ='num'>
+
+<div @fadeAnimation *ngIf ='num.invalid && (num.touched || num.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='num.errors?.required'> Unique Number of {{systemType}} should be provided and cannot be empty </li>
+		<li *ngIf ='num.errors?.required || num.errors?.maxLength'> Unique Number of {{systemType}} cannot be less than 20 characters in length </li>
+		<li *ngIf ='num.errors?.numberError'> The value of the Unique Number field should be an integer or whole number </li>
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+<ng-container *ngIf ='status'>
+
+<div @fadeAnimation *ngIf ='status.invalid && (status.touched || status.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='status.errors?.required'> Status of {{systemType}} should be provided and cannot be empty </li>
+		<li *ngIf ='status.errors?.required || status.errors?.minlength'> Status of {{systemType}} cannot be less than 1 characters in length </li>
+		<li *ngIf ='status.errors?.required || status.errors?.maxlength'> Status of {{systemType}} cannot be greater than 20 characters in length </li>
+		<li *ngIf ='status.errors?.statusError'> Status of {{systemType}} should be either of the following 
+
+				<ng-container *ngIf ='status.errors?.statusError?.statuses'>  
+
+					<ng-container *ngFor ='let status of status.errors.statusError.statuses , let lss = last'>
+
+						{{status}} <ng-container *ngIf ='!lss'> or </ng-container> 
+
+				</ng-container>
+
+				</ng-container>
+
+				</li>
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+<ng-container *ngIf ='description'>
+
+<div @fadeAnimation *ngIf ='description.invalid && (description.touched || description.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='description.errors?.required'> Description of {{systemType}} should be provided and cannot be empty </li>
+		<li *ngIf ='description.errors?.required || description.errors?.minlength'> Description of {{systemType}} cannot be less than 10 characters in length </li>
+		<li *ngIf ='description.errors?.required || description.errors?.maxlength'> Description of {{systemType}} cannot be less than 4000 characters in length </li>
+
+	</ul>
+
+</div>
+
+</ng-container>
+
+<ng-container *ngIf ='department'>
+
+	<div @fadeAnimation *ngIf ='department.invalid && (department.touched || department.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='department.errors?.required'> Department of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='department.errors?.required || department.errors?.minlength'> Department of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='department.errors?.required || department.errors?.maxlength'> Department of {{systemType}} cannot be greater than 150 characters in length </li>
+			<li *ngIf ='department.errors?.Department'> Department of {{systemType}} should be available from existing record before it can be considered valid </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='faculty'>
+
+	<div @fadeAnimation *ngIf ='faculty.invalid && (faculty.touched || faculty.dirty)' class ='validation-error'>
+
+		<ul>
+
+			<li *ngIf ='faculty.errors?.required'> Faculty of {{systemType}} should be provided and cannot be empty </li>			
+			<li *ngIf ='faculty.errors?.required || faculty.errors?.minlength'> Faculty of {{systemType}} cannot be less than 2 characters in length </li>
+			<li *ngIf ='faculty.errors?.required || faculty.errors?.maxlength'> Faculty of {{systemType}} cannot be greater than 150 characters in length </li>
+			<li *ngIf ='faculty.errors?.Faculty'> Faculty of {{systemType}} should be available from existing record before it can be considered valid </li>
+
+		</ul>
+
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf ='search'>
+
+<div @fadeAnimation *ngIf ='search.invalid && (search.touched || search.dirty)' class ='validation-error'>
+
+	<ul>
+
+		<li *ngIf ='search.errors?.required || search.errors?.searchError'> Search value of {{systemType}} should be either of the following 
+
+				<ng-container *ngIf ='search.errors?.searchError?.searches'>  
+
+					<ng-container *ngFor ='let sv of search.errors.searchError.searches , let lss = last'>
+
+						{{sv}} <ng-container *ngIf ='lss else iAmNotLast'> . </ng-container>
+
+						<ng-template #iAmNotLast>
+
+							,
+
+						</ng-template>
+
+
+				</ng-container>
+
+				</ng-container>
+
+			</li>
+
+	</ul>
+
+</div>
+
+</ng-container>

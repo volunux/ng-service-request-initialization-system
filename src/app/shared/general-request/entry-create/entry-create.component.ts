@@ -52,7 +52,7 @@ export class EntryCreateComponent implements OnInit {
 
   @ViewChildren('attachments') attachments : QueryList<AttachmentUploadComponent>;
 
-  @ViewChildren('fileImage') fileInputs : QueryList<ElementRef>;
+  @ViewChildren('fileAttachment') fileInputs : QueryList<ElementRef>;
 
   @Input() public title : string;
 
@@ -61,6 +61,10 @@ export class EntryCreateComponent implements OnInit {
   @Input() public link : string;
 
   @Input() public $link : string;
+
+  @Input('attachment-name') public attachmentName : string = 'Image';
+
+  @Input('attachment-type') public attachmentType : string = 'image';
 
   public error : General | null | boolean = false;
 

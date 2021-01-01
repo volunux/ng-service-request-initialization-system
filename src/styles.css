@@ -118,6 +118,7 @@ ul {
 	margin-right : 20px;
 	border-radius : 12px 0px 12px 0px;
 	background-color : #290140;
+	margin-bottom : 10px;
 }
 
 #nav li a {
@@ -222,6 +223,25 @@ ul {
 
 	background-color : #210140;
 }
+
+/** Status Styles and Styling **/
+
+.fulfilled {
+
+	color : green;
+}
+
+.rejected {
+
+	color : red;
+}
+
+.update {
+
+	color : blue;
+}
+
+/** Status Styles and Styling **/
 
 /** Table Styles and Styling**/
 
@@ -928,4 +948,6 @@ td.signature img {
 
 		text-align : left;
 	}
+
 }
+

@@ -41,7 +41,6 @@ import { GeneralInternalFormInputComponent } from './general-internal-form-input
     GeneralServicesModule,
     GeneralModule,
     RouterModule.forChild([]) ,
-  
   ] ,
 
   providers : [

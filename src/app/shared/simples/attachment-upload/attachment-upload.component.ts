@@ -4,7 +4,7 @@ import { FormGroup , FormControl } from '@angular/forms';
 
 import { HttpEvent , HttpErrorResponse , HttpResponseBase , HttpEventType } from '@angular/common/http';
 
-import { ImageUploadService } from './image-upload.service';
+import { AttachmentUploadService } from './attachment-upload.service';
 
 import { ErrorMessagesService } from '../../services/error-messages.service';
 
@@ -20,23 +20,23 @@ import { of , Subscription } from 'rxjs';
 
   'styleUrls' : ['./attachment-upload.component.css'] ,
 
-  'providers' : [ErrorMessagesService , ImageUploadService]
+  'providers' : [ErrorMessagesService , AttachmentUploadService]
 
 })
 
 export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDestroy , OnChanges {
 
-  constructor(public iu : ImageUploadService , public ems : ErrorMessagesService) { 
+  constructor(public au : AttachmentUploadService , public ems : ErrorMessagesService) { 
 
   }
 
-  public imageUrl : string = '';
+  public attachmentUrl : string = '';
 
-  public imageFile : File;
+  public attachmentFile : File;
 
   public uaddress : string = '';
 
-  public $fileObj = {	'key' : '' , 'photo' : { 'url' : '' , 'size' : false , 'type' : false } };
+  public $fileObj = {	'key' : '' , 'attachment' : { 'url' : '' , 'size' : false , 'type' : false } };
 
   public $fileSize = 500 * 1024;
 
@@ -55,6 +55,10 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
   @Input() public myNumber : string | number;
 
   @Input('submission') public ready4Submission : boolean;
+
+  @Input('attachment-name') public attachmentName : string;
+
+  @Input('attachment-type') public attachmentType : string;
 
   @Output('myFile') public myFile : EventEmitter<{ [key : string] : string | number }> = new EventEmitter<{ [key : string] : string | number }>();
 
@@ -78,7 +82,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 	@ViewChild('selectFileButton') public selectFileButton : ElementRef;
 
-	@ViewChild('fileImage') public fileImage : ElementRef;
+	@ViewChild('fileAttachment') public fileAttachment : ElementRef;
 
 	public cancelFile : Subscription;
 
@@ -99,7 +103,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
   	if (changes instanceof Object && changes.ready4Submission.currentValue) {
 
-  		this.fileImage.nativeElement.value = '';	}
+  		this.fileAttachment.nativeElement.value = '';	}
 
   }
 
@@ -112,11 +116,11 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
   public formSubmittedUploadCancel() {
 
-			this.$setElement(this.fileImage , false);
+			this.$setElement(this.fileAttachment , false);
 
 		 	this.selectFileButton.nativeElement.textContent = 'Choose a File';
 
-			this.fileImage.nativeElement.value = '';
+			this.fileAttachment.nativeElement.value = '';
 
 			this.$showButton(this.btnCanFile1 , 'none');
 
@@ -146,7 +150,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 			this.$clearText([this.fileUploadMessage1 , this.fileUploadError1 , this.fileUploadError11 , this.fileUploadProgress1 , this.filePercent1 , this.fileUploadText1]);
 
-			this.$setElement(this.fileImage , false);
+			this.$setElement(this.fileAttachment , false);
 
 			this.$setText(this.fileUploadText1 , 'Pending file upload has been canceled. You can proceed to choose and upload another file.' , 'block');
 
@@ -158,11 +162,11 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 			this.$clearText([this.fileUploadMessage1 , this.fileUploadError1 , this.fileUploadError11 , this.fileUploadProgress1 , this.filePercent1 , this.fileUploadText1]);
 
-			this.$setText(this.fileUploadMessage1 , 'Photo is getting deleted. Please be patient and wait.' , 'block');
+			this.$setText(this.fileUploadMessage1 , `${this.attachmentName} is getting deleted. Please be patient and wait.` , 'block');
 
 			this.$setButton(this.btnDelFile1 , true , 'disabled' , 'btn-options');
 
-			this.removeFailed =  this.iu.removeImage(this.$fileObj.key)
+			this.removeFailed =  this.au.removeAttachment(this.$fileObj.key)
 
 			.subscribe((val) => {
 
@@ -172,7 +176,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 					
 						this.$setButton(this.btnDelFile1 , false , 'btn-options' , 'disabled');
 					
-						this.$setText(this.fileUploadError11 , 'An error has occured while removing image. Please try again.' , 'block');
+						this.$setText(this.fileUploadError11 , `An error has occured while removing ${this.attachmentName} document. Please try again.` , 'block');
 
 						this.removeFailed.unsubscribe();
 
@@ -180,7 +184,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 				if (val instanceof Object && val.isDeleted) {
 
-				this.$setElement(this.fileImage , false);
+				this.$setElement(this.fileAttachment , false);
 				
 				this.$setButton(this.btnAddFile1 , false , 'btn-options' , 'disabled');
 
@@ -188,13 +192,13 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 				
 				this.$showButton(this.btnAddFile1 , 'block');
 				
-				this.$setText(this.fileUploadMessage1 , `${this.myProps.label} successfully deleted. You can now upload another photo.` , 'block');	}
+				this.$setText(this.fileUploadMessage1 , `${this.myProps.label} successfully deleted. You can now upload another ${this.attachmentName} document.` , 'block');	}
 
 				clearTimeout(displayErr);
 
 				this.$$file = null;
 
-				this.$fileObj = {	'key' : '' , 'photo' : { 'url' : '' , 'size' : false , 'type' : false } };
+				this.$fileObj = {	'key' : '' , 'attachment' : { 'url' : '' , 'size' : false , 'type' : false } };
 
 				if (!val) {
 
@@ -215,11 +219,11 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
   	this.$clearText([this.fileUploadMessage1 , this.fileUploadError1 , this.fileUploadError11 , this.fileUploadProgress1 , this.fileUploadText1]);
 
-		let data = { 'photo' : file.files[0] };
+		let data : { [key : string] : any } = { 'attachment' : file.files[0] };
 
-		if (!data.photo.name) return;
+		if (!(data && data.attachment && data.attachment.name)) return false;
 
-				this.cancelFile = this.iu.signFile(data.photo)
+				this.cancelFile = this.au.signFile(data.attachment)
 
 				.pipe(
 
@@ -231,7 +235,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 							else {
 
-						this.$fileObj.photo.url = `${hash.data.url}/${hash.data.fields.key}`;
+						this.$fileObj.attachment.url = `${hash.data.url}/${hash.data.fields.key}`;
 
 						this.$fileObj.key = hash.data.fields.key;
 
@@ -242,9 +246,9 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 										$myFormData.append(key$ , hash.data.fields[key$]);
 								}
 
-								$myFormData.append('file' , data.photo);
+								$myFormData.append('file' , data.attachment);
 
-								return this.iu.uploadImage(hash , $myFormData);		}	})
+								return this.au.uploadAttachment(hash , $myFormData);		}	})
 
 					)
 
@@ -288,7 +292,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 					
 					this.$showButton(this.btnAddFile1 , 'block');
 
-					this.$setElement(this.fileImage , false);
+					this.$setElement(this.fileAttachment , false);
 
 					return false;	}
 
@@ -298,7 +302,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
         case HttpEventType.Sent:
 
-					this.$setElement(this.fileImage , true);
+					this.$setElement(this.fileAttachment , true);
 
 					this.$setButton(this.btnAddFile1 , true , 'disabled' , 'btn-options');
 
@@ -341,7 +345,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 			
 			this.$setElement(this.btnCanFile1 , false);	
 
-			this.iu.addImage(this.$fileObj)
+			this.au.addAttachment(this.$fileObj)
 
 				.subscribe();
 
@@ -349,15 +353,15 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 		this.$$file = {
 
-				'location' : this.$fileObj.photo.url ,
+				'location' : this.$fileObj.attachment.url ,
 
 				'key' : this.$fileObj.key ,
 				
-				'size' : this.fileImage.nativeElement.files[0].size ,
+				'size' : this.fileAttachment.nativeElement.files[0].size ,
 
-				'mimetype' : this.fileImage.nativeElement.files[0].type ,
+				'mimetype' : this.fileAttachment.nativeElement.files[0].type ,
 
-				'encoding' : this.fileImage.nativeElement.files[0].type }
+				'encoding' : this.fileAttachment.nativeElement.files[0].type }
 
 	}
 
@@ -384,11 +388,11 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
   	this.$clearEvent($event);
 
-  	this.imageFile = file.files[0];
+  	this.attachmentFile = file.files[0];
 
-		let data = { 'photo' : file.files[0] };
+		let data : { [key : string] : any } = { 'attachment' : file.files[0] };
 
-		if (!data.photo) {
+		if (data && !data.attachment) {
 
 			this.$clearText([this.fileUploadMessage1 , this.fileUploadText1 , this.fileUploadError1 , this.fileUploadError11 , this.filePercent1 , this.fileUploadProgress1]);
 
@@ -402,11 +406,11 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 			return false;	}
 
-  		this.$checkImageSize(this.imageFile , this.$fileObj , this.selectFileButton);
+  		this.$checkAttachmentSize(this.attachmentFile , this.$fileObj , this.selectFileButton);
 
-  		this.$checkImageType(this.imageFile , this.$fileObj , this.selectFileButton);
+  		this.$checkAttachmentType(this.attachmentFile , this.$fileObj , this.selectFileButton);
 
-			this.$validateSignature(this.imageFile , this.$fileObj);
+			this.$validateSignature(this.attachmentFile , this.$fileObj);
 
   }
 
@@ -420,7 +424,7 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
   public signFile(file) : void {
 
-  		this.iu.signFile(file);
+  		this.au.signFile(file);
   }
 
 	public $showButton(ref : ElementRef , display : string) { let $el = ref.nativeElement;
@@ -443,18 +447,18 @@ export class AttachmentUploadComponent implements OnInit , AfterViewInit , OnDes
 
 		this.$$file = {
 
-				'location' : this.$fileObj.photo.url ,
+				'location' : this.$fileObj.attachment.url ,
 				
-				'size' : this.fileImage.nativeElement.files[0].size ,
+				'size' : this.fileAttachment.nativeElement.files[0].size ,
 
-				'type' : this.fileImage.nativeElement.type ,
+				'type' : this.fileAttachment.nativeElement.type ,
 
-				'encoding' : this.fileImage.nativeElement.size		
+				'encoding' : this.fileAttachment.nativeElement.size		
 		}
 
 	}
 
-public $checkImageSize($myFile , $fileRef , $btnRef? : ElementRef) {
+public $checkAttachmentSize($myFile , $fileRef , $btnRef? : ElementRef) {
 
 	if ($myFile) {
 
@@ -468,7 +472,7 @@ public $checkImageSize($myFile , $fileRef , $btnRef? : ElementRef) {
 
 				this.$setText($btnRef , 'A file with name ' + $myFile.name + ' has been selected' , 'block');
 
-				$fileRef.photo.size = true;
+				$fileRef.attachment.size = true;
 
 					return false;	}
 	
@@ -478,7 +482,7 @@ public $checkImageSize($myFile , $fileRef , $btnRef? : ElementRef) {
 
 				this.$setText($btnRef , 'A file with name ' + $myFile.name + ' has been selected' , 'block');
 
-								$fileRef.photo.size = false;
+								$fileRef.attachment.size = false;
 			} else {
 
 					$btnRef.nativeElement.textContent = 'Choose a File';
@@ -560,23 +564,23 @@ public $checkImageSize($myFile , $fileRef , $btnRef? : ElementRef) {
 
 
 
-	public $checkImageType($myFile : File , $fileRef : { [key : string] : any } , $btnRef? : ElementRef) {
+	public $checkAttachmentType($myFile : File , $fileRef : { [key : string] : any } , $btnRef? : ElementRef) {
 
 		if ($myFile) {
 
-			if ($myFile.type.indexOf('image') == -1) {
+			if ($myFile.type.indexOf(this.attachmentType) == -1) {
 
 		this.$clearText([this.fileUploadMessage1 , this.fileUploadProgress1]);
 	
 		this.$setButton(this.btnAddFile1 , true , 'disabled' , 'btn-options');
 	
-		this.$setText(this.fileUploadError1 , 'Only Photo or Image is allowed to be uploaded in this field.' , 'block');
+		this.$setText(this.fileUploadError1 , `Only ${this.attachmentName} is allowed to be uploaded in this field.` , 'block');
 	
-		$fileRef.photo.type = true;
+		$fileRef.attachment.type = true;
 
 								return false;		}
 
-			if (!$fileRef.photo.size) {
+			if (!$fileRef.attachment.size) {
 
 					this.$clearText([this.fileUploadMessage1 , this.fileUploadError1 , this.fileUploadError11 , this.fileUploadProgress1]);
 
@@ -614,15 +618,15 @@ public $checkImageSize($myFile , $fileRef , $btnRef? : ElementRef) {
 
 				let signatureType = this.getTypeFromMagicNumber(hex);
 
-			if (signatureType.indexOf('image') == -1) {
+			if (signatureType.indexOf(this.attachmentType) == -1) {
 
 		this.$clearText([this.fileUploadMessage1 , this.fileUploadError1 , this.fileUploadError11 , this.fileUploadProgress1]);
 	
 		this.$setButton(this.btnAddFile1 , true , 'disabled' , 'btn-options');
 	
-		this.$setText(this.fileUploadError1 , 'Only Photo or Image is allowed to be uploaded in this field.' , 'block');
+		this.$setText(this.fileUploadError1 , `Only ${this.attachmentName} is allowed to be uploaded in this field.` , 'block');
 	
-		$fileRef.photo.type = true;
+		$fileRef.attachment.type = true;
 
 					return false;	}		}	}
 

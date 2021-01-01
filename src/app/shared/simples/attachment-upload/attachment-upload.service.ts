@@ -13,14 +13,14 @@ import { Api_Token , Api } from '../../../configuration';
 
 @Injectable() 
 
-export class ImageUploadService {
+export class AttachmentUploadService {
 
 	constructor(@Inject(Api_Token) private apiConfig : Api , private http : HttpClient , private ems : ErrorMessagesService) {
 
 
 	}
 
-	public uploadImage(signedUrl , file) : Observable<any> {
+	public uploadAttachment(signedUrl , file) : Observable<any> {
 
 			let httpOptions = {'reportProgress' : true , 'observe' : 'events' as const };
 
@@ -30,10 +30,10 @@ export class ImageUploadService {
 
 					timeout(80000) ,
 
-					catchError(this.handleError1<any>('Image Entry' , null))	)
+					catchError(this.handleError1<any>('Attachment Entry' , null))	)
 	}
 	
-	public removeImage(idx : string) : Observable<any> {
+	public removeAttachment(idx : string) : Observable<any> {
 
 		let link = `${this.apiConfig.host}/o/photo/${idx}`;
 
@@ -43,12 +43,12 @@ export class ImageUploadService {
 
 				map((val) => {	return {'isDeleted' : true}	}) ,
 
-				catchError(this.handleError<any>('Delete Image' , null))
+				catchError(this.handleError<any>('Delete Attachment' , null))
 
 				)
 	}
 
-	public addImage($file) : Observable<any> {
+	public addAttachment($file) : Observable<any> {
 
 		let link = `${this.apiConfig.host}/upload`;
 
@@ -64,7 +64,7 @@ export class ImageUploadService {
 
 					take(1) ,
 
-					catchError(this.handleError<any>('Image Entry' , null))
+					catchError(this.handleError<any>('Attachment Entry' , null))
 				)
 
 	}
@@ -82,7 +82,7 @@ export class ImageUploadService {
 
 				.pipe(
 
-					catchError(this.handleError<any>('Image Upload' , null))
+					catchError(this.handleError<any>('Attachment Upload' , null))
 
 					)
 
