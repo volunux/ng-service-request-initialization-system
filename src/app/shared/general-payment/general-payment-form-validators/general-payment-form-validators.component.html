@@ -1,36 +1,3 @@
-<ng-container *ngIf ='search'>
-
-<div @fadeAnimation *ngIf ='search.invalid && (search.touched || search.dirty)' class ='validation-error'>
-
-	<ul>
-
-		<li *ngIf ='search.errors?.required || search.errors?.searchError'> Search parameter of {{systemType}} should be either of the followings
-
-				<ng-container *ngIf ='search.errors?.searchError?.searches'>  
-
-					<ng-container *ngFor ='let sv of search.errors.searchError.searches , let lss = last'>
-
-						{{sv}} <ng-container *ngIf ='lss else iAmNotLast'> . </ng-container>
-
-						<ng-template #iAmNotLast>
-
-							,
-
-						</ng-template>
-
-
-				</ng-container>
-
-				</ng-container>
-
-			</li>
-
-	</ul>
-
-</div>
-
-</ng-container>
-
 
 <ng-container *ngIf ='payerName'>
 

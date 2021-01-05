@@ -4,12 +4,6 @@ import { Location } from '@angular/common';
 
 import { ActivatedRoute , Router , ParamMap } from '@angular/router';
 
-import { FormControl } from '@angular/forms';
-
-import { Subject } from 'rxjs';
-
-import { debounceTime , distinctUntilChanged , switchMap } from 'rxjs/operators';
-
 import { General } from '../../../../shared/interfaces/general';
 
 import { SearchQuery } from '../../../../shared/interfaces/search-query';
@@ -26,6 +20,8 @@ import { ErrorMessagesService } from '../../../../shared/services/error-messages
 
 import { NotificationService } from '../../../../shared/services/notification.service';
 
+import { GeneralAllService } from '../../../../shared/general-all/general-all.service';
+
 import { listAnimation } from '../../../../animations';
 
 @Component({
@@ -36,7 +32,7 @@ import { listAnimation } from '../../../../animations';
 
   'styleUrls' : ['./user-list.component.css'] ,
 
-  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService] ,
+  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService , GeneralAllService] ,
 
   'animations' : [listAnimation]
 
@@ -44,9 +40,43 @@ import { listAnimation } from '../../../../animations';
 
 export class UserListComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute , private router : Router , private location : Location , private ufs : UserAccountFormService ,
+  constructor(private route : ActivatedRoute , private router : Router , private location : Location ,
 
-              private us : UserService , private grss : GeneralSearchService , private ems : ErrorMessagesService , private ns : NotificationService ) { 
+              private ufs : UserAccountFormService , private us : UserService , private gss : GeneralSearchService ,
+
+              private gas : GeneralAllService , private ems : ErrorMessagesService , private ns : NotificationService ) { 
+
+    this.gss.entriesSearched$.subscribe(($entries : User[]) => {
+
+      this.location.replaceState(`/system/internal/${this.link}/entries`);
+
+      this.pageNumber = 1;
+
+      if ($entries.length < 1) {
+
+        this.entries = [];
+
+        this.$entriesLength = $entries.length;
+
+        return this.error = Object.assign({'resource' : `${this.systemType} Entry or Entries`} , this.ems.message);  }
+
+      this.error = null;
+
+      this.$entriesLength = $entries.length;
+
+      this.entries = $entries;
+
+      if (this.entries.length <= 10) this.pageNumber = 1;
+
+      if (this.entries.length > 10) this.entries.pop();  });
+
+    this.gss.clearSearch$.subscribe((val) => {
+
+      this.clearSearch$();  });
+
+    this.gss.errorExist$.subscribe((val) => {
+
+      this.error = val;  });
 
   }
 
@@ -80,39 +110,8 @@ export class UserListComponent implements OnInit {
 
   public $entriesLength : number = 0;
 
-  public entrySearching : boolean = false;
-
-  public refreshing : boolean = false;
-
   public $entryRef : any;
 
-  public entriesSearched : boolean = false;
-
-  public searchCtrl : FormControl;
-
-  public searchTerm : Subject<SearchQuery> = new Subject<SearchQuery>();
-
-  public validSearch(qt) {
-
-    return Object.keys(this.searchFilters).indexOf(qt) < 0;
-  }
-
-
-  public searchEntry(qt : string , qv : string) : boolean | void {
-
-    this.error = null;
-
-    this.entriesSearched = false;
-
-    if (!qt.trim() || (Object.keys(this.searchFilters).indexOf(qt) < 0)) { return false; }
-
-    this.entrySearching = true;
-
-    this.searchQuery = { [qt] : qv };
-
-    this.searchTerm.next(this.searchQuery);
-
-  }
 
 
   public trackByName(idx : number , entry : User) : string {
@@ -140,68 +139,15 @@ export class UserListComponent implements OnInit {
 
     this.searchFilters = data.entries.searchFilters;
 
-    this.searchCtrl = this.ufs.searchForm(this.searchFilters);
-
     this.us.$systemType = this.systemType;
 
     this.us.$sa = this.$link;
 
      this.route.queryParamMap.subscribe((params : ParamMap) => {
 
-       let whichPage = params.get('page') , whichRef = params.get('name');
-
-       this.$entryRef = whichRef ? true : 0;
-
-       this.pageNumber = +whichPage ? +whichPage : 1;
-
-      let paramsRegister = params , paramKeys = paramsRegister.keys , paramsObject = {};
-
-      for (let key of paramKeys) { let param = paramsRegister.get(key);
-
-        if (param) paramsObject[key] = param; }
-
-      if (Object.keys(this.searchQuery).length) paramsObject = {...paramsObject , ...this.searchQuery };
+       let paramsObject = this.gas.paramProcessor(params , this)
 
         return this.getAllEntry(paramsObject);  });
-
-
-    this.searchTerm.pipe(
-
-      debounceTime(4000) ,
-
-      distinctUntilChanged() ,
-
-      switchMap((query : SearchQuery) => { return this.grss.searchTerms<User[]>(query , this.$link , `${this.systemType} Entries` , []); })  )
-
-    .subscribe(($entries : User[]) => { 
-
-      this.entrySearching = false;
-
-      this.refreshing = false;
-
-      this.entriesSearched = true;
-
-      this.location.replaceState(`/system/internal/${this.link}/entries`);
-
-      this.pageNumber = 1;
-
-      if ($entries.length < 1) {
-
-        this.entries = [];
-
-        this.$entriesLength = $entries.length;
-
-        return this.error = Object.assign({'resource' : `${this.systemType} Entry or Entries`} , this.ems.message);  }
-
-      this.error = null;
-
-      this.$entriesLength = $entries.length;
-
-      this.entries = $entries;
-
-      if (this.entries.length <= 10) this.pageNumber = 1;
-
-      if (this.entries.length > 10) this.entries.pop();  });
 
   }
 
@@ -210,8 +156,6 @@ export class UserListComponent implements OnInit {
    this.us.getAllEntry(sq , this.link2)
   
     .subscribe(($entries : User[]) => {
-
-       this.refreshing = false;
 
       if ($entries.length < 1) {
 
@@ -230,75 +174,34 @@ export class UserListComponent implements OnInit {
       if (this.entries.length > 10) this.entries.pop();  });
   }
 
-  public clearSearch() : void {
 
-    this.searchQuery = {};
-
-    this.entriesSearched = false;
+  public searchErr$(err) {
 
     this.error = null;
+  }
 
-    this.refreshing = true;
+  public clearSearch$() : void {
+
+    this.error = null;
 
     this.pageNumber = 1;
 
     this.location.replaceState(`/system/internal/${this.link}/entries`);
 
+    this.gss.searchCleared.next(true);
+
     this.getAllEntry({});  }
+
 
 
   public addEntryToDeleteList(gridx : number , checked : boolean , idx : number) : void {
 
-  if (checked) { if (gridx) this.esdl.push(gridx);  }
-
-  else if (!checked && this.esdl.indexOf(gridx) > -1) {
-
-    this.esdl = this.esdl.filter((id) => { let finalId = id != gridx;
-
-      if (finalId) return '' + finalId;
-
-      return false;  });  }   }
+    return this.gas.addEntryToDeleteList(gridx , checked , idx , this);  }
 
 
-    public deleteManyEntry() : void | boolean { let confirmDeletion = confirm('Are you sure you want to perform this action?');
+    public deleteManyEntry() : void | boolean {
 
-      if (confirmDeletion) {
-
-        if (this.p$esdl) return false;
-
-        this.p$esdl = true;
-
-        this.us.$deleteManyEntry(this.esdl)
-
-        .subscribe((val : General) => { 
-
-          this.p$esdl = false;
-
-          this.entries = this.entries.filter((entry) => {
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification(`Operation is successful and many ${this.systemType} Entry is deleted.`); 
-
-           return this.esdl.indexOf(entry.num) < 0;  });
-
-          this.esdl = [];  } ,
-
-            (error : General) => { 
-
-          this.p$esdl = false;
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification(`Operation is unsuccessful and many ${this.systemType} Entry is not deleted.`);   } )  }
-
-          else {  return false;  }
-  }
-
-  get search() : FormControl {
-
-    return this.searchCtrl;
-  }
+       return this.gas.deleteManyEntry(this);  }
 
   get notificationAvailable() : boolean {
 

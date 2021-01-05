@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { SimplesModule } from '../simples/simples.module';
+import { GeneralAllModule } from '../general-all/general-all.module';
 import { GeneralServicesModule } from '../services/general-services.module';
 import { GeneralModule } from '../../general/general.module';
 
@@ -40,6 +41,7 @@ import { GeneralInternalFormInputComponent } from './general-internal-form-input
     SimplesModule,
     GeneralServicesModule,
     GeneralModule,
+    GeneralAllModule,
     RouterModule.forChild([]) ,
   ] ,
 

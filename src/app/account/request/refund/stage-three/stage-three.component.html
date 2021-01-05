@@ -1,3 +1,5 @@
+
+
 <ng-container *ngIf ='entry'>
 
 <div [formGroup] ='entryForm'>
@@ -24,9 +26,9 @@
 
 		<label for ='text' class ='form-label bold'> Letter </label>
 
-<quill-editor formControlName ='main_body'></quill-editor>
+<div [froalaEditor] formControlName ='main_body' appFroalaInitializer> </div>
 
-	<app-general-request-validators *ngIf ='main_body' [system-type] ='systemType' [main-body] ='main_body'></app-general-request-validators>
+	<app-general-request-validators *ngIf ='main_body' [system-type] ='systemType' [main-body] ='main_body'> </app-general-request-validators>
 
 </div>
 

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FroalaEditorService } from './froala-editor.service';
+import { GeneralFormService } from './general-form.service';
 
-describe('FroalaEditorService', () => {
-  let service: FroalaEditorService;
+describe('GeneralFormService', () => {
+  let service: GeneralFormService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FroalaEditorService);
+    service = TestBed.inject(GeneralFormService);
   });
 
   it('should be created', () => {

@@ -10,33 +10,7 @@
 
 		<div class ='search-bar'>
 
-			<h4 class ='left'> Search {{systemType}} Entry </h4>
-
-				<select class ='form-control' id ='query' name ='queryType' [formControl] ='search' #qt>
-
-					<option value =''> Search Criteria </option>
-
-					<ng-container *ngFor ='let opt of searchFilters | keyvalue'>
-
-						<option value ='{{opt.key}}'> {{opt.value}} </option>
-
-					</ng-container>
-
-				</select>
-
-				<app-general-conversation-validators *ngIf ='search' [search] ='search' [system-type] ='systemType' (keyup) ='0' > </app-general-conversation-validators>
-
-				<input type ='text' name ='queryValue' value ='' autocomplete ='new-queryValue' (keyup) = '0' #qv>
-
-				<button type ='submit' class ='entry-option-small' [class] ='{"btn-search" : qv.value && !validSearch(qt.value) , "disabled" : !qv.value || validSearch(qt.value)}'
-
-				(click) ='searchEntry(qt.value , qv.value)'> Submit </button>
-
-				<button *ngIf ='entriesSearched' class ='btn-submit' (click) ='clearSearch(); qv.value =""; qt.value = ""; '> Clear Search </button>
-
-				<p *ngIf ='entrySearching'> Searching for entry or entries from the records. <span class ='rolling'> ||| </span> </p>
-
-				<p *ngIf ='refreshing'> Refreshing list of entries from the records. <span class ='rolling'> ||| </span> </p>
+			<app-search *ngIf ='systemType' [system-type] ='systemType' [$link] ='$link' [search-filters] ='searchFilters'> </app-search>
 
 		<a class ='entry-option entry-option-small center' [class.hide] ='esdl.length < 2' (click) ='deleteManyEntry()'> Delete Many </a>
 

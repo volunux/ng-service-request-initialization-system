@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { GeneralModule } from '../../general/general.module';
+import { GeneralAllModule } from '../general-all/general-all.module';
 import { SimplesModule } from '../simples/simples.module';
 import { GeneralServicesModule } from '../services/general-services.module';
 
@@ -33,6 +34,7 @@ import { GeneralPaymentVerificationComponent } from './general-payment-verificat
   imports: [
     CommonModule,
     GeneralModule,
+    GeneralAllModule, 
     SimplesModule,
     GeneralServicesModule,
     ReactiveFormsModule,

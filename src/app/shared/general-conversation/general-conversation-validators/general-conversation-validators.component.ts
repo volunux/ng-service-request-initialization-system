@@ -41,6 +41,4 @@ export class GeneralConversationValidatorsComponent implements OnInit {
 
   @Input() num : FormControl;
 
-  @Input() search : FormControl;
-
 }

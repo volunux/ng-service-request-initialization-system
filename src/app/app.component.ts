@@ -4,7 +4,10 @@ import { RouterOutlet , Router , RouterEvent , RouteConfigLoadEnd , RouteConfigL
 
 import { slideInAnimation } from './animations';
 
+import { FormControl , FormGroup } from '@angular/forms';
+
 import { AuthenticationService } from './authentication/authentication.service';
+
 
 @Component({
 
@@ -25,26 +28,25 @@ export class AppComponent implements OnInit {
   public isShowingRouteLoadIndicator: boolean;
 
   constructor(private as : AuthenticationService , private router : Router) {
-
+    
     this.isShowingRouteLoadIndicator = false;
 
-    var asyncLoadCount = 0;
+    let asyncLoadCount = 0;
 
-router.events
-        .subscribe((event: RouterEvent) : void => {
- 
-        if (event instanceof RouteConfigLoadStart ) { asyncLoadCount++;  }
+      router.events
+         
+          .subscribe((event: RouterEvent) : void => {
 
-        else if (event instanceof RouteConfigLoadEnd) { asyncLoadCount--;  }
+        if (event instanceof RouteConfigLoadStart) { asyncLoadCount++;  }
+
+        else if (event instanceof RouteConfigLoadEnd) { asyncLoadCount--; }
  
         // If there is at least one pending asynchronous config load request,
         // then let's show the loading indicator.
         // --
         // CAUTION: I'm using CSS to include a small delay such that this loading
         // indicator won't be seen by people with sufficiently fast connections.
-        this.isShowingRouteLoadIndicator = !!asyncLoadCount;
- 
-      });
+        this.isShowingRouteLoadIndicator = !!asyncLoadCount;  });
 
   }
 
@@ -54,8 +56,6 @@ router.events
   public myDetails : any;
 
   public ngOnInit() : void {
-
-
 
   }
 

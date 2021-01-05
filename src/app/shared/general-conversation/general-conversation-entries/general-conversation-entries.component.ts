@@ -4,12 +4,6 @@ import { Location } from '@angular/common';
 
 import { ActivatedRoute , Router , ParamMap } from '@angular/router';
 
-import { Subject } from 'rxjs';
-
-import { debounceTime , distinctUntilChanged , switchMap } from 'rxjs/operators';
-
-import { FormControl } from '@angular/forms';
-
 import { General } from '../../interfaces/general';
 
 import { SearchQuery } from '../../interfaces/search-query';
@@ -21,6 +15,8 @@ import { GeneralConversationService } from '../general-conversation.service';
 import { GeneralConversationFormService } from '../general-conversation-form.service';
 
 import { GeneralSearchService } from '../../services/general-search.service';
+
+import { GeneralAllService } from '../../general-all/general-all.service';
 
 import { ErrorMessagesService } from '../../services/error-messages.service';
 
@@ -36,7 +32,7 @@ import { listAnimation } from '../../../animations';
 
   'styleUrls' : ['./general-conversation-entries.component.css'] ,
 
-  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService] ,
+  'providers' : [ErrorMessagesService , NotificationService , GeneralSearchService , GeneralAllService] ,
 
   'animations' : [listAnimation]
 
@@ -44,9 +40,43 @@ import { listAnimation } from '../../../animations';
 
 export class GeneralConversationEntriesComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute , private router : Router , private location : Location , private gcfs : GeneralConversationFormService ,
+  constructor(private route : ActivatedRoute , private router : Router , private location : Location ,
 
-              private gcs : GeneralConversationService , private grss : GeneralSearchService , private ems : ErrorMessagesService , private ns : NotificationService ) { 
+              private gcfs : GeneralConversationFormService , private gcs : GeneralConversationService , private grss : GeneralSearchService , 
+
+              private gas : GeneralAllService , private ems : ErrorMessagesService , private ns : NotificationService ) { 
+
+    this.grss.entriesSearched$.subscribe(($entries : GeneralConversation[]) => {
+
+      this.location.replaceState(`/request/${this.link}/entries`);
+
+      this.pageNumber = 1;
+
+      if ($entries.length < 1) {
+
+        this.entries = [];
+
+        this.$entriesLength = $entries.length;
+
+        return this.error = Object.assign({'resource' : `${this.systemType} Entry or Entries`} , this.ems.message);  }
+
+      this.error = null;
+
+      this.$entriesLength = $entries.length;
+
+      this.entries = $entries;
+
+      if (this.entries.length <= 10) this.pageNumber = 1;
+
+      if (this.entries.length > 10) this.entries.pop();  });
+
+    this.grss.clearSearch$.subscribe((val) => {
+
+      this.clearSearch$();  });
+
+    this.grss.errorExist$.subscribe((val) => {
+
+      this.error = val;  });
 
   }
 
@@ -72,45 +102,12 @@ export class GeneralConversationEntriesComponent implements OnInit {
 
   public p$esdl : boolean = false;
 
-  public searchQuery : SearchQuery = {};
-
   public pageNumber : number = 1;
 
   public $entriesLength : number = 0;
 
-  public entrySearching : boolean = false;
-
-  public refreshing : boolean = false;
-
   public $entryRef : any;
 
-  public entriesSearched : boolean = false;
-
-  public searchCtrl : FormControl;
-
-  public searchTerm : Subject<SearchQuery> = new Subject<SearchQuery>();
-
-  public validSearch(qt) {
-
-    return Object.keys(this.searchFilters).indexOf(qt) < 0;
-  }
-
-
-  public searchEntry(qt : string , qv : string) : boolean | void {
-
-    this.error = null;
-
-    this.entriesSearched = false;
-
-    if (!qt.trim() || (Object.keys(this.searchFilters).indexOf(qt) < 0)) { return false; }
-
-    this.entrySearching = true;
-
-    this.searchQuery = { [qt] : qv };
-
-    this.searchTerm.next(this.searchQuery);
-
-  }
 
 
   public trackByName(idx : number , entry : GeneralConversation) : string {
@@ -120,83 +117,22 @@ export class GeneralConversationEntriesComponent implements OnInit {
 
   ngOnInit() : void {
 
-    this.searchCtrl = this.gcfs.searchForm(this.searchFilters);
-
     this.gcs.$systemType = this.systemType;
 
     this.gcs.$sa = this.$link;
 
      this.route.queryParamMap.subscribe((params : ParamMap) => {
 
-       let whichPage = params.get('page') , whichRef = params.get('name');
-
-       this.$entryRef = whichRef ? true : 0;
-
-       this.pageNumber = +whichPage ? +whichPage : 1;
-
-      let paramsRegister = params , paramKeys = paramsRegister.keys , paramsObject = {};
-
-      for (let key of paramKeys) { let param = paramsRegister.get(key);
-
-        if (param) paramsObject[key] = param; }
-
-      if (Object.keys(this.searchQuery).length) paramsObject = {...paramsObject , ...this.searchQuery };
+       let paramsObject = this.gas.paramProcessor(params , this)
 
         return this.getAllEntry(paramsObject);  });
-
-
-    this.searchTerm.pipe(
-
-      debounceTime(4000) ,
-
-      distinctUntilChanged() ,
-
-      switchMap((query : SearchQuery) => { return this.grss.searchTerms<GeneralConversation[]>(query , this.$link , `${this.systemType} Entries` , []); })  )
-
-    .subscribe(($entries : GeneralConversation[]) => { 
-
-      this.entrySearching = false;
-
-      this.refreshing = false;
-
-      this.entriesSearched = true;
-
-      this.location.replaceState(`/system/internal/${this.link}/entries`);
-
-      this.pageNumber = 1;
-
-      if ($entries.length < 1) {
-
-        this.entries = [];
-
-        this.$entriesLength = $entries.length;
-
-        return this.error = Object.assign({'resource' : `${this.systemType} Entry or Entries`} , this.ems.message);  }
-
-      this.error = null;
-
-      this.$entriesLength = $entries.length;
-
-      this.entries = $entries;
-
-      if (this.entries.length <= 10) this.pageNumber = 1;
-
-      if (this.entries.length > 10) this.entries.pop();  });
-
   }
-
-  ngOnDestroy() : void {
-
-  }
-
 
   public getAllEntry(sq : SearchQuery) {
 
    this.gcs.getAllEntry(sq)
   
     .subscribe(($entries : GeneralConversation[]) => {
-
-       this.refreshing = false;
 
       if ($entries.length < 1) {
 
@@ -215,75 +151,34 @@ export class GeneralConversationEntriesComponent implements OnInit {
       if (this.entries.length > 10) this.entries.pop();  });
   }
 
-  public clearSearch() : void {
-
-    this.searchQuery = {};
-
-    this.entriesSearched = false;
+  public searchErr$(err) {
 
     this.error = null;
+  }
 
-    this.refreshing = true;
+  public clearSearch$() : void {
+
+    this.error = null;
 
     this.pageNumber = 1;
 
     this.location.replaceState(`/system/internal/${this.link}/entries`);
 
+    this.grss.searchCleared.next(true);
+
     this.getAllEntry({});  }
+
+
 
 
   public addEntryToDeleteList(gridx : number , checked : boolean , idx : number) : void {
 
-  if (checked) { if (gridx) this.esdl.push(gridx);  }
-
-  else if (!checked && this.esdl.indexOf(gridx) > -1) {
-
-    this.esdl = this.esdl.filter((id) => { let finalId = id != gridx;
-
-      if (finalId) return '' + finalId;
-
-      return false;  });  }   }
+    return this.gas.addEntryToDeleteList(gridx , checked , idx , this);  }
 
 
-    public deleteManyEntry() : void | boolean { let confirmDeletion = confirm('Are you sure you want to perform this action?');
+    public deleteManyEntry() : void | boolean {
 
-      if (confirmDeletion) {
-
-        if (this.p$esdl) return false;
-
-        this.p$esdl = true;
-
-        this.gcs.$deleteManyEntry(this.esdl)
-
-        .subscribe((val : General) => { 
-
-          this.p$esdl = false;
-
-          this.entries = this.entries.filter((entry) => {
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification(`Operation is successful and many ${this.systemType} Entry is deleted.`); 
-
-           return this.esdl.indexOf(entry.num) < 0;  });
-
-          this.esdl = [];  } ,
-
-            (error : General) => { 
-
-          this.p$esdl = false;
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification(`Operation is unsuccessful and many ${this.systemType} Entry is not deleted.`);   } )  }
-
-          else {  return false;  }
-  }
-
-  get search() : FormControl {
-
-    return this.searchCtrl;
-  }
+       return this.gas.deleteManyEntry(this);  }
 
   get notificationAvailable() : boolean {
 

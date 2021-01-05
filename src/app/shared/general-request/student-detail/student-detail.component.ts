@@ -1,6 +1,6 @@
 import { Component , Input , OnInit } from '@angular/core';
 
-import { GeneralRequest } from '../../request';
+import { GeneralRequest } from '../request';
 
 @Component({
 

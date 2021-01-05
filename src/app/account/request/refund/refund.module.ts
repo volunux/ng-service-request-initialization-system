@@ -14,18 +14,17 @@ import { RefundEntriesComponent } from './refund-entries/refund-entries.componen
 import { RefundDetailComponent } from './refund-detail/refund-detail.component';
 import { RefundLetterComponent } from './refund-letter/refund-letter.component';
 
-import { FroalaEditorService } from './froala-editor.service';
+
 import { RefundService } from './refund.service';
 import { RefundFormService } from './refund-form.service';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
 import { StageOneTwoFiveComponent } from './stage-one-two-five/stage-one-two-five.component';
 import { StageThreeComponent } from './stage-three/stage-three.component';
 import { StageFourComponent } from './stage-four/stage-four.component';
 
 import { SignatureComponent } from './signature/signature.component';
-import { RefundEditorComponent } from './refund-editor/refund-editor.component';
+import { FroalaInitializerDirective } from './froala-initializer.directive';
 
-
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
 
@@ -35,18 +34,18 @@ import { RefundEditorComponent } from './refund-editor/refund-editor.component';
   	RefundDetailComponent,
   	RefundEntriesComponent,
   	RefundLetterComponent,
-  	StudentDetailComponent,
   	StageOneTwoFiveComponent,
   	StageThreeComponent,
   	StageFourComponent,
   	SignatureComponent,
-  	RefundEditorComponent
+  	FroalaInitializerDirective
 
 	],
 
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ,
 		GeneralModule,
 		GeneralRequestModule,
 		SimplesModule,
@@ -59,7 +58,6 @@ import { RefundEditorComponent } from './refund-editor/refund-editor.component';
 
     RefundService,
     RefundFormService,
-    FroalaEditorService
   ]
 
 })

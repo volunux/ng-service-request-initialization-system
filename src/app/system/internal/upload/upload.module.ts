@@ -5,7 +5,7 @@ import { SimplesModule } from '../../../shared/simples/simples.module';
 import { GeneralServicesModule } from '../../../shared/services/general-services.module';
 import { InternalAllModule } from '../internal-all/internal-all.module';
 import { GeneralModule } from '../../../general/general.module';
-
+import { GeneralAllModule } from '../../../shared/general-all/general-all.module';
 import { UploadService } from './upload.service';
 
 import { UploadRoutingModule } from './upload-routing.module';
@@ -22,6 +22,7 @@ import { UploadEntriesComponent } from './upload-entries/upload-entries.componen
   imports: [
     CommonModule,
     GeneralModule,
+    GeneralAllModule,
     InternalAllModule,
     SimplesModule,
     GeneralServicesModule,

@@ -12,6 +12,8 @@
 
 		<app-request-entry-detail *ngIf ='entry' [entry] ='entry' [view] ='view' > </app-request-entry-detail>
 
+		<app-student-detail *ngIf ='entry' [entry] ='entry' > </app-student-detail>
+
 		<app-entry-options *ngIf ='entry' [view-description] ='view' [entry] ='entry' [link] ='link' [entry-on-review] ='setEntryOnReview' [can-update-entry] ='canUpdateEntry' 
 
 		(onReviewEntry) ='$confirmEntryOnReview($event)'> </app-entry-options>

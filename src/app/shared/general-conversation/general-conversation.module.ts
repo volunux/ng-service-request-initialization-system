@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { SimplesModule } from '../simples/simples.module';
 import { GeneralModule } from '../../general/general.module';
+import { GeneralAllModule } from '../general-all/general-all.module';
 import { GeneralServicesModule } from '../services/general-services.module';
 
 import { GeneralConversationService } from './general-conversation.service';
@@ -38,6 +39,7 @@ import { GeneralConversationValidatorsComponent } from './general-conversation-v
     ReactiveFormsModule,
     RouterModule.forChild([]),
     GeneralModule,
+    GeneralAllModule,
     SimplesModule,
     GeneralServicesModule,
   ],

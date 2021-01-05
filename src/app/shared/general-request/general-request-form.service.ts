@@ -123,11 +123,5 @@ export class GeneralRequestFormService {
 
   }
 
-  public searchForm(searchFilters? : General ) : FormControl {
-
-    return new FormControl('' , [searchValidator(searchFilters)]);
-
-  }
-
 }
 

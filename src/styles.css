@@ -951,3 +951,15 @@ td.signature img {
 
 }
 
+
+/* everywhere else */
+
+#fr-logo {
+
+  display : none !important;
+}
+
+.fr-box {
+
+	margin-bottom : 40px;
+}

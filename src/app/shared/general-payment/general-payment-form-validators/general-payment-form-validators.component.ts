@@ -38,6 +38,4 @@ export class GeneralPaymentFormValidatorsComponent implements OnInit {
 
   @Input() public amt : FormControl;
 
-  @Input() public search : FormControl;
-
 }

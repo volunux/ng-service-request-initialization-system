@@ -164,12 +164,6 @@ export class RefundDetailComponent implements OnInit {
 
   public updateEntry($entry : GeneralRequest) : any {
 
-/*    console.log($entry);
-
-    console.log(this.entryForm.value);
-
-    return false;
-*/
 		this.error = null;
 
 		this.fip = 'none';

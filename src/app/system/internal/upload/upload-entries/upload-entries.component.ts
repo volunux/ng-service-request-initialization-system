@@ -4,10 +4,6 @@ import { Location } from '@angular/common';
 
 import { ActivatedRoute , Router , ParamMap } from '@angular/router';
 
-import { FormControl } from '@angular/forms';
-
-import { Subject } from 'rxjs';
-
 import { debounceTime , distinctUntilChanged , switchMap } from 'rxjs/operators';
 
 import { General } from '../../../../shared/interfaces/general';
@@ -20,6 +16,8 @@ import { ErrorMessagesService } from '../../../../shared/services/error-messages
 
 import { NotificationService } from '../../../../shared/services/notification.service';
 
+import { GeneralAllService } from '../../../../shared/general-all/general-all.service';
+
 import { listAnimation } from '../../../../animations';
 
 @Component({
@@ -30,7 +28,7 @@ import { listAnimation } from '../../../../animations';
 
   'styleUrls' : ['./upload-entries.component.css'] ,
 
-  'providers' : [ErrorMessagesService , NotificationService] ,
+  'providers' : [ErrorMessagesService , NotificationService , GeneralAllService] ,
 
   'animations' : [listAnimation]
 
@@ -38,7 +36,7 @@ import { listAnimation } from '../../../../animations';
 
 export class UploadEntriesComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute , private router : Router , private location : Location ,
+  constructor(private route : ActivatedRoute , private router : Router , private location : Location , private gas : GeneralAllService ,
 
               private us : UploadService , private ems : ErrorMessagesService , private ns : NotificationService ) { 
 
@@ -145,53 +143,15 @@ export class UploadEntriesComponent implements OnInit {
       if (this.entries.length > 10) this.entries.pop();  });
   }
 
+
   public addEntryToDeleteList(gridx : number , checked : boolean , idx : number) : void {
 
-  if (checked) { if (gridx) this.esdl.push(gridx);  }
-
-  else if (!checked && this.esdl.indexOf(gridx) > -1) {
-
-    this.esdl = this.esdl.filter((id) => { let finalId = id != gridx;
-
-      if (finalId) return '' + finalId;
-
-      return false;  });  }   }
+    return this.gas.addEntryToDeleteList(gridx , checked , idx , this);  }
 
 
-    public deleteManyEntry() : void | boolean { let confirmDeletion = confirm('Are you sure you want to perform this action?');
+    public deleteManyEntry() : void | boolean {
 
-      if (confirmDeletion) {
-
-        if (this.p$esdl) return false;
-
-        this.p$esdl = true;
-
-        this.us.$deleteManyEntry(this.esdl)
-
-        .subscribe((val : General) => { 
-
-          this.p$esdl = false;
-
-          this.entries = this.entries.filter((entry) => {
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification(`Operation is successful and many ${this.systemType} Entry is deleted.`); 
-
-           return this.esdl.indexOf(entry.num) < 0;  });
-
-          this.esdl = [];  } ,
-
-            (error : General) => { 
-
-          this.p$esdl = false;
-
-          this.ns.setNotificationStatus(true);
-
-          this.ns.addNotification(`Operation is unsuccessful and many ${this.systemType} Entry is not deleted.`);   } )  }
-
-          else {  return false;  }
-  }
+       return this.gas.deleteManyEntry(this);  }
 
   get notificationAvailable() : boolean {
 

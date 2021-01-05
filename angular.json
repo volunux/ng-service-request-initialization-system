@@ -24,11 +24,7 @@
               "src/assets",
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/css/quill.core.css",
-              "src/assets/css/quill.bubble.css",
-              "src/assets/css/quill.snow.css",
-            ],
+              "src/styles.css",            ],
             "scripts": []
           },
           "configurations": {
@@ -55,8 +51,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
                 }
               ]
             }

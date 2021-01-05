@@ -48,6 +48,4 @@ export class GeneralRequestValidatorsComponent implements OnInit {
 
   @Input() num : FormControl;
 
-  @Input() search : FormControl;
-
 }

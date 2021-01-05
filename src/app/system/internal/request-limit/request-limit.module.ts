@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SimplesModule } from '../../../shared/simples/simples.module';
 import { InternalAllModule } from '../internal-all/internal-all.module';
 import { GeneralModule } from '../../../general/general.module';
+import { GeneralAllModule } from '../../../shared/general-all/general-all.module';
 
 import { RequestLimitService } from './request-limit.service';
 import { RequestLimitFormService } from './request-limit-form.service';
@@ -30,6 +31,7 @@ import { RequestLimitFormValidatorsComponent } from './request-limit-form-valida
     CommonModule,
     ReactiveFormsModule,
     GeneralModule,
+    GeneralAllModule,
     InternalAllModule,
     SimplesModule,
     RequestLimitRoutingModule

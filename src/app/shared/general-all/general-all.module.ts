@@ -32,4 +32,7 @@ import { GeneralModule } from '../../general/general.module';
 
 })
 
-export class GeneralAllModule { }
+export class GeneralAllModule { 
+
+
+}

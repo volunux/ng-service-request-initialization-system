@@ -46,6 +46,4 @@ export class GeneralInternalFormValidatorsComponent implements OnInit {
 
   @Input('request-password') public requestPassword : FormControl;
  
-  @Input() public search : FormControl;
-
 }

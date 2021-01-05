@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { GeneralModule } from '../../general/general.module';
+import { GeneralAllModule } from '../general-all/general-all.module';
 import { SimplesModule } from '../simples/simples.module';
 import { GeneralServicesModule } from '../services/general-services.module';
 import { PipesModule } from '../pipes/pipes.module';
@@ -29,6 +30,8 @@ import { EntryDetailComponent } from './entry-detail/entry-detail.component';
 import { GenerateUsernamePasswordComponent } from './generate-username-password/generate-username-password.component';
 import { GeneratePasswordComponent } from './generate-password/generate-password.component';
 
+import { StudentDetailComponent } from './student-detail/student-detail.component';
+
 @NgModule({
 
   declarations: [
@@ -47,6 +50,7 @@ import { GeneratePasswordComponent } from './generate-password/generate-password
     EntryDetailComponent,
     GenerateUsernamePasswordComponent,
     GeneratePasswordComponent,
+    StudentDetailComponent,
   ],
   
   imports: [
@@ -54,6 +58,7 @@ import { GeneratePasswordComponent } from './generate-password/generate-password
     ReactiveFormsModule,
     RouterModule.forChild([]),
     GeneralModule,
+    GeneralAllModule,
     SimplesModule,
     PipesModule,
     GeneralServicesModule,
@@ -79,6 +84,7 @@ import { GeneratePasswordComponent } from './generate-password/generate-password
     EntryTimelineComponent,
     EntryTransferComponent,
     EntryDetailComponent,
+    StudentDetailComponent,
   ]
 
 })

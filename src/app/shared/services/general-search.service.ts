@@ -4,7 +4,7 @@ import { Api_Token , Api  } from '../../configuration';
 
 import { HttpClient , HttpParams , HttpErrorResponse } from '@angular/common/http';
 
-import { Observable , of } from 'rxjs';
+import { Observable , of , Subject } from 'rxjs';
 
 import { map } from 'rxjs/operators';
 
@@ -20,13 +20,46 @@ import { General } from '../interfaces/general';
 
 export class GeneralSearchService {
 
-  constructor(@Inject(Api_Token) private apiConfig : Api , private http : HttpClient , private ems : ErrorMessagesService) { 
+  constructor(@Inject(Api_Token) private apiConfig : Api , private http : HttpClient , private ems : ErrorMessagesService) {
 
   }
 
   public $systemType : string;
 
-  public $sa : string; 
+  public $sa : string;
+
+  public error : any;
+
+  public searchQuery : { [key : string] : any } = {};
+
+  public refreshing : boolean;
+
+
+  public searchTerm : Subject<{[key : string] : any }> = new Subject<{[key : string] : any }>();
+
+  public searchTerm$ = this.searchTerm.asObservable();
+
+
+
+  public entriesSearched : Subject<{[key : string] : any }> = new Subject<{[key : string] : any }>();
+
+  public entriesSearched$ = this.entriesSearched.asObservable();
+
+
+  public clearSearch : Subject<boolean> = new Subject<boolean>();
+
+  public clearSearch$ = this.clearSearch.asObservable();
+
+
+  public searchCleared : Subject<boolean> = new Subject<boolean>();
+
+  public searchCleared$ = this.searchCleared.asObservable();
+
+
+  public errorExist : Subject<boolean> = new Subject<boolean>();
+
+  public errorExist$ = this.errorExist.asObservable();
+
 
   public searchTerms<T>(sq : SearchQuery , st : string , resource : string , result : T) : Observable<General> {
 
@@ -44,34 +77,6 @@ export class GeneralSearchService {
   		);
   }
 
-  public deleteAllEntry() : Observable<any> {
-
-    let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
-
-    return this.http.get(link)
-
-      .pipe(
-
-        catchError(this.handleError<any[]>(`${this.$systemType} Entry or Entries Delete` , []))
-
-        );
-  }
-
-  public $deleteAllPayment() : Observable<any> {
-
-    let link : string = `${this.apiConfig.host}/${this.$sa}/delete/entry/all/`;
-
-    return this.http.delete(link)
-
-      .pipe(
-
-        map((val) => { return {'allDeleted' : true}; }) ,
-
-        catchError(this.handleError<any[]>(`${this.$systemType} Entry or Entries Delete` , []))
-
-        );
-  }
-
   private handleError<T>(operation = 'operation' , result? : T) {
 
       return (error : HttpErrorResponse) : Observable<T> => { this.ems.message = error;
@@ -80,5 +85,6 @@ export class GeneralSearchService {
 
       }
   }
+
 
 }
